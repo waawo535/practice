@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>トップ</title>
+</head>
+
+<body class="national">
+	<div class="main-wrapper">
+		<main id="contents">
+			
+			<!--重要なお知らせエリア-->
+			<th:block th:if="${not #strings.isEmpty(T010101.ShowDto.importantNotification)}">
+				<section id="message">
+					<div class="container-fluid top-alert-warning">
+						<div class="container alert alert-warning" role="alert">
+							<span class="alert-icon icon-warning"
+							style="display:table-cell; background-position: center;" role="img"
+							aria-label="注意メッセージ"></span>
+							<p class="alert-txt" th:utext="${T010101.ShowDto.importantNotification}" />
+						</div>
+					</div>
+				</section>
+			</th:block>
+			<!--重要なお知らせエリアEND-->
+			
+			<div class="container-fluid" id="top-first-view">
+				<div class="container top-first-view">
+					<div class="top-title-container">
+						<h1 class="top-title"><span class="icon top-logo" role="img"></span><span
+							class="visually-hidden">Treees</span></h1>
+							<p class="top-title-suppliment">Treeesは、民事訴訟法等につき、オンラインで、裁判所類の提出や訴訟記録の閲覧等をするためのシステムです。</p>
+					</div>
+					<div 
+						class="top-title-button-conainer d-grid gap-4 gap-lg-3 d-lg-block d-lg-flex justify-content-lg-start">
+						<button class="btn btn-primary col-lg-3" type="button" id="loginBtn"
+							onclick="newUserEntry()">ユーザー登録して利用を始める</button>
+					</div>
+				</div>
+				<div class="container">
+					<ul class="top-anchor-link-container">
+						<li class="top-anchor-link-list">
+							<a href="#beginner" class="top-anchor-link-txt current">はじめて利用する方へ</a>
+						</li>
+						<li class="top-anchor-link-list">
+							<a href="#latest-news" class="top-anchor-link-txt">最新のお知らせ</a>
+						</li>
+						<li class="top-anchor-link-list">
+							<a href="#inquiry" class="top-anchor-link-list">よくあるお問い合わせ</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+		</main>
+	</div>
+</body>
+</html>
