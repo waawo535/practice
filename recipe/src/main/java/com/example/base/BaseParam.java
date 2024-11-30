@@ -16,14 +16,14 @@ public class BaseParam implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/*
-	 * MapperXMLの名前空間
-	 */
-	private String nameSpace;
-	
-	/*
 	 * SQLID
 	 */
 	private String sqlId;
+	
+	/*
+	 * MapperXMLの名前空間
+	 */
+	private String nameSpace;
 	
 	public BaseParam(String sqlId, String nameSpace) {
 		this.sqlId = sqlId;

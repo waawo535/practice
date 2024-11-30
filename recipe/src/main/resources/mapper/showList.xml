@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.showList">
-	<select id="initShowList">
-	
+<mapper namespace="com.example.entity.result.selectrecipeinfo">
+	<resultMap id='SelectRecipeDetailResultMap' type='com.example.entity.result.SelectRecipeDetailEntity'>
+		<result column='RECIPE_NAME' property='recipeName' />
+		<result column='RECIPE_IMG' property='recipeImg' />
+		<result column='RECIPE_DESCRIP' property='recipeDescrip' />
+		<result column='REGISTER_DATE' property='registerDate' />
+		<result column='UPDATE_DATE' property='updateDate' />
+	</resultMap>
+	<select id="SelectRecipeDetail" parameterType='com.example.entity.result.SelectRecipeDetailParam' resultMap='SelectRecipeDetailResultMap'>
+		SELECT
+		    RECIPE_NAME
+		    , RECIPE_IMG
+		    , RECIPE_DESCRIP
+		    , REGISTER_DATE
+		    , UPDATE_DATE 
+		FROM
+		    RECIPE_INFO 
 	</select>
 </mapper>

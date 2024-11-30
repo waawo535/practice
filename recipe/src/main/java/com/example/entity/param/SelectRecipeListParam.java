@@ -2,9 +2,9 @@ package com.example.entity.param;
 
 import com.example.base.BaseParam;
 
-public class SelectRecipeList extends BaseParam {
+public class SelectRecipeListParam extends BaseParam {
 	
-	public SelectRecipeList() {
+	public SelectRecipeListParam() {
 		super("initShowList", "com.example.");
 	}
 }
