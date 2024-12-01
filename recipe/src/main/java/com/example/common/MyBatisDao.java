@@ -6,6 +6,7 @@ import jakarta.inject.Named;
 
 import com.example.base.BaseEntity;
 import com.example.base.BaseExample;
+import com.example.base.BaseParam;
 
 @Named("dao")
 public class MyBatisDao extends SqlSessionDaoSupportEx {
@@ -17,8 +18,9 @@ public class MyBatisDao extends SqlSessionDaoSupportEx {
 	 * @param <Entity> entity
 	 * @return エンティティ
 	 */
-	public <Entity extends BaseEntity> Entity selectByPk(Entity entity) {
-		return getSqlSession().selectOne(entity.getNameSpace()+"."+entity.getTableName()+".selectByPrimaryKey", entity);
+	public <Entity extends BaseEntity, Param extends BaseParam> Entity selectByPk(Param param) {
+		String sqlId = param.getSqlId();
+		return getSqlSession().selectOne(param.getNameSpace()+"."+sqlId.toLowerCase()+"."+sqlId, param);
 	}
 	
 	/*

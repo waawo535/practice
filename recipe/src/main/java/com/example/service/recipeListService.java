@@ -1,6 +1,7 @@
 package com.example.service;
 
+import com.example.base.BaseService;
 
-public class recipeListService {
+public class recipeListService extends BaseService{
 
 }
