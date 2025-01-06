@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.entity.result">
+	<select id="SelectRecipeList" resultType='com.example.recipe.entity.result.SelectRecipeListEntity'>
+		SELECT
+		    RECIPE_NAME
+		    , RECIPE_IMG
+		    , RECIPE_DESCRIP
+		    , REGISTER_DATE
+		    , UPDATE_DATE 
+		FROM
+		    RECIPE_INFO 
+	</select>
+</mapper>
