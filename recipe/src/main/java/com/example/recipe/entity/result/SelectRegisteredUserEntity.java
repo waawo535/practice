@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 public class SelectRegisteredUserEntity extends BaseEntity {
 	
-	private String userName;
+	private String emailAdress;
 	
 	public SelectRegisteredUserEntity() {
 		super("SelectRegisteredUser", "com.example.entity.result");

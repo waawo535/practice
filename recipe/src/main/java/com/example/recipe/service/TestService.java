@@ -1,7 +1,8 @@
 package com.example.recipe.service;
 
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
+
+import org.springframework.stereotype.Service;
 
 import com.example.recipe.base.BaseService;
 import com.example.recipe.common.MyBatisDao;
@@ -9,7 +10,7 @@ import com.example.recipe.dto.TestServiceIn;
 import com.example.recipe.entity.param.SelectRecipeDetailParam;
 import com.example.recipe.entity.result.SelectRecipeDetailEntity;
 
-@Named
+@Service
 public class TestService extends BaseService{
 	
 	private final MyBatisDao dao;

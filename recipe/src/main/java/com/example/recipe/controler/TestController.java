@@ -5,9 +5,9 @@ import jakarta.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.recipe.base.BaseController;
@@ -23,13 +23,11 @@ public class TestController extends BaseController{
 	/*
 	 * セッション情報
 	 */
-	@Autowired
 	private final HttpSession session;
 	
 	/*
 	 * サービスクラス
 	 */
-	@Autowired
 	private final TestService testService;
 	
 	public TestController(HttpServletRequest request, HttpSession session, TestService testService) {
@@ -38,7 +36,7 @@ public class TestController extends BaseController{
 		this.testService = testService;
 	}
 	
-	@RequestMapping("/initShow")
+	@GetMapping("/initShow")
 	public String initShow(Model model) {
 		logger.info("initShow() method invoked!");
 		TestServiceIn testServiceIn = new TestServiceIn();

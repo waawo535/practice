@@ -47,7 +47,7 @@ public class UserRegistrationController extends BaseController {
 	@PostMapping("register")
 	public String register(@ModelAttribute  UserRegistrationFormDto userRegistrationFormDto) {
 		
-		userRegistrationService.register(userRegistrationFormDto.getUserName());
+		userRegistrationService.register(userRegistrationFormDto.getEmailAdress());
 		
 		return "dummy";
 	}

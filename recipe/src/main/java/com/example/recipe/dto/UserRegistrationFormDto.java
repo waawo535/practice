@@ -7,12 +7,12 @@ import lombok.Setter;
 @Setter
 public class UserRegistrationFormDto {
 	
-	/*
-	 * ユーザ名
+	/**
+	 * メールアドレス
 	 */
-	private String userName;
+	private String emailAdress;
 	
-	/*
+	/**
 	 * パスワード
 	 */
 	private String password;

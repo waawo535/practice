@@ -24,6 +24,11 @@ public class MyBatisDao extends SqlSessionDaoSupportEx {
 		return getSqlSession().selectOne(param.getNameSpace()+"."+sqlId, param);
 	}
 	
+	public <Entity extends BaseEntity, Param extends BaseParam> int insertByValue(Param param) {
+		String sqlId = param.getSqlId();
+		return getSqlSession().insert(param.getNameSpace()+"."+sqlId, param);
+	}
+	
 	/*
 	 * 複数件検索
 	 * 主キーが存在する場合は主キーでソート
@@ -33,7 +38,7 @@ public class MyBatisDao extends SqlSessionDaoSupportEx {
 	 * @return エンティティリスト
 	 */
 	public <Entity extends BaseEntity> List<Entity> selectList(Entity entity) {
-		return getSqlSession().selectList(entity.getNameSpace()+"."+entity.getTableName()+".selectAll", 1);
+		return getSqlSession().selectList(entity.getNameSpace()+"."+entity.getTableName()+".selectAll", entity);
 	}
 	
 	/*
@@ -47,6 +52,7 @@ public class MyBatisDao extends SqlSessionDaoSupportEx {
 	 * @return 件数
 	 */
 	public <Entity extends BaseEntity> Long countByValue(Entity entity, BaseExample example) {
+
 		return getSqlSession().selectOne(entity.getNameSpace()+"."+entity.getTableName()+".countByExample", example);
 	}
 	
@@ -55,9 +61,9 @@ public class MyBatisDao extends SqlSessionDaoSupportEx {
 	 * 1件のデータをnullを含めて追加したい場合に使用
 	 * 変数がnullとなるカラムには値を設定しない
 	 */
-	public <Entity extends BaseEntity> int insertByValue(Entity entity, BaseExample example) {
-		return getSqlSession().insert(entity.getNameSpace()+"."+entity.getTableName()+".insertSelective", entity);
-	}
+//	public <Entity extends BaseEntity> int insertByValue(Entity entity, BaseExample example) {
+//		return getSqlSession().insert(entity.getNameSpace()+"."+entity.getTableName()+".insertSelective", entity);
+//	}
 	
 	/*
 	 * 1件更新

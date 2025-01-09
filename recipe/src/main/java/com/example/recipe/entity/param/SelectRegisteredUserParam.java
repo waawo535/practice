@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 public class SelectRegisteredUserParam extends BaseParam {
 	
-	private String UserName;
+	private String emailAdress;
 	
 	public SelectRegisteredUserParam() {
 		//第一引数SQLID

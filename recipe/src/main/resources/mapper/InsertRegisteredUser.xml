@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.entity.result">
+	<insert id="InsertRegisteredUser">
+		INSERT 
+			INTO public.users( 
+			    user_id
+			    , delete_flag
+			    , register_date
+			    , registered_user_id
+			) 
+			VALUES ( 
+			    #{userId}
+			    , #{deleteFlag}
+			    , #{registerDate}
+			    , #{registeredUserId}
+			);
+	</insert>
+</mapper>
