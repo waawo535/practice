@@ -57,7 +57,8 @@ public class UserRegistrationService extends BaseService{
 			
 			//ユーザ詳細テーブルに値を登録
 			InsertUserDetailParam insertUserDetailParam = new InsertUserDetailParam();
-			
+			insertUserDetailParam.setUserId(userId);
+			insertUserDetailParam.setEmailAdress(emailAdress);
 			registerSuccessFlg = true;
 			
 		}

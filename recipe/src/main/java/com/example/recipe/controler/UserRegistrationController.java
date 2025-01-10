@@ -47,8 +47,15 @@ public class UserRegistrationController extends BaseController {
 	@PostMapping("register")
 	public String register(@ModelAttribute  UserRegistrationFormDto userRegistrationFormDto) {
 		
-		userRegistrationService.register(userRegistrationFormDto.getEmailAdress());
+		boolean registerSuccessFlg = userRegistrationService.register(userRegistrationFormDto.getEmailAdress());
 		
+		if(registerSuccessFlg) {
+			//ユーザ登録成功の場合
+			
+		}else {
+			//ユーザ登録失敗の場合
+			
+		}
 		return "dummy";
 	}
 }
