@@ -7,14 +7,12 @@ import com.example.recipe.base.BaseService;
 import com.example.recipe.common.DateTimeGenerator;
 import com.example.recipe.common.MyBatisDao;
 import com.example.recipe.entity.param.InsertRegisteredUserParam;
+import com.example.recipe.entity.param.InsertUserDetailParam;
 import com.example.recipe.entity.param.SelectRegisteredUserParam;
 import com.example.recipe.entity.result.SelectRegisteredUserEntity;
 
 @Named
 public class UserRegistrationService extends BaseService{
-	
-	//システム日付
-	DateTimeGenerator DateTimeGenerator = new DateTimeGenerator();
 	
 	/**
 	 * コンストラクタ
@@ -30,7 +28,10 @@ public class UserRegistrationService extends BaseService{
 	 * @param emailAdress
 	 * @return
 	 */
-	public String register(String emailAdress) {
+	public boolean register(String emailAdress) {
+		
+		//登録成功フラグ
+		boolean registerSuccessFlg;
 		
 		SelectRegisteredUserParam selectRegisteredUserParam = new SelectRegisteredUserParam();
 		selectRegisteredUserParam.setEmailAdress(emailAdress);
@@ -38,9 +39,7 @@ public class UserRegistrationService extends BaseService{
 		
 		if(selectRegisteredUserEntity.getEmailAdress()==null) {
 			//入力したメアドと一致するユーザが存在する場合
-			
-			//あとで戻り値のデータ型考える
-			return null;
+			registerSuccessFlg = false;
 		}else {
 			//入力したメアドと一致するユーザが存在しない場合
 			
@@ -52,14 +51,20 @@ public class UserRegistrationService extends BaseService{
 			InsertRegisteredUserParam insertRegisteredUserParam = new InsertRegisteredUserParam();
 			insertRegisteredUserParam.setUserId(userId);
 			insertRegisteredUserParam.setDeleteFlag(false);
-			insertRegisteredUserParam.setRegisterDate(emailAdress);
+			insertRegisteredUserParam.setRegisterDate(DateTimeGenerator.getTimestampDateTime());
 			insertRegisteredUserParam.setRegisteredUserId(userId);
 			dao.insertByValue(insertRegisteredUserParam);
 			
-			//
+			//ユーザ詳細テーブルに値を登録
+			InsertUserDetailParam insertUserDetailParam = new InsertUserDetailParam();
+			
+			registerSuccessFlg = true;
 			
 		}
+		return registerSuccessFlg;
+	}
+	
+	public void registerUserDetail() {
 		
-		return null;
 	}
 }

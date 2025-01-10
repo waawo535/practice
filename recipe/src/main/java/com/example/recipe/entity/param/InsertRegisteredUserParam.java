@@ -1,5 +1,7 @@
 package com.example.recipe.entity.param;
 
+import java.sql.Timestamp;
+
 import com.example.recipe.base.BaseParam;
 
 import lombok.Getter;
@@ -24,7 +26,7 @@ public class InsertRegisteredUserParam extends BaseParam {
 	/**
 	 * 登録年月日時分秒
 	 */
-	private String registerDate;
+	private Timestamp registerDate;
 	
 	/**
 	 * 登録ユーザID
