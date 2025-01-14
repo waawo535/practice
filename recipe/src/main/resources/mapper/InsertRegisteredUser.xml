@@ -3,7 +3,7 @@
 <mapper namespace="com.example.entity.result">
 	<insert id="InsertRegisteredUser">
 		INSERT 
-			INTO public.users( 
+			INTO users( 
 			    user_id
 			    , delete_flag
 			    , register_date

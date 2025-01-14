@@ -1,33 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.entity.result">
-	<insert id="InsertUserDetail">
+	<insert id="InsertIdNumberingMaster">
 		INSERT 
-			INTO public.user_detail( 
-			    user_id
-			    , user_name
-			    , email_adress
-			    , phone_number
-			    , password
-			    , profile_img_url
-			    , bio
-			    , birth_date
-			    , gender
+			INTO public.id_numbering_master( 
+			    id_type
+			    , id_prefix
+			    , id_serial_number
 			    , register_date
 			    , registered_user_id
 			    , update_date
 			    , updated_user_id
 			) 
 			VALUES ( 
-			    #{userId}
-			    , #{userName}
-			    , #{emailAdress}
-			    , #{phoneNumber}
-			    , #{password}
-			    , #{profileImgUrl}
-			    , #{bio}
-			    , #{birthDate}
-			    , #{gender}
+			    #{idType}
+			    , #{idPrefix}
+			    , #{idSerialNumber}
 			    , #{registerDate}
 			    , #{registeredUserId}
 			    , #{updateDate}

@@ -7,7 +7,7 @@
 		SELECT
 		    ud.email_adress
 		FROM
-		    users u 
+		    public.users u 
 		INNER JOIN 
 			user_detail ud 
 			ON u.user_id = ud.user_id 

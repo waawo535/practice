@@ -28,6 +28,11 @@ public class MyBatisDao extends SqlSessionDaoSupportEx {
 		String sqlId = param.getSqlId();
 		return getSqlSession().insert(param.getNameSpace()+"."+sqlId, param);
 	}
+	public <Entity extends BaseEntity, Param extends BaseParam> int updateByValue(Param param) {
+		String sqlId = param.getSqlId();
+		return getSqlSession().update(param.getNameSpace()+"."+sqlId, param);
+	}
+	
 	
 	/*
 	 * 複数件検索

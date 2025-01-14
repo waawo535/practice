@@ -14,12 +14,12 @@ public class SelectSerialNumberParam extends BaseParam{
 	/**
 	 * 種別
 	 */
-	private String IdType;
+	private String idType;
 	
 	/**
 	 * 接頭語
 	 */
-	private String IdPrefix;
+	private String idPrefix;
 	
 	public SelectSerialNumberParam() {
 		super("SelectSerialNumber", "com.example.entity.result");

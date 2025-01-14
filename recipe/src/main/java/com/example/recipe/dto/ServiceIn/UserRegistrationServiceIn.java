@@ -1,14 +1,11 @@
-package com.example.recipe.dto;
-
-import com.example.recipe.base.BaseDto;
+package com.example.recipe.dto.ServiceIn;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UserRegistrationFormDto  extends BaseDto {
-	
+public class UserRegistrationServiceIn {
 	/**
 	 * メールアドレス
 	 */
@@ -22,5 +19,5 @@ public class UserRegistrationFormDto  extends BaseDto {
 	/**
 	 * パスワード（確認用）
 	 */
-	private String confrimPassword;
+	private String comfirmPassword;
 }

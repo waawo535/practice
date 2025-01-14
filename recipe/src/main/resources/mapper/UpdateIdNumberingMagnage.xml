@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.entity.result">
+	<update id="UpdateIdNumberingMagnage">
+		UPDATE public.id_numbering_master 
+			SET
+				id_serial_number = #{idSerialNumber}
+			    , update_date = #{updateDate}
+			    , updated_user_id = #{updatedUserId}
+			WHERE
+			    id_type = #{idType}
+			    and id_prefix = #{idPrefix}
+	</update>
+</mapper>

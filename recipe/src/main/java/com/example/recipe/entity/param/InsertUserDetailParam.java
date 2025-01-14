@@ -76,7 +76,7 @@ public class InsertUserDetailParam extends BaseParam {
 	/**
 	 * 更新ユーザID
 	 */
-	private String updateUserId;
+	private String updatedUserId;
 	
 	public InsertUserDetailParam() {
 		super("InsertUserDetail", "com.example.entity.result");
