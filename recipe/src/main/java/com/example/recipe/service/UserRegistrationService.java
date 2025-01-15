@@ -1,5 +1,9 @@
 package com.example.recipe.service;
 
+import java.security.SecureRandom;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import jakarta.inject.Inject;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -9,18 +13,23 @@ import com.example.recipe.base.BaseService;
 import com.example.recipe.common.DateTimeGenerator;
 import com.example.recipe.common.MyBatisDao;
 import com.example.recipe.common.util.CommonConst;
+import com.example.recipe.dto.ServiceIn.UserRegistrationServiceCheckTokenIn;
 import com.example.recipe.dto.ServiceIn.UserRegistrationServiceIn;
+import com.example.recipe.dto.ServiceOut.UserRegistrationServiceCheckTokenOut;
 import com.example.recipe.dto.ServiceOut.UserRegistrationServiceOut;
 import com.example.recipe.entity.param.InsertRegisteredUserParam;
 import com.example.recipe.entity.param.InsertUserDetailParam;
+import com.example.recipe.entity.param.InsertUserEmailAuthsParam;
 import com.example.recipe.entity.param.SelectRegisteredUserParam;
+import com.example.recipe.entity.param.SelectUserEmailAuthsParam;
 import com.example.recipe.entity.result.SelectRegisteredUserEntity;
+import com.example.recipe.entity.result.SelectUserEmailAuthsEntity;
 
 @Service
 public class UserRegistrationService extends BaseService{
 	
 	IdNumberingService idNumberingService;
-	
+
 	/**
 	 * コンストラクタ
 	 * @param dao
@@ -33,6 +42,7 @@ public class UserRegistrationService extends BaseService{
 	
 	/**
 	 * ユーザ登録
+	 * メールアドレス存在チェックとパスワード整合性チェック
 	 * @param emailAdress
 	 * @return
 	 */
@@ -63,11 +73,64 @@ public class UserRegistrationService extends BaseService{
 			return userRegistrationServiceOut;
 		}
 		
-		//パスワードをハッシュ化
-		String hashedPassword = hashPassword(userRegistrationServiceIn.getPassword());
-		
 		//ユーザIDを採番
 		String userId = idNumberingService.getNumbering(CommonConst.ID_TYPE_US, null);
+		
+		//ユーザメール認証テーブルに認証情報を登録
+		InsertUserEmailAuthsParam insertUserEmailAuthsParam = new InsertUserEmailAuthsParam();
+		insertUserEmailAuthsParam.setUserId(userId);
+		insertUserEmailAuthsParam.setEmailAdress(userRegistrationServiceIn.getEmailAdress());
+		insertUserEmailAuthsParam.setToken(generateToken());
+		insertUserEmailAuthsParam.setExpiryDate(Timestamp.valueOf(generateExpiryDate()));
+		dao.insertByValue(insertUserEmailAuthsParam);
+		
+		//Outパラメタに採番したユーザIDを設定
+		userRegistrationServiceOut.setUserId(userId);
+		
+		return userRegistrationServiceOut;
+	}
+	
+	/**
+	 * 入力された認証コード整合性チェックと有効期限チェック
+	 * @param userRegistrationServiceCheckTokenIn
+	 * @return
+	 */
+	public UserRegistrationServiceCheckTokenOut checkToken(UserRegistrationServiceCheckTokenIn userRegistrationServiceCheckTokenIn) {
+		
+		UserRegistrationServiceCheckTokenOut userRegistrationServiceCheckTokenOut = new UserRegistrationServiceCheckTokenOut();
+		
+		//DBに保存した認証情報を取得
+		SelectUserEmailAuthsParam selectUserEmailAuthsParam = new SelectUserEmailAuthsParam();
+		selectUserEmailAuthsParam.setUserId(userRegistrationServiceCheckTokenIn.getUserId());
+		selectUserEmailAuthsParam.setEmailAdress(userRegistrationServiceCheckTokenIn.getEmailAdress());
+		SelectUserEmailAuthsEntity selectUserEmailAuthsEntity = dao.selectByPk(selectUserEmailAuthsParam);
+		
+		//認証コード整合性チェック
+		if(selectUserEmailAuthsEntity.getToken().equals(userRegistrationServiceCheckTokenIn.getToken())) {
+			//整合性あり
+			userRegistrationServiceCheckTokenOut.setTokenValidateFlg(true);
+		}else {
+			//整合性なし
+			userRegistrationServiceCheckTokenOut.setTokenValidateFlg(false);
+		}
+		
+		//有効期限チェック
+		if(selectUserEmailAuthsEntity.getExpiryDate().after(DateTimeGenerator.getTimestampDateTime())) {
+			//有効期限内
+			userRegistrationServiceCheckTokenOut.setExpiryDateValidateFlg(true);
+		}else {
+			//有効期限切れ
+			userRegistrationServiceCheckTokenOut.setExpiryDateValidateFlg(false);
+		}
+		
+		return userRegistrationServiceCheckTokenOut;
+	}
+	
+	//認証後のユーザ本登録
+	public void definitiveRegistration(UserRegistrationServiceIn userRegistrationServiceIn) {
+		
+		//パスワードをハッシュ化
+		String hashedPassword = hashPassword(userRegistrationServiceIn.getPassword());
 		
 		//ユーザテーブルに値を登録
 		InsertRegisteredUserParam insertRegisteredUserParam = new InsertRegisteredUserParam();
@@ -87,9 +150,9 @@ public class UserRegistrationService extends BaseService{
 		insertUserDetailParam.setRegisteredUserId(userId);
 		dao.insertByValue(insertUserDetailParam);
 		
-		return userRegistrationServiceOut;
+		
 	}
-
+	
 	/**
 	 * パスワードとパスワード（確認用）の整合性チェック
 	 * @param password
@@ -112,4 +175,23 @@ public class UserRegistrationService extends BaseService{
 		
 		return hashedPassword;
 	}
+	
+	/**
+	 * 認証コードの生成
+	 * @return
+	 */
+    public String generateToken() {
+    	//public static final なフィールドにした方がいいのか？
+   	 	SecureRandom random = new SecureRandom();
+   	 	// 0 から 999999
+   	 	int code = random.nextInt(1_000_000); 
+   	 	// 6桁にゼロ埋め
+   	 	String formattedCode = String.format("%06d", code);
+   	 	System.out.println(formattedCode);
+        return String.valueOf(code);
+    }
+    
+    public LocalDateTime generateExpiryDate() {
+    	return DateTimeGenerator.now().plusMinutes(15);
+    }
 }

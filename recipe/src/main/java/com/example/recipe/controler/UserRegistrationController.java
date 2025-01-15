@@ -25,8 +25,12 @@ import com.example.recipe.common.util.CommonConst;
 import com.example.recipe.dto.ErrorMessageDto;
 import com.example.recipe.dto.SingleFieldCheckCheckForBiddenCharOut;
 import com.example.recipe.dto.UserRegistrationFormDto;
+import com.example.recipe.dto.ServiceIn.UserRegistrationServiceCheckTokenIn;
 import com.example.recipe.dto.ServiceIn.UserRegistrationServiceIn;
+import com.example.recipe.dto.ServiceOut.UserRegistrationServiceCheckTokenOut;
 import com.example.recipe.dto.ServiceOut.UserRegistrationServiceOut;
+import com.example.recipe.dto.view.UserRegistrationDto;
+import com.example.recipe.service.EmailService;
 import com.example.recipe.service.UserRegistrationService;
 
 @Controller
@@ -39,15 +43,18 @@ public class UserRegistrationController extends BaseController {
 	
 	private final SingleFieldCheck singleFieldCheck;
 	
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 	
-	public UserRegistrationController(HttpServletRequest request, HttpSession session, UserRegistrationService userRegistrationService, SingleFieldCheck singleFieldCheck, MessageSource messageSource) {
+    private final EmailService emailService;
+    
+	public UserRegistrationController(HttpServletRequest request, HttpSession session, UserRegistrationService userRegistrationService, SingleFieldCheck singleFieldCheck, MessageSource messageSource, EmailService emailService) {
 		super(request, session);
 		this.session = session;
 		this.userRegistrationService = userRegistrationService;
 		this.singleFieldCheck = singleFieldCheck;
 		this.messageSource = messageSource;
-	}
+		this.emailService = emailService;
+		}
 	
 	/*
 	 * ユーザ登録画面初期表示
@@ -64,7 +71,7 @@ public class UserRegistrationController extends BaseController {
 	}
 	
 	/*
-	 * ユーザ登録処理
+	 * ユーザ登録
 	 */
 	@PostMapping("/register")
 	public String register(UserRegistrationFormDto userRegistrationFormDto, Model model, RedirectAttributes redirectAttributes) {
@@ -81,6 +88,7 @@ public class UserRegistrationController extends BaseController {
 		}
 		
 		//F層呼び出し
+		//ここで呼び出すサービスはメアドとパスワードの整合性チェックをするだけにする
 		UserRegistrationServiceIn userRegistrationServiceIn = new UserRegistrationServiceIn();
 		userRegistrationServiceIn.setEmailAdress(userRegistrationFormDto.getEmailAdress());
 		userRegistrationServiceIn.setPassword(userRegistrationFormDto.getPassword());
@@ -99,14 +107,68 @@ public class UserRegistrationController extends BaseController {
 				String errorMessage = messageSource.getMessage("E406", new Object[] {}, Locale.JAPAN);
 				setErrorMessageList(userRegistrationFormDto, errorMessage);
 			}
+			
+			//リダイレクト後にフォームにメアドとパスワードが入力されている状態にしてもいいかも（余裕があれば実装する）
 			redirectAttributes.addFlashAttribute(CommonConst.KEY_USERREGISTRATION_DTO, userRegistrationFormDto);
 			//自画面に遷移
 			return CommonConst.REDIRECT_USERREGISTRATION;
 		}
 		
-		//ログイン画面に遷移
+		UserRegistrationDto userRegistrationDto = new UserRegistrationDto();
+		userRegistrationDto.setUserId(userRegistrationServiceOut.getUserId());
+		userRegistrationDto.setEmailAdress(userRegistrationFormDto.getEmailAdress());
+		session.setAttribute(CommonConst.KEY_USERAUTHENTICATION_DTO, userRegistrationDto);
+		
+		//認証画面に遷移
+		return CommonConst.SCREENID_AUTHENTICATION;
+	}
+	
+	/**
+	 * メール認証
+	 * @return
+	 */
+	public String authentication(UserRegistrationFormDto userRegistrationFormDto, Model model) {
+		
+		//認証コードを検証する
+		UserRegistrationServiceCheckTokenIn userRegistrationServiceCheckTokenIn = new UserRegistrationServiceCheckTokenIn();
+		userRegistrationServiceCheckTokenIn.setUserId(userRegistrationFormDto.getUserId());
+		userRegistrationServiceCheckTokenIn.setEmailAdress(userRegistrationFormDto.getEmailAdress());
+		userRegistrationServiceCheckTokenIn.setToken(userRegistrationFormDto.getToken());
+		UserRegistrationServiceCheckTokenOut userRegistrationServiceCheckTokenOut = userRegistrationService.checkToken(userRegistrationServiceCheckTokenIn);
+		
+		//分岐開始：検証に失敗した場合は認証画面にリダイレクトする
+		if(!userRegistrationServiceCheckTokenOut.isTokenValidateFlg()||!userRegistrationServiceCheckTokenOut.isExpiryDateValidateFlg()) {
+			//認証コード不一致の場合
+			if(!userRegistrationServiceCheckTokenOut.isTokenValidateFlg()) {
+				String errorMessage = messageSource.getMessage("E205", new Object[] {}, Locale.JAPAN);
+				setErrorMessageList(userRegistrationFormDto, errorMessage);
+				
+				//認証の有効期限が切れていた場合
+			}else if(!userRegistrationServiceCheckTokenOut.isExpiryDateValidateFlg()) {
+				String errorMessage = messageSource.getMessage("E206", new Object[] {}, Locale.JAPAN);
+				setErrorMessageList(userRegistrationFormDto, errorMessage);
+			}
+			return CommonConst.REDIRECT_AUTHENTICATION;
+		}
+		
+		//整合性があればユーザ情報登録してログイン画面に遷移する
+		//サービスクラスを呼び出して登録処理をする
+		
+		
 		return CommonConst.SCREENID_LOGIN;
 	}
+	
+	/**
+	 * メール送信
+	 * @param email
+	 * @param code
+	 */
+	public void sendVerificationEmail(String email, String code) {
+	    String subject = "Email Verification Code";
+	    String body = "Your verification code is: " + code;
+	    emailService.sendEmail(email, subject, body);
+	}
+
 	
 	/**
 	 * 単項目チェック

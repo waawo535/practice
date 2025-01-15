@@ -8,6 +8,11 @@ import lombok.Setter;
 public class UserRegistrationServiceOut {
 	
 	/**
+	 * ユーザID
+	 */
+	private String userId;
+	
+	/**
 	 * メールアドレス
 	 */
 	private String emailAdress;

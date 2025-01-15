@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.entity.result">
+	<select id="SelectUserEmailAuths" resultType="com.example.recipe.entity.result.SelectUserEmailAuthsEntity">
+		SELECT
+		    user_id
+		    , email_adress
+		    , token
+		    , expiry_date
+		FROM
+		    public.user_email_auths 
+		WHERE
+		    user_id = #{userId}
+		    and email_adress = #{emailAdress};
+	</select>
+</mapper>
