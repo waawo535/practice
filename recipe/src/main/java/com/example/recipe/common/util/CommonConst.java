@@ -35,7 +35,11 @@ public class CommonConst {
 	public static final String ID_TYPE_RC = "RC";
 	/** */
 	public static final String dummy2 = "";
-	
+	//------------------------------ID種別------------------------------
+	/** 登録ステータスコード：仮登録*/
+	public static final String PROVISIONAL_REGISTRATION ="0";
+	/** 登録ステータスコード：本登録*/
+	public static final String DEFINITIVE_REGISTRATION = "1";
 	//------------------------------DTO------------------------------
 	/** ユーザ登録画面表示DTO*/
 	public static final String KEY_USERREGISTRATION_DTO = "UserRegistrationDto";
@@ -46,9 +50,11 @@ public class CommonConst {
 	/** ユーザ登録画面*/
 	public static final String SCREENID_USERREGISTRATION = "UserRegistration";
 	/** 認証画面*/
-	public static final String SCREENID_AUTHENTICATION = "Authentication";
+	public static final String SCREENID_AUTHENTICATION = "UserAuthentication";
 	/** ログイン画面*/
 	public static final String SCREENID_LOGIN = "Login";
+	/** ユーザポータル画面*/
+	public static final String SCREENID_USERPORTAL = "UserPortal";
 	/** ユーザ情報登録画面*/
 	public static final String SCREENID_USERINFOREGISTRATION = "UserInfoRegistration";
 	/** ユーザ情報管理画面*/
@@ -69,6 +75,8 @@ public class CommonConst {
 	public static final String REDIRECT_AUTHENTICATION = "redirect:/Authentication";
 	/** ログイン画面*/
 	public static final String REDIRECT_LOGIN = "redirect:/Login";
+	/** */
+	
 	/** ユーザ情報登録画面*/
 	public static final String REDIRECT_USERINFOREGISTRATION = "redirect:/UserInfoRegistration";
 	/** ユーザ情報管理画面*/

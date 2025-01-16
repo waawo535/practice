@@ -29,6 +29,7 @@ import com.example.recipe.dto.ServiceIn.UserRegistrationServiceCheckTokenIn;
 import com.example.recipe.dto.ServiceIn.UserRegistrationServiceIn;
 import com.example.recipe.dto.ServiceOut.UserRegistrationServiceCheckTokenOut;
 import com.example.recipe.dto.ServiceOut.UserRegistrationServiceOut;
+import com.example.recipe.dto.view.UserAuthenticationDto;
 import com.example.recipe.dto.view.UserRegistrationDto;
 import com.example.recipe.service.EmailService;
 import com.example.recipe.service.UserRegistrationService;
@@ -77,7 +78,7 @@ public class UserRegistrationController extends BaseController {
 	public String register(UserRegistrationFormDto userRegistrationFormDto, Model model, RedirectAttributes redirectAttributes) {
 		
 		//単項目チェック
-		checkSingleField(userRegistrationFormDto, model);
+		checkSingleField(userRegistrationFormDto);
 		
 		//単項目エラー存在チェック
 		if(!(userRegistrationFormDto.getErrormessageAreaList().isEmpty())) {
@@ -88,7 +89,7 @@ public class UserRegistrationController extends BaseController {
 		}
 		
 		//F層呼び出し
-		//ここで呼び出すサービスはメアドとパスワードの整合性チェックをするだけにする
+		//メアドとパスワードの整合性チェック
 		UserRegistrationServiceIn userRegistrationServiceIn = new UserRegistrationServiceIn();
 		userRegistrationServiceIn.setEmailAdress(userRegistrationFormDto.getEmailAdress());
 		userRegistrationServiceIn.setPassword(userRegistrationFormDto.getPassword());
@@ -119,6 +120,13 @@ public class UserRegistrationController extends BaseController {
 		userRegistrationDto.setEmailAdress(userRegistrationFormDto.getEmailAdress());
 		session.setAttribute(CommonConst.KEY_USERAUTHENTICATION_DTO, userRegistrationDto);
 		
+		sendVerificationEmail(userRegistrationFormDto.getEmailAdress(), userRegistrationServiceOut.getToken());
+		
+		UserAuthenticationDto userAuthenticationDto = new UserAuthenticationDto();
+		userAuthenticationDto.setUserId(null);
+		
+		model.addAttribute(CommonConst.KEY_USERAUTHENTICATION_DTO, userAuthenticationDto);
+		
 		//認証画面に遷移
 		return CommonConst.SCREENID_AUTHENTICATION;
 	}
@@ -127,12 +135,15 @@ public class UserRegistrationController extends BaseController {
 	 * メール認証
 	 * @return
 	 */
-	public String authentication(UserRegistrationFormDto userRegistrationFormDto, Model model) {
+	@PostMapping("/authentication")
+	public String authentication(UserRegistrationFormDto userRegistrationFormDto, Model model, RedirectAttributes redirectAttributes) {
+		
+		UserRegistrationDto userDto = (UserRegistrationDto) session.getAttribute(CommonConst.KEY_USERAUTHENTICATION_DTO);
 		
 		//認証コードを検証する
 		UserRegistrationServiceCheckTokenIn userRegistrationServiceCheckTokenIn = new UserRegistrationServiceCheckTokenIn();
-		userRegistrationServiceCheckTokenIn.setUserId(userRegistrationFormDto.getUserId());
-		userRegistrationServiceCheckTokenIn.setEmailAdress(userRegistrationFormDto.getEmailAdress());
+		userRegistrationServiceCheckTokenIn.setUserId(userDto.getUserId());
+		userRegistrationServiceCheckTokenIn.setEmailAdress(userDto.getEmailAdress());
 		userRegistrationServiceCheckTokenIn.setToken(userRegistrationFormDto.getToken());
 		UserRegistrationServiceCheckTokenOut userRegistrationServiceCheckTokenOut = userRegistrationService.checkToken(userRegistrationServiceCheckTokenIn);
 		
@@ -148,14 +159,16 @@ public class UserRegistrationController extends BaseController {
 				String errorMessage = messageSource.getMessage("E206", new Object[] {}, Locale.JAPAN);
 				setErrorMessageList(userRegistrationFormDto, errorMessage);
 			}
+			redirectAttributes.addFlashAttribute(CommonConst.KEY_USERREGISTRATION_DTO, userRegistrationFormDto);
 			return CommonConst.REDIRECT_AUTHENTICATION;
 		}
 		
-		//整合性があればユーザ情報登録してログイン画面に遷移する
-		//サービスクラスを呼び出して登録処理をする
+		//整合性があればユーザ本登録してユーザポータル画面に遷移する
+		UserRegistrationServiceIn userRegistrationServiceIn = new UserRegistrationServiceIn();
+		userRegistrationServiceIn.setUserId(userDto.getUserId());
+		userRegistrationService.definitiveRegistration(userRegistrationServiceIn);
 		
-		
-		return CommonConst.SCREENID_LOGIN;
+		return CommonConst.SCREENID_USERPORTAL;
 	}
 	
 	/**
@@ -163,9 +176,9 @@ public class UserRegistrationController extends BaseController {
 	 * @param email
 	 * @param code
 	 */
-	public void sendVerificationEmail(String email, String code) {
+	public void sendVerificationEmail(String email, String token) {
 	    String subject = "Email Verification Code";
-	    String body = "Your verification code is: " + code;
+	    String body = "Your verification code is: " + token;
 	    emailService.sendEmail(email, subject, body);
 	}
 
@@ -175,7 +188,7 @@ public class UserRegistrationController extends BaseController {
 	 * @param userRegistrationFormDto
 	 * @param model
 	 */
-	private void checkSingleField(UserRegistrationFormDto userRegistrationFormDto, Model model) {
+	private void checkSingleField(UserRegistrationFormDto userRegistrationFormDto) {
 		
 		//メールアドレス単項目チェック
 		//最大桁数チェック

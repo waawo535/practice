@@ -6,12 +6,14 @@
 			INTO users( 
 			    user_id
 			    , delete_flag
+			    , register_status_code
 			    , register_date
 			    , registered_user_id
 			) 
 			VALUES ( 
 			    #{userId}
 			    , #{deleteFlag}
+			    , #{registerStatusCode}
 			    , #{registerDate}
 			    , #{registeredUserId}
 			);

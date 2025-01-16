@@ -24,6 +24,11 @@ public class InsertRegisteredUserParam extends BaseParam {
 	private boolean deleteFlag;
 	
 	/**
+	 * 登録ステータスコード
+	 */
+	private String registerStatusCode;
+	
+	/**
 	 * 登録年月日時分秒
 	 */
 	private Timestamp registerDate;

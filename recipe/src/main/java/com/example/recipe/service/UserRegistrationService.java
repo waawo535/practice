@@ -22,6 +22,7 @@ import com.example.recipe.entity.param.InsertUserDetailParam;
 import com.example.recipe.entity.param.InsertUserEmailAuthsParam;
 import com.example.recipe.entity.param.SelectRegisteredUserParam;
 import com.example.recipe.entity.param.SelectUserEmailAuthsParam;
+import com.example.recipe.entity.param.UpdateRegisterStatusParam;
 import com.example.recipe.entity.result.SelectRegisteredUserEntity;
 import com.example.recipe.entity.result.SelectUserEmailAuthsEntity;
 
@@ -76,16 +77,42 @@ public class UserRegistrationService extends BaseService{
 		//ユーザIDを採番
 		String userId = idNumberingService.getNumbering(CommonConst.ID_TYPE_US, null);
 		
+		//認証コードを取得
+		String token = generateToken();
+		
 		//ユーザメール認証テーブルに認証情報を登録
 		InsertUserEmailAuthsParam insertUserEmailAuthsParam = new InsertUserEmailAuthsParam();
 		insertUserEmailAuthsParam.setUserId(userId);
 		insertUserEmailAuthsParam.setEmailAdress(userRegistrationServiceIn.getEmailAdress());
-		insertUserEmailAuthsParam.setToken(generateToken());
+		insertUserEmailAuthsParam.setToken(token);
 		insertUserEmailAuthsParam.setExpiryDate(Timestamp.valueOf(generateExpiryDate()));
 		dao.insertByValue(insertUserEmailAuthsParam);
 		
-		//Outパラメタに採番したユーザIDを設定
+		//ユーザテーブルに値を登録
+		InsertRegisteredUserParam insertRegisteredUserParam = new InsertRegisteredUserParam();
+		insertRegisteredUserParam.setUserId(userId);
+		insertRegisteredUserParam.setDeleteFlag(false);
+		insertRegisteredUserParam.setRegisterStatusCode(CommonConst.PROVISIONAL_REGISTRATION);
+		insertRegisteredUserParam.setRegisterDate(DateTimeGenerator.getTimestampDateTime());
+		insertRegisteredUserParam.setRegisteredUserId(userId);
+		dao.insertByValue(insertRegisteredUserParam);
+		
+		//パスワードをハッシュ化
+		String hashedPassword = hashPassword(userRegistrationServiceIn.getPassword());
+		
+		//ユーザ詳細テーブルに値を登録
+		InsertUserDetailParam insertUserDetailParam = new InsertUserDetailParam();
+		insertUserDetailParam.setUserId(userId);
+		insertUserDetailParam.setUserName("TBD");
+		insertUserDetailParam.setEmailAdress(userRegistrationServiceIn.getEmailAdress());
+		insertUserDetailParam.setPassword(hashedPassword);
+		insertUserDetailParam.setRegisterDate(DateTimeGenerator.getTimestampDateTime());
+		insertUserDetailParam.setRegisteredUserId(userId);
+		dao.insertByValue(insertUserDetailParam);
+		
+		//OutパラメタにユーザIDと認証コードを設定
 		userRegistrationServiceOut.setUserId(userId);
+		userRegistrationServiceOut.setToken(token);
 		
 		return userRegistrationServiceOut;
 	}
@@ -129,26 +156,11 @@ public class UserRegistrationService extends BaseService{
 	//認証後のユーザ本登録
 	public void definitiveRegistration(UserRegistrationServiceIn userRegistrationServiceIn) {
 		
-		//パスワードをハッシュ化
-		String hashedPassword = hashPassword(userRegistrationServiceIn.getPassword());
-		
-		//ユーザテーブルに値を登録
-		InsertRegisteredUserParam insertRegisteredUserParam = new InsertRegisteredUserParam();
-		insertRegisteredUserParam.setUserId(userId);
-		insertRegisteredUserParam.setDeleteFlag(false);
-		insertRegisteredUserParam.setRegisterDate(DateTimeGenerator.getTimestampDateTime());
-		insertRegisteredUserParam.setRegisteredUserId(userId);
-		dao.insertByValue(insertRegisteredUserParam);
-		
-		//ユーザ詳細テーブルに値を登録
-		InsertUserDetailParam insertUserDetailParam = new InsertUserDetailParam();
-		insertUserDetailParam.setUserId(userId);
-		insertUserDetailParam.setUserName("TBD");
-		insertUserDetailParam.setEmailAdress(userRegistrationServiceIn.getEmailAdress());
-		insertUserDetailParam.setPassword(hashedPassword);
-		insertUserDetailParam.setRegisterDate(DateTimeGenerator.getTimestampDateTime());
-		insertUserDetailParam.setRegisteredUserId(userId);
-		dao.insertByValue(insertUserDetailParam);
+		//ユーザの登録ステータスを本登録にする
+		UpdateRegisterStatusParam updateRegisterStatusParam = new UpdateRegisterStatusParam();
+		updateRegisterStatusParam.setUserId(userRegistrationServiceIn.getUserId());
+		updateRegisterStatusParam.setRegisterStatusCode(CommonConst.DEFINITIVE_REGISTRATION);
+		dao.updateByValue(updateRegisterStatusParam);
 		
 		
 	}
@@ -187,8 +199,7 @@ public class UserRegistrationService extends BaseService{
    	 	int code = random.nextInt(1_000_000); 
    	 	// 6桁にゼロ埋め
    	 	String formattedCode = String.format("%06d", code);
-   	 	System.out.println(formattedCode);
-        return String.valueOf(code);
+        return String.valueOf(formattedCode);
     }
     
     public LocalDateTime generateExpiryDate() {

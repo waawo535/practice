@@ -7,6 +7,11 @@ import lombok.Setter;
 @Setter
 public class UserRegistrationServiceIn {
 	/**
+	 * ユーザID
+	 */
+	private String userId;
+	
+	/**
 	 * メールアドレス
 	 */
 	private String emailAdress;

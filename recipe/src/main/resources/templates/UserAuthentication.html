@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>認証コード入力</title>
+	<link rel="stylesheet" th:href="@{/css/UserAuthentication.css}">
+    <script defer src="UserAuthentication.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>認証コードを入力してください</h1>
+        <p>メールで送信された6桁の認証コードを入力してください。</p>
+        <form id="auth-code-form" th:action="@{/UserRegistration/authentication}" th:object="${UserAuthenticationDto}" method="POST">
+            <div class="input-group">
+                <label for="auth-code">認証コード</label>
+                <input type="text" id="auth-code" name="authCode" maxlength="6" pattern="\d{6}" placeholder="123456"  th:field="*{token}" required>
+            </div>
+            <button type="submit" class="btn">確認</button>
+        </form>
+        <p class="resend-text">コードが届かない場合は<a href="#" id="resend-link">再送信</a>してください。</p>
+    </div>
+</body>
+</html>

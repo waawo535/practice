@@ -28,6 +28,11 @@ public class UserRegistrationServiceOut {
 	private String comfirmPassword;
 	
 	/**
+	 * 認証コード
+	 */
+	private String token;
+	
+	/**
 	 * メールアドレス存在フラグ
 	 * true:メールアドレスが既に登録済み
 	 * faslse:メールアドレスは未登録
