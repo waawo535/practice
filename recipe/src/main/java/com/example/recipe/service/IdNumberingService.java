@@ -56,6 +56,11 @@ public class IdNumberingService extends BaseService {
 			insertIdNumberingMasterParam.setRegisterDate(DateTimeGenerator.getTimestampDateTime());
 			insertIdNumberingMasterParam.setRegisteredUserId("system");
 			dao.insertByValue(insertIdNumberingMasterParam);
+			
+			//登録後、再度連番を取得
+			selectSerialNumberParam.setIdType(idType);
+			selectSerialNumberParam.setIdPrefix(idPrefix);
+			selectSerialNumberEntity = dao.selectByPk(selectSerialNumberParam);
 		}
 		
 		//現在の連番をもとに次の連番を作成
