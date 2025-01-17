@@ -8,6 +8,13 @@ import lombok.Setter;
 public class UserRegistrationServiceCheckTokenOut {
 	
 	/**
+	 * 仮登録チェックフラグ
+	 * true:仮登録
+	 * false:仮登録以外
+	 */
+	private boolean registrationStatusFlg;
+	
+	/**
 	 *認証コード整合性チェックフラグ
 	 *true:整合性あり
 	 *false:整合性なし（エラー）

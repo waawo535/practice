@@ -148,9 +148,14 @@ public class UserRegistrationController extends BaseController {
 		UserRegistrationServiceCheckTokenOut userRegistrationServiceCheckTokenOut = userRegistrationService.checkToken(userRegistrationServiceCheckTokenIn);
 		
 		//分岐開始：検証に失敗した場合は認証画面にリダイレクトする
-		if(!userRegistrationServiceCheckTokenOut.isTokenValidateFlg()||!userRegistrationServiceCheckTokenOut.isExpiryDateValidateFlg()) {
-			//認証コード不一致の場合
-			if(!userRegistrationServiceCheckTokenOut.isTokenValidateFlg()) {
+		if(!userRegistrationServiceCheckTokenOut.isRegistrationStatusFlg()||!userRegistrationServiceCheckTokenOut.isTokenValidateFlg()||!userRegistrationServiceCheckTokenOut.isExpiryDateValidateFlg()) {
+			//登録ステータスが仮登録以外の場合
+			if(!userRegistrationServiceCheckTokenOut.isRegistrationStatusFlg()) {
+				String errorMessage = messageSource.getMessage("E207", new Object[] {}, Locale.JAPAN);
+				setErrorMessageList(userRegistrationFormDto, errorMessage);
+				
+				//認証コード不一致の場合
+			}else if(!userRegistrationServiceCheckTokenOut.isTokenValidateFlg()) {
 				String errorMessage = messageSource.getMessage("E205", new Object[] {}, Locale.JAPAN);
 				setErrorMessageList(userRegistrationFormDto, errorMessage);
 				

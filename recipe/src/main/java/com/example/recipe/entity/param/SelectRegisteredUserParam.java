@@ -11,7 +11,17 @@ import lombok.ToString;
 @ToString
 public class SelectRegisteredUserParam extends BaseParam {
 	
+	/**
+	 * メールアドレス
+	 */
 	private String emailAdress;
+	
+	/**
+	 * 登録ステータスコード
+	 * ０：仮登録（未認証）
+	 * １：本登録（認証済み）
+	 */
+	private String registerStatusCode;
 	
 	public SelectRegisteredUserParam() {
 		//第一引数SQLID

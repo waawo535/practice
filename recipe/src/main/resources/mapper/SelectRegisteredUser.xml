@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.entity.result">
-<!-- 登録済みのユーザを検索
-		ユーザ新規登録の際のユーザ名重複チェックに使用する -->
 	<select id="SelectRegisteredUser" resultType='com.example.recipe.entity.result.SelectRegisteredUserEntity'>
 		SELECT
 		    ud.email_adress
+		    u.register_ststus_code
 		FROM
 		    public.users u 
 		INNER JOIN 
@@ -13,6 +12,9 @@
 			ON u.user_id = ud.user_id 
 		WHERE
 		    delete_flag = false 
-		    AND ud.email_adress = #{emailAdress}; 
+		    AND ud.email_adress = #{emailAdress}
+		<if test = "registerStatusCode != null">
+		    AND u.register_ststus_code = #{registerStatusCode}; 
+		</if>
 	</select>
 </mapper>

@@ -54,6 +54,7 @@ public class UserRegistrationService extends BaseService{
 		//ユーザ未作成判定処理
 		SelectRegisteredUserParam selectRegisteredUserParam = new SelectRegisteredUserParam();
 		selectRegisteredUserParam.setEmailAdress(userRegistrationServiceIn.getEmailAdress());
+		selectRegisteredUserParam.setRegisterStatusCode(CommonConst.DEFINITIVE_REGISTRATION);
 		SelectRegisteredUserEntity selectRegisteredUserEntity = dao.selectByPk(selectRegisteredUserParam);
 		
 		if(!(selectRegisteredUserEntity==null)) {
@@ -125,6 +126,18 @@ public class UserRegistrationService extends BaseService{
 	public UserRegistrationServiceCheckTokenOut checkToken(UserRegistrationServiceCheckTokenIn userRegistrationServiceCheckTokenIn) {
 		
 		UserRegistrationServiceCheckTokenOut userRegistrationServiceCheckTokenOut = new UserRegistrationServiceCheckTokenOut();
+		
+		//登録ステータスコードを取得
+		SelectRegisteredUserParam selectRegisteredUserParam = new SelectRegisteredUserParam();
+		selectRegisteredUserParam.setEmailAdress(userRegistrationServiceCheckTokenIn.getEmailAdress());
+		SelectRegisteredUserEntity selectRegisteredUserEntity = dao.selectByPk(selectRegisteredUserParam);
+		
+		//登録ステータスチェック
+		if(selectRegisteredUserEntity.getRegisterStatusCode().equals(CommonConst.PROVISIONAL_REGISTRATION)) {
+			userRegistrationServiceCheckTokenOut.setRegistrationStatusFlg(true);
+		}else {
+			userRegistrationServiceCheckTokenOut.setRegistrationStatusFlg(false);
+		}
 		
 		//DBに保存した認証情報を取得
 		SelectUserEmailAuthsParam selectUserEmailAuthsParam = new SelectUserEmailAuthsParam();
