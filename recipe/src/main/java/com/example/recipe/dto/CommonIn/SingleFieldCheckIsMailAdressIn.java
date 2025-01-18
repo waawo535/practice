@@ -10,7 +10,7 @@ public class SingleFieldCheckIsMailAdressIn {
 	/**
 	 * メールアドレス
 	 */
-	private String mailAdress;
+	private String emailAddress;
 	
 	/**
 	 * null拒否フラグ

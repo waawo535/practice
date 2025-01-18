@@ -44,7 +44,7 @@ public class UserRegistrationService extends BaseService{
 	/**
 	 * ユーザ登録
 	 * メールアドレス存在チェックとパスワード整合性チェック
-	 * @param emailAdress
+	 * @param emailAddress
 	 * @return
 	 */
 	public UserRegistrationServiceOut register(UserRegistrationServiceIn userRegistrationServiceIn) {
@@ -53,7 +53,7 @@ public class UserRegistrationService extends BaseService{
 		
 		//ユーザ未作成判定処理
 		SelectRegisteredUserParam selectRegisteredUserParam = new SelectRegisteredUserParam();
-		selectRegisteredUserParam.setEmailAdress(userRegistrationServiceIn.getEmailAdress());
+		selectRegisteredUserParam.setEmailAddress(userRegistrationServiceIn.getEmailAddress());
 		SelectRegisteredUserEntity selectRegisteredUserEntity = dao.selectByPk(selectRegisteredUserParam);
 		
 		//ユーザ登録済み判定処理
@@ -89,7 +89,7 @@ public class UserRegistrationService extends BaseService{
 		//ユーザメール認証テーブルに認証情報を登録
 		InsertUserEmailAuthsParam insertUserEmailAuthsParam = new InsertUserEmailAuthsParam();
 		insertUserEmailAuthsParam.setUserId(userId);
-		insertUserEmailAuthsParam.setEmailAdress(userRegistrationServiceIn.getEmailAdress());
+		insertUserEmailAuthsParam.setEmailAddress(userRegistrationServiceIn.getEmailAddress());
 		insertUserEmailAuthsParam.setToken(token);
 		insertUserEmailAuthsParam.setExpiryDate(Timestamp.valueOf(generateExpiryDate()));
 		dao.insertByValue(insertUserEmailAuthsParam);
@@ -110,7 +110,7 @@ public class UserRegistrationService extends BaseService{
 		InsertUserDetailParam insertUserDetailParam = new InsertUserDetailParam();
 		insertUserDetailParam.setUserId(userId);
 		insertUserDetailParam.setUserName("TBD");
-		insertUserDetailParam.setEmailAdress(userRegistrationServiceIn.getEmailAdress());
+		insertUserDetailParam.setEmailAddress(userRegistrationServiceIn.getEmailAddress());
 		insertUserDetailParam.setPassword(hashedPassword);
 		insertUserDetailParam.setRegisterDate(DateTimeGenerator.getTimestampDateTime());
 		insertUserDetailParam.setRegisteredUserId(userId);
@@ -134,7 +134,7 @@ public class UserRegistrationService extends BaseService{
 		
 		//登録ステータスコードを取得
 		SelectRegisteredUserParam selectRegisteredUserParam = new SelectRegisteredUserParam();
-		selectRegisteredUserParam.setEmailAdress(userRegistrationServiceCheckTokenIn.getEmailAdress());
+		selectRegisteredUserParam.setEmailAddress(userRegistrationServiceCheckTokenIn.getEmailAddress());
 		SelectRegisteredUserEntity selectRegisteredUserEntity = dao.selectByPk(selectRegisteredUserParam);
 		
 		//登録ステータスチェック
@@ -147,7 +147,7 @@ public class UserRegistrationService extends BaseService{
 		//DBに保存した認証情報を取得
 		SelectUserEmailAuthsParam selectUserEmailAuthsParam = new SelectUserEmailAuthsParam();
 		selectUserEmailAuthsParam.setUserId(userRegistrationServiceCheckTokenIn.getUserId());
-		selectUserEmailAuthsParam.setEmailAdress(userRegistrationServiceCheckTokenIn.getEmailAdress());
+		selectUserEmailAuthsParam.setEmailAddress(userRegistrationServiceCheckTokenIn.getEmailAddress());
 		SelectUserEmailAuthsEntity selectUserEmailAuthsEntity = dao.selectByPk(selectUserEmailAuthsParam);
 		
 		//認証コード整合性チェック

@@ -14,7 +14,7 @@ public class UserRegistrationServiceIn {
 	/**
 	 * メールアドレス
 	 */
-	private String emailAdress;
+	private String emailAddress;
 	
 	/**
 	 * パスワード

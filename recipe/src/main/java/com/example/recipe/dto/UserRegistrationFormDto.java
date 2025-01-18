@@ -17,7 +17,7 @@ public class UserRegistrationFormDto  extends BaseDto {
 	/**
 	 * メールアドレス
 	 */
-	private String emailAdress;
+	private String emailAddress;
 	
 	/**
 	 * パスワード

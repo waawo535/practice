@@ -4,13 +4,13 @@
 	<select id="SelectUserEmailAuths" resultType="com.example.recipe.entity.result.SelectUserEmailAuthsEntity">
 		SELECT
 		    user_id
-		    , email_adress
+		    , email_address
 		    , token
 		    , expiry_date
 		FROM
 		    public.user_email_auths 
 		WHERE
 		    user_id = #{userId}
-		    and email_adress = #{emailAdress};
+		    and email_address = #{emailAddress};
 	</select>
 </mapper>

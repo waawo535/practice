@@ -19,7 +19,7 @@ public class SelectUserEmailAuthsEntity extends BaseEntity {
 	/**
 	 * メールアドレス
 	 */
-	private String emailAdress;
+	private String emailAddress;
 	
 	/**
 	 * 認証コード

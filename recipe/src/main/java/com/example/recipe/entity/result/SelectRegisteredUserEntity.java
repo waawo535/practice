@@ -14,7 +14,7 @@ public class SelectRegisteredUserEntity extends BaseEntity {
 	/**
 	 * メールアドレス
 	 */
-	private String emailAdress;
+	private String emailAddress;
 	
 	/**
 	 * 登録ステータスコード

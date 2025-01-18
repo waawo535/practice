@@ -35,11 +35,11 @@ public class SingleFieldCheck {
 		boolean result = false;
 		
 		//正規表現チェック
-		boolean matchesRegex  = checkRegEx(mailAdressIn.getMailAdress(), CommonConst.REGEX_EMAIL);
+		boolean matchesRegex  = checkRegEx(mailAdressIn.getEmailAddress(), CommonConst.REGEX_EMAIL);
 		
 		//null拒否フラグチェック
 		if(mailAdressIn.isNullDenialFlg()) {
-			if(mailAdressIn.getMailAdress()==null||mailAdressIn.getMailAdress().equals("")) {
+			if(mailAdressIn.getEmailAddress()==null||mailAdressIn.getEmailAddress().equals("")) {
 				
 			}
 		}

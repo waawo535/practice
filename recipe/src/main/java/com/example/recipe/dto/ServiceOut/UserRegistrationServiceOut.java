@@ -15,7 +15,7 @@ public class UserRegistrationServiceOut {
 	/**
 	 * メールアドレス
 	 */
-	private String emailAdress;
+	private String emailAddress;
 	
 	/**
 	 * パスワード

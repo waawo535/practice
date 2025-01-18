@@ -19,7 +19,7 @@
     <form th:action="@{/Login/login}" th:object="${LoginDto}" method="POST">
       <div class="form-group">
         <label for="email">メールアドレス</label>
-        <input type="email" id="email" name="email" placeholder="メールアドレス" th:field="*{emailAdress}" required>
+        <input type="email" id="email" name="email" placeholder="メールアドレス" th:field="*{emailAddress}" required>
       </div>
       <div class="form-group">
         <label for="password">パスワード</label>

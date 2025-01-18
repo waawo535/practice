@@ -26,7 +26,7 @@ public class InsertUserDetailParam extends BaseParam {
 	/**
 	 * メールアドレス
 	 */
-	private String emailAdress;
+	private String emailAddress;
 	
 	/**
 	 * 電話番号

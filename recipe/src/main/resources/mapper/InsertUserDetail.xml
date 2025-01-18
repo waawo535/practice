@@ -6,7 +6,7 @@
 			INTO public.user_detail( 
 			    user_id
 			    , user_name
-			    , email_adress
+			    , email_address
 			    , phone_number
 			    , password
 			    , profile_img_url
@@ -21,7 +21,7 @@
 			VALUES ( 
 			    #{userId}
 			    , #{userName}
-			    , #{emailAdress}
+			    , #{emailAddress}
 			    , #{phoneNumber}
 			    , #{password}
 			    , #{profileImgUrl}

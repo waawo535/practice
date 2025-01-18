@@ -17,7 +17,7 @@ public class LoginDto extends BaseDto {
 	/**
 	 * メールアドレス
 	 */
-	private String emailAdress;
+	private String emailAddress;
 	
 	/**
 	 * パスワード

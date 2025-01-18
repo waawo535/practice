@@ -39,7 +39,7 @@ public class LoginService extends BaseService {
 		loginServiceLoginOut.setPasswordCheckPassed(false);
 		
 		SelectRegisteredUserParam selectRegisteredUserParam= new SelectRegisteredUserParam();
-		selectRegisteredUserParam.setEmailAdress(loginServiceLoginIn.getEmailAddress());
+		selectRegisteredUserParam.setEmailAddress(loginServiceLoginIn.getEmailAddress());
 		SelectRegisteredUserEntity selectRegisteredUserEntity = dao.selectByPk(selectRegisteredUserParam);
 		
 		
@@ -65,7 +65,7 @@ public class LoginService extends BaseService {
 		//パスワード整合性チェック
 		//パスワードをDBから取得
 		SelectUserDetailPasswordParam selectUserDetailPasswordParam = new SelectUserDetailPasswordParam();
-		selectUserDetailPasswordParam.setEmailAdress(loginServiceLoginIn.getEmailAddress());
+		selectUserDetailPasswordParam.setEmailAddress(loginServiceLoginIn.getEmailAddress());
 		SelectUserDetailPasswordEntity selectUserDetailPasswordEntity = dao.selectByPk(selectUserDetailPasswordParam);
 		
 		//入力パスワードとDBから取得したハッシュ化パスワードを比較

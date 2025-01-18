@@ -4,7 +4,7 @@
 	<select id="SelectUserDetail" resultType="com.example.recipe.entity.result.SelectUserDetailEntity">
 		SELECT
 		    user_name
-		    , email_adress
+		    , email_address
 		    , phone_number
 		    , profile_img_url
 		    , bio

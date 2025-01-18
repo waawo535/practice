@@ -91,7 +91,7 @@ public class UserRegistrationController extends BaseController {
 		//F層呼び出し
 		//メアドとパスワードの整合性チェック
 		UserRegistrationServiceIn userRegistrationServiceIn = new UserRegistrationServiceIn();
-		userRegistrationServiceIn.setEmailAdress(userRegistrationFormDto.getEmailAdress());
+		userRegistrationServiceIn.setEmailAddress(userRegistrationFormDto.getEmailAddress());
 		userRegistrationServiceIn.setPassword(userRegistrationFormDto.getPassword());
 		userRegistrationServiceIn.setComfirmPassword(userRegistrationFormDto.getConfrimPassword());
 		UserRegistrationServiceOut userRegistrationServiceOut = userRegistrationService.register(userRegistrationServiceIn);
@@ -122,10 +122,10 @@ public class UserRegistrationController extends BaseController {
 		
 		UserRegistrationDto userRegistrationDto = new UserRegistrationDto();
 		userRegistrationDto.setUserId(userRegistrationServiceOut.getUserId());
-		userRegistrationDto.setEmailAdress(userRegistrationFormDto.getEmailAdress());
+		userRegistrationDto.setEmailAddress(userRegistrationFormDto.getEmailAddress());
 		session.setAttribute(CommonConst.KEY_USERAUTHENTICATION_DTO, userRegistrationDto);
 		
-		sendVerificationEmail(userRegistrationFormDto.getEmailAdress(), userRegistrationServiceOut.getToken());
+		sendVerificationEmail(userRegistrationFormDto.getEmailAddress(), userRegistrationServiceOut.getToken());
 		
 		UserAuthenticationDto userAuthenticationDto = new UserAuthenticationDto();
 		userAuthenticationDto.setUserId(null);
@@ -149,7 +149,7 @@ public class UserRegistrationController extends BaseController {
 		//認証コードを検証する
 		UserRegistrationServiceCheckTokenIn userRegistrationServiceCheckTokenIn = new UserRegistrationServiceCheckTokenIn();
 		userRegistrationServiceCheckTokenIn.setUserId(userDto.getUserId());
-		userRegistrationServiceCheckTokenIn.setEmailAdress(userDto.getEmailAdress());
+		userRegistrationServiceCheckTokenIn.setEmailAddress(userDto.getEmailAddress());
 		userRegistrationServiceCheckTokenIn.setToken(userRegistrationFormDto.getToken());
 		UserRegistrationServiceCheckTokenOut userRegistrationServiceCheckTokenOut = userRegistrationService.checkToken(userRegistrationServiceCheckTokenIn);
 		
@@ -210,23 +210,23 @@ public class UserRegistrationController extends BaseController {
 		
 		//メールアドレス単項目チェック
 		//最大桁数チェック
-		if(singleFieldCheck.checkMaxCharLimit(userRegistrationFormDto.getEmailAdress(), 255)) {
+		if(singleFieldCheck.checkMaxCharLimit(userRegistrationFormDto.getEmailAddress(), 255)) {
 			String errorMessage = messageSource.getMessage("E101", new Object[] { "メールアドレス", "255" }, Locale.JAPAN);
 			setErrorMessageList(userRegistrationFormDto, errorMessage);
 		}
 		//型チェック
-		if(!singleFieldCheck.checkRegEx(userRegistrationFormDto.getEmailAdress(), CommonConst.REGEX_EMAIL)) {
+		if(!singleFieldCheck.checkRegEx(userRegistrationFormDto.getEmailAddress(), CommonConst.REGEX_EMAIL)) {
 			String errorMessage = messageSource.getMessage("E103", new Object[] { }, Locale.JAPAN);
 			setErrorMessageList(userRegistrationFormDto, errorMessage);
 		}
 		//禁則文字チェック
-		SingleFieldCheckCheckForBiddenCharOut singleFieldCheckCheckForBiddenCharOut1 = singleFieldCheck.checkForbiddenChar(userRegistrationFormDto.getEmailAdress());
+		SingleFieldCheckCheckForBiddenCharOut singleFieldCheckCheckForBiddenCharOut1 = singleFieldCheck.checkForbiddenChar(userRegistrationFormDto.getEmailAddress());
 		if(singleFieldCheckCheckForBiddenCharOut1.isResult()) {
 			String errorMessage = messageSource.getMessage("E111", new Object[] { "メールアドレス", singleFieldCheckCheckForBiddenCharOut1.getErrorList()}, Locale.JAPAN);
 			setErrorMessageList(userRegistrationFormDto, errorMessage);
 		}
 		//null又は空文字チェック
-		if(NullOrEmptyChecker.isNullOrEmpty(userRegistrationFormDto.getEmailAdress())) {
+		if(NullOrEmptyChecker.isNullOrEmpty(userRegistrationFormDto.getEmailAddress())) {
 			String errorMessage = messageSource.getMessage("E100", new Object[] {"メールアドレス" }, Locale.JAPAN);
 			setErrorMessageList(userRegistrationFormDto, errorMessage);
 		}

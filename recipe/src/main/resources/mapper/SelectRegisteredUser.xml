@@ -3,7 +3,7 @@
 <mapper namespace="com.example.entity.result">
 	<select id="SelectRegisteredUser" resultType='com.example.recipe.entity.result.SelectRegisteredUserEntity'>
 		SELECT
-		    ud.email_adress
+		    ud.email_address
 		    , u.register_status_code
 		FROM
 		    public.users u 
@@ -12,7 +12,7 @@
 			ON u.user_id = ud.user_id 
 		WHERE
 		    delete_flag = false 
-		    AND ud.email_adress = #{emailAdress}
+		    AND ud.email_address = #{emailAddress}
 		<if test = "registerStatusCode != null">
 		    AND u.register_status_code = #{registerStatusCode}; 
 		</if>

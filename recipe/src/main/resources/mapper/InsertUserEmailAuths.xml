@@ -3,7 +3,7 @@
 <mapper namespace="com.example.entity.result">
 	<insert id="InsertUserEmailAuths">
 		INSERT 
-			INTO public.user_email_auths(user_id, email_adress, token, expiry_date) 
-			VALUES (#{userId}, #{emailAdress}, #{token}, #{expiryDate});
+			INTO public.user_email_auths(user_id, email_address, token, expiry_date) 
+			VALUES (#{userId}, #{emailAddress}, #{token}, #{expiryDate});
 	</insert>
 </mapper>

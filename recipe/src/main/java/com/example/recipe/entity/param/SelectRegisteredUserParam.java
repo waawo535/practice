@@ -14,7 +14,7 @@ public class SelectRegisteredUserParam extends BaseParam {
 	/**
 	 * メールアドレス
 	 */
-	private String emailAdress;
+	private String emailAddress;
 	
 	/**
 	 * 登録ステータスコード

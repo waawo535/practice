@@ -19,7 +19,7 @@ public class SelectUserDetailEntity extends BaseEntity {
 	/**
 	 * メールアドレス
 	 */
-	private String emailAdress;
+	private String emailAddress;
 	
 	/**
 	 * 電話番号

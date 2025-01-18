@@ -19,7 +19,7 @@ public class InsertUserEmailAuthsParam extends BaseParam {
 	/**
 	 * メールアドレス
 	 */
-	private String emailAdress;
+	private String emailAddress;
 	
 	/**
 	 * 認証コード

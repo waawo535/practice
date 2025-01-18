@@ -17,7 +17,7 @@ public class SelectUserEmailAuthsParam extends BaseParam {
 	/**
 	 * メールアドレス
 	 */
-	private String emailAdress;
+	private String emailAddress;
 	
 	public SelectUserEmailAuthsParam() {
 		super("SelectUserEmailAuths", "com.example.entity.result");

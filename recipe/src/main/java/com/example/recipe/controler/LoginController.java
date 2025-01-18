@@ -76,7 +76,7 @@ public class LoginController extends BaseController {
 		
 		//F層呼び出しでDB整合性チェックとユーザ情報取得
 		LoginServiceLoginIn loginServiceLoginIn = new LoginServiceLoginIn();
-		loginServiceLoginIn.setEmailAddress(loginDto.getEmailAdress());
+		loginServiceLoginIn.setEmailAddress(loginDto.getEmailAddress());
 		loginServiceLoginIn.setPassword(loginDto.getPassword());
 		LoginServiceLoginOut loginServiceLoginOut = loginService.login(loginServiceLoginIn);
 		
@@ -126,23 +126,23 @@ public class LoginController extends BaseController {
 		
 		//メールアドレス単項目チェック
 		//最大桁数チェック
-		if(singleFieldCheck.checkMaxCharLimit(loginDto.getEmailAdress(), 255)) {
+		if(singleFieldCheck.checkMaxCharLimit(loginDto.getEmailAddress(), 255)) {
 			String errorMessage = messageSource.getMessage("E101", new Object[] { "メールアドレス", "255" }, Locale.JAPAN);
 			setErrorMessageList(loginDto, errorMessage);
 		}
 		//型チェック
-		if(!singleFieldCheck.checkRegEx(loginDto.getEmailAdress(), CommonConst.REGEX_EMAIL)) {
+		if(!singleFieldCheck.checkRegEx(loginDto.getEmailAddress(), CommonConst.REGEX_EMAIL)) {
 			String errorMessage = messageSource.getMessage("E103", new Object[] { }, Locale.JAPAN);
 			setErrorMessageList(loginDto, errorMessage);
 		}
 		//禁則文字チェック
-		SingleFieldCheckCheckForBiddenCharOut singleFieldCheckCheckForBiddenCharOut1 = singleFieldCheck.checkForbiddenChar(loginDto.getEmailAdress());
+		SingleFieldCheckCheckForBiddenCharOut singleFieldCheckCheckForBiddenCharOut1 = singleFieldCheck.checkForbiddenChar(loginDto.getEmailAddress());
 		if(singleFieldCheckCheckForBiddenCharOut1.isResult()) {
 			String errorMessage = messageSource.getMessage("E111", new Object[] { "メールアドレス", singleFieldCheckCheckForBiddenCharOut1.getErrorList()}, Locale.JAPAN);
 			setErrorMessageList(loginDto, errorMessage);
 		}
 		//null又は空文字チェック
-		if(NullOrEmptyChecker.isNullOrEmpty(loginDto.getEmailAdress())) {
+		if(NullOrEmptyChecker.isNullOrEmpty(loginDto.getEmailAddress())) {
 			String errorMessage = messageSource.getMessage("E100", new Object[] {"メールアドレス" }, Locale.JAPAN);
 			setErrorMessageList(loginDto, errorMessage);
 		}

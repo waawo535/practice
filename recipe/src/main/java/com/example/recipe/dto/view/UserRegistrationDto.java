@@ -17,7 +17,7 @@ public class UserRegistrationDto extends BaseDto {
 	/**
 	 * メールアドレス
 	 */
-	private String emailAdress;
+	private String emailAddress;
 	
 	
 }
