@@ -9,10 +9,18 @@
 </head>
 <body>
     <div class="container">
-        <h1>認証コードを入力してください</h1>
-        <p>メールで送信された6桁の認証コードを入力してください。</p>
+        <h2>認証コードを入力</h2>
+        <p class="main-text">メールで送信された6桁の認証コードを<br>入力してください。</p>
+		<!-- エラーメッセージ表示領域 -->
+		<div th:if="${!(UserRegistrationDto.errormessageAreaList == null) and !#lists.isEmpty(UserRegistrationDto.errormessageAreaList)}">
+		  <div class="error-messages">
+		    <ul>
+		      <li th:each="error : ${UserRegistrationDto.errormessageAreaList}" th:text="${error.errorMessage}"></li>
+		    </ul>
+		  </div>
+		</div>
         <form id="auth-code-form" th:action="@{/UserRegistration/authentication}" th:object="${UserAuthenticationDto}" method="POST">
-            <div class="input-group">
+            <div class="form-group">
                 <label for="auth-code">認証コード</label>
                 <input type="text" id="auth-code" name="authCode" maxlength="6" pattern="\d{6}" placeholder="123456"  th:field="*{token}" required>
             </div>
