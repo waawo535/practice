@@ -17,7 +17,7 @@ public class SelectUserDetailPasswordParam extends BaseParam {
 	/**
 	 * メールアドレス
 	 */
-	private String mailAdress;
+	private String emailAdress;
 	
 	public SelectUserDetailPasswordParam() {
 		super("SelectUserDetailPassword", "com.example.entity.result");

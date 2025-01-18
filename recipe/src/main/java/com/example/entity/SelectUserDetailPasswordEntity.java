@@ -8,7 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SelectUserDetailPasswordEntity extends BaseEntity {
-
+	/**
+	 * ユーザID
+	 */
+	private String userId;
+	
 	/**
 	 * パスワード
 	 */

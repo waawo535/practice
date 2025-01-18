@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: border-box; /* 要素の幅計算を一貫性のあるものに */
 }
+
 h2 {
   font-size: 24px;
   color: #2d3436;
@@ -27,7 +28,6 @@ h2 {
   text-align: center;
   margin-bottom: 20px;
 }
-
 /* bodyのレイアウト調整 */
 body {
   font-family: 'Arial', sans-serif;
@@ -135,7 +135,7 @@ button:hover {
   transform: scale(1.01); /* ホバーで少し拡大 */
 }
 
-.login-link {
+.register-link {
   display: block;
   text-align: center;
   margin-top: 20px;
@@ -143,12 +143,12 @@ button:hover {
   color: #555;
 }
 
-.login-link a {
+.register-link a {
   color: #74b9ff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.login-link a:hover {
+.register-link a:hover {
   color: #0984e3;
 }

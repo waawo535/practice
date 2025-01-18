@@ -65,8 +65,7 @@ public class LoginService extends BaseService {
 		//パスワード整合性チェック
 		//パスワードをDBから取得
 		SelectUserDetailPasswordParam selectUserDetailPasswordParam = new SelectUserDetailPasswordParam();
-		selectUserDetailPasswordParam.setUserId(loginServiceLoginIn.getUserId());
-		selectUserDetailPasswordParam.setMailAdress(loginServiceLoginIn.getEmailAddress());
+		selectUserDetailPasswordParam.setEmailAdress(loginServiceLoginIn.getEmailAddress());
 		SelectUserDetailPasswordEntity selectUserDetailPasswordEntity = dao.selectByPk(selectUserDetailPasswordParam);
 		
 		//入力パスワードとDBから取得したハッシュ化パスワードを比較
@@ -80,10 +79,11 @@ public class LoginService extends BaseService {
 		 }
 		 //DB整合性がない場合はリターン、大丈夫な場合はセッションに保存するためのユーザ情報を取得する
 		 SelectUserDetailParam selectUserDetailParam = new SelectUserDetailParam();
-		 selectUserDetailParam.setUserId(loginServiceLoginIn.getUserId());
+		 selectUserDetailParam.setUserId(selectUserDetailPasswordEntity.getUserId());
 		 SelectUserDetailEntity selectUserDetailEntity = dao.selectByPk(selectUserDetailParam);
 		 
 		 //Outパラメタに取得したユーザ情報を設定
+		 loginServiceLoginOut.setUserId(selectUserDetailPasswordEntity.getUserId());
 		 loginServiceLoginOut.setUserName(selectUserDetailEntity.getUserName());
 		 loginServiceLoginOut.setProfileImgUrl(selectUserDetailEntity.getProfileImgUrl());
 		 

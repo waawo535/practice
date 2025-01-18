@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン</title>
+  <link rel="stylesheet" th:href="@{/css/Login.css}">
 </head>
 <body>
-Login
+  <div class="container">
+    <h2>ログイン</h2>
+	<div th:if="${!(LoginDto.errormessageAreaList == null) and !#lists.isEmpty(LoginDto.errormessageAreaList)}">
+	  <div class="error-messages">
+	    <ul>
+	      <li th:each="error : ${LoginDto.errormessageAreaList}" th:text="${error.errorMessage}"></li>
+	    </ul>
+	  </div>
+	</div>
+    <form th:action="@{/Login/login}" th:object="${LoginDto}" method="POST">
+      <div class="form-group">
+        <label for="email">メールアドレス</label>
+        <input type="email" id="email" name="email" placeholder="メールアドレス" th:field="*{emailAdress}" required>
+      </div>
+      <div class="form-group">
+        <label for="password">パスワード</label>
+        <input type="password" id="password" name="password" placeholder="パスワード" th:field="*{password}" required>
+      </div>
+      <button type="submit" class="login-btn">ログイン</button>
+    </form>
+    <p class="register-link">
+      アカウントをお持ちでない方は <a th:href="@{/UserRegistration/initShow}">こちら</a>
+    </p>
+  </div>
 </body>
 </html>

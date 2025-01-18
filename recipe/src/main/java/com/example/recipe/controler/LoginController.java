@@ -68,7 +68,7 @@ public class LoginController extends BaseController {
 	 * @param redirectAttributes
 	 * @return
 	 */
-	@PostMapping("/Login")
+	@PostMapping("/login")
 	public String login(LoginDto loginDto, Model model, RedirectAttributes redirectAttributes) {
 		
 		//単項目チェック
@@ -76,7 +76,6 @@ public class LoginController extends BaseController {
 		
 		//F層呼び出しでDB整合性チェックとユーザ情報取得
 		LoginServiceLoginIn loginServiceLoginIn = new LoginServiceLoginIn();
-		loginServiceLoginIn.setUserId(loginDto.getUserId());
 		loginServiceLoginIn.setEmailAddress(loginDto.getEmailAdress());
 		loginServiceLoginIn.setPassword(loginDto.getPassword());
 		LoginServiceLoginOut loginServiceLoginOut = loginService.login(loginServiceLoginIn);
@@ -110,7 +109,7 @@ public class LoginController extends BaseController {
 		
 		//セッションにユーザ情報を設定
 		SessionInfoDto sessionInfoDto = new SessionInfoDto();
-		sessionInfoDto.setUserId(loginDto.getUserId());
+		sessionInfoDto.setUserId(loginServiceLoginOut.getUserId());
 		sessionInfoDto.setUserName(loginServiceLoginOut.getUserName());
 		sessionInfoDto.setProfileImgUrl(loginServiceLoginOut.getProfileImgUrl());
 		session.setAttribute(CommonConst.KEY_SESSIONINFO_DTO, sessionInfoDto);

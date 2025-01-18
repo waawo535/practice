@@ -35,6 +35,11 @@ public class LoginServiceLoginOut {
 	private boolean passwordCheckPassed;
 	
 	/**
+	 * ユーザID
+	 */
+	private String userId;
+	
+	/**
 	 * ユーザ名
 	 */
 	private String userName;

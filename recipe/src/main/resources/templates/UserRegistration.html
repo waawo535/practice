@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>ユーザ登録</h2>
+    <h2>アカウントを作成</h2>
 	<!-- エラーメッセージ表示領域 -->
 	<div th:if="${!(UserRegistrationDto.errormessageAreaList == null) and !#lists.isEmpty(UserRegistrationDto.errormessageAreaList)}">
 	  <div class="error-messages">
@@ -35,6 +35,9 @@
 
       <button type="submit">登録</button>
     </form>
+	<p class="login-link">
+	  ログインは <a th:href="@{/Login/initShow}">こちら</a>
+	</p>
   </div>
   <script src="UserRegistration.js"></script>
 </body>

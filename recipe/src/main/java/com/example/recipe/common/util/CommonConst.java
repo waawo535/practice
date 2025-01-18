@@ -76,21 +76,21 @@ public class CommonConst {
 	/** ユーザ登録画面*/
 	public static final String REDIRECT_USERREGISTRATION = "redirect:/UserRegistration/initShow";
 	/** 認証画面*/
-	public static final String REDIRECT_AUTHENTICATION = "redirect:/Authentication";
+	public static final String REDIRECT_AUTHENTICATION = "redirect:/Authentication/initShow";
 	/** ログイン画面*/
-	public static final String REDIRECT_LOGIN = "redirect:/Login";
+	public static final String REDIRECT_LOGIN = "redirect:/Login/initShow";
 	/** */
 	
 	/** ユーザ情報登録画面*/
-	public static final String REDIRECT_USERINFOREGISTRATION = "redirect:/UserInfoRegistration";
+	public static final String REDIRECT_USERINFOREGISTRATION = "redirect:/UserInfoRegistration/initShow";
 	/** ユーザ情報管理画面*/
-	public static final String REDIRECT_USERMANAGEMENT = "redirect:/UserManagement";
+	public static final String REDIRECT_USERMANAGEMENT = "redirect:/UserManagement/initShow";
 	/** レシピ一覧画面*/
-	public static final String REDIRECT_RECIPELIST = "redirect:/RecipeList";
+	public static final String REDIRECT_RECIPELIST = "redirect:/RecipeList/initShow";
 	/** レシピ詳細画面*/
-	public static final String REDIRECT_RECIPEDETAIL = "redirect:/RecipeDetail";
+	public static final String REDIRECT_RECIPEDETAIL = "redirect:/RecipeDetail/initShow";
 	/** レシピ登録画面*/
-	public static final String REDIRECT_RECIPEREGISTRATION = "redirect:/RecipeRegistration";
+	public static final String REDIRECT_RECIPEREGISTRATION = "redirect:/RecipeRegistration/initShow";
 	/** レシピ情報管理画面*/
-	public static final String REDIRECT_RECIPEMANAGEMENT = "redirect:/RecipeManagement";
+	public static final String REDIRECT_RECIPEMANAGEMENT = "redirect:/RecipeManagement/initShow";
 }
