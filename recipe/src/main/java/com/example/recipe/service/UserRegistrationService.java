@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 import jakarta.inject.Inject;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import com.example.recipe.base.BaseService;
@@ -200,8 +200,8 @@ public class UserRegistrationService extends BaseService{
 	 */
 	public String hashPassword(String password) {
 		// ランダムなsaltを生成してパスワードをハッシュ化
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); // ラウンド数を12に設定
-		String hashedPassword = passwordEncoder.encode(password);
+		String salt = BCrypt.gensalt();
+		String hashedPassword = BCrypt.hashpw(password, salt);
 		
 		return hashedPassword;
 	}

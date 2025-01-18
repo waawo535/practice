@@ -41,10 +41,14 @@ public class CommonConst {
 	/** 登録ステータスコード：本登録*/
 	public static final String DEFINITIVE_REGISTRATION = "1";
 	//------------------------------DTO------------------------------
+	/** セッション情報保持DTO*/
+	public static final String KEY_SESSIONINFO_DTO = "SessionInfo";
 	/** ユーザ登録画面表示DTO*/
 	public static final String KEY_USERREGISTRATION_DTO = "UserRegistrationDto";
 	/** ユーザ認証画面表示DTO*/
 	public static final String KEY_USERAUTHENTICATION_DTO = "UserAuthenticationDto";
+	/** ログイン画面表示DTO*/
+	public static final String KEY_LOGIN_DTO = "LoginDto";
 	
 	//------------------------------画面名------------------------------
 	/** ユーザ登録画面*/
