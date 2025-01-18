@@ -76,7 +76,7 @@ public class CommonConst {
 	/** ユーザ登録画面*/
 	public static final String REDIRECT_USERREGISTRATION = "redirect:/UserRegistration/initShow";
 	/** 認証画面*/
-	public static final String REDIRECT_AUTHENTICATION = "redirect:/Authentication/initShow";
+	public static final String REDIRECT_AUTHENTICATION = "redirect:/UserRegistration/authentication/error";
 	/** ログイン画面*/
 	public static final String REDIRECT_LOGIN = "redirect:/Login/initShow";
 	/** */

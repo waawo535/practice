@@ -130,6 +130,7 @@ public class UserRegistrationController extends BaseController {
 		UserAuthenticationDto userAuthenticationDto = new UserAuthenticationDto();
 		userAuthenticationDto.setUserId(null);
 		
+		model.addAttribute(CommonConst.KEY_USERREGISTRATION_DTO, userRegistrationFormDto);
 		model.addAttribute(CommonConst.KEY_USERAUTHENTICATION_DTO, userAuthenticationDto);
 		
 		//認証画面に遷移
@@ -158,17 +159,18 @@ public class UserRegistrationController extends BaseController {
 			if(!userRegistrationServiceCheckTokenOut.isRegistrationStatusFlg()) {
 				String errorMessage = messageSource.getMessage("E207", new Object[] {}, Locale.JAPAN);
 				setErrorMessageList(userRegistrationFormDto, errorMessage);
+			
+				//認証の有効期限が切れていた場合
+			}else if(!userRegistrationServiceCheckTokenOut.isExpiryDateValidateFlg()) {
+				String errorMessage = messageSource.getMessage("E206", new Object[] {}, Locale.JAPAN);
+				setErrorMessageList(userRegistrationFormDto, errorMessage);
 				
 				//認証コード不一致の場合
 			}else if(!userRegistrationServiceCheckTokenOut.isTokenValidateFlg()) {
 				String errorMessage = messageSource.getMessage("E205", new Object[] {}, Locale.JAPAN);
 				setErrorMessageList(userRegistrationFormDto, errorMessage);
-				
-				//認証の有効期限が切れていた場合
-			}else if(!userRegistrationServiceCheckTokenOut.isExpiryDateValidateFlg()) {
-				String errorMessage = messageSource.getMessage("E206", new Object[] {}, Locale.JAPAN);
-				setErrorMessageList(userRegistrationFormDto, errorMessage);
 			}
+			
 			redirectAttributes.addFlashAttribute(CommonConst.KEY_USERREGISTRATION_DTO, userRegistrationFormDto);
 			return CommonConst.REDIRECT_AUTHENTICATION;
 		}
@@ -181,6 +183,12 @@ public class UserRegistrationController extends BaseController {
 		return CommonConst.SCREENID_USERPORTAL;
 	}
 	
+	@GetMapping("/authentication/error")
+	public String authentication(Model model) {
+		UserAuthenticationDto userAuthenticationDto = new UserAuthenticationDto();
+		model.addAttribute(CommonConst.KEY_USERAUTHENTICATION_DTO, userAuthenticationDto);
+		return CommonConst.SCREENID_AUTHENTICATION;
+	}
 	/**
 	 * メール送信
 	 * @param email
