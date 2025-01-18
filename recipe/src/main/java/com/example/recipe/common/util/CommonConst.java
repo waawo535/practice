@@ -40,9 +40,11 @@ public class CommonConst {
 	public static final String PROVISIONAL_REGISTRATION ="0";
 	/** 登録ステータスコード：本登録*/
 	public static final String DEFINITIVE_REGISTRATION = "1";
-	//------------------------------DTO------------------------------
+	//------------------------------キー------------------------------
 	/** セッション情報保持DTO*/
 	public static final String KEY_SESSIONINFO_DTO = "SessionInfo";
+	/** 遷移元画面名*/
+	public static final String KEY_PREVSCREEN = "prevScreen";
 	/** ユーザ登録画面表示DTO*/
 	public static final String KEY_USERREGISTRATION_DTO = "UserRegistrationDto";
 	/** ユーザ認証画面表示DTO*/
@@ -76,7 +78,7 @@ public class CommonConst {
 	/** ユーザ登録画面*/
 	public static final String REDIRECT_USERREGISTRATION = "redirect:/UserRegistration/initShow";
 	/** 認証画面*/
-	public static final String REDIRECT_AUTHENTICATION = "redirect:/UserRegistration/authentication/error";
+	public static final String REDIRECT_AUTHENTICATION = "redirect:/UserRegistration/authentication/initShow";
 	/** ログイン画面*/
 	public static final String REDIRECT_LOGIN = "redirect:/Login/initShow";
 	/** */

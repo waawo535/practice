@@ -9,7 +9,6 @@
 </head>
 <body>
     <div class="container">
-        <h2>認証コードを入力</h2>
         <p class="main-text">メールで送信された6桁の認証コードを<br>入力してください。</p>
 		<!-- エラーメッセージ表示領域 -->
 		<div th:if="${!(UserRegistrationDto.errormessageAreaList == null) and !#lists.isEmpty(UserRegistrationDto.errormessageAreaList)}">
@@ -26,7 +25,12 @@
             </div>
             <button type="submit" class="btn">確認</button>
         </form>
-        <p class="resend-text">コードが届かない場合は<a href="#" id="resend-link">再送信</a>してください。</p>
+		<div class="link">
+	        <p class="resend">コードが届かない場合は<a href="#" id="resend-link">再送信</a>してください。</p>
+			<p class="register">
+				<a th:href="@{/UserRegistration/authentecationToRegister}">アカウント登録に戻る</a>
+			</p>
+		</div>
     </div>
 </body>
 </html>

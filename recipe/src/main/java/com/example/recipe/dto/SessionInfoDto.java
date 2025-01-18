@@ -23,4 +23,9 @@ public class SessionInfoDto extends BaseDto {
 	 * プロフィール画像URL
 	 */
 	private String profileImgUrl;
+	
+	/**
+	 * 遷移元画面名
+	 */
+	private String prevScreen;
 }

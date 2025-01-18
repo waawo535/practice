@@ -143,12 +143,20 @@ button:hover {
   color: #555;
 }
 
-.login-link a {
+.authentication-link {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.link a {
   color: #74b9ff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.login-link a:hover {
+.link a:hover {
   color: #0984e3;
 }

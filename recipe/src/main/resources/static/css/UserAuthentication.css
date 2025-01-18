@@ -13,14 +13,14 @@
 /*  display: block;*/
 /*  margin: 8px auto 0;*/
 /*}*/
-h2 {
-  font-size: 26px;
-  background: #233B6C;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-align: center;
-  margin-bottom: 20px;
-}
+/*h2 {*/
+/*  font-size: 26px;*/
+/*  background: #233B6C;*/
+/*  background-clip: text;*/
+/*  -webkit-text-fill-color: transparent;*/
+/*  text-align: center;*/
+/*  margin-bottom: 20px;*/
+/*}*/
 
 /* bodyのレイアウト調整 */
 body {
@@ -45,11 +45,11 @@ body {
 }
 
 /* タイトル */
-h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 10px;
-}
+/*h2 {*/
+/*  text-align: center;*/
+/*  color: #333;*/
+/*  margin-bottom: 10px;*/
+/*}*/
 
 /* エラーメッセージエリア */
 .error-messages {
@@ -132,12 +132,13 @@ button:hover {
 .main-text {
   display: block;
   text-align: center;
+  margin-top: 10px;
   margin-bottom: 20px;
   font-size: 15px;
   color: #555;
 }
 
-.resend-text {
+.resend {
   display: block;
   text-align: center;
   margin-top: 20px;
@@ -145,12 +146,20 @@ button:hover {
   color: #555;
 }
 
-.resend-text a {
+.register {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.link a {
   color: #74b9ff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.resend-text a:hover {
+.link a:hover {
   color: #0984e3;
 }

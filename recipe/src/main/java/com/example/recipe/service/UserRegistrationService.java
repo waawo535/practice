@@ -75,7 +75,7 @@ public class UserRegistrationService extends BaseService{
 		userRegistrationServiceOut.setPasswordCheckFlg(passwordIntegrity);
 		
 		//パスワードが不整合又はメールアドレスが登録済みの場合
-		if(!passwordIntegrity||userRegistrationServiceOut.isDefinitivlyRegistered()) {
+		if(!passwordIntegrity||userRegistrationServiceOut.isDefinitivlyRegistered()||userRegistrationServiceOut.isProvisionallyRegistered()) {
 			//呼び出し元に戻る
 			return userRegistrationServiceOut;
 		}

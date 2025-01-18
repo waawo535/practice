@@ -35,10 +35,16 @@
 
       <button type="submit">登録</button>
     </form>
-	<p class="login-link">
-	  ログインは <a th:href="@{/Login/initShow}">こちら</a>
-	</p>
+	<div class="link">
+		<p class="login-link">
+		  ログインは <a th:href="@{/Login/initShow}">こちら</a>
+		</p>
+		<p class="authentication-link" th:if="${'UserAuthentication'.equals(prevScreen) }">
+			<a th:href="@{/UserRegistration/registerToAuthentication}">認証画面に戻る</a>
+		</p>
+	</div>
   </div>
   <script src="UserRegistration.js"></script>
+  <input type="hidden">
 </body>
 </html>
