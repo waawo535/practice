@@ -33,11 +33,18 @@ public class UserRegistrationServiceOut {
 	private String token;
 	
 	/**
-	 * メールアドレス存在フラグ
+	 * メールアドレス仮登録フラグ
+	 * true:仮登録
+	 * false:仮登録でない
+	 */
+	private boolean provisionallyRegistered;
+	
+	/**
+	 * メールアドレス本登録フラグ
 	 * true:メールアドレスが既に登録済み
 	 * faslse:メールアドレスは未登録
 	 */
-	private boolean emailExistingFlg;
+	private boolean definitivlyRegistered;
 	
 	/**
 	 * パスワード整合性フラグ

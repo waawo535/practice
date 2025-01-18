@@ -54,15 +54,20 @@ public class UserRegistrationService extends BaseService{
 		//ユーザ未作成判定処理
 		SelectRegisteredUserParam selectRegisteredUserParam = new SelectRegisteredUserParam();
 		selectRegisteredUserParam.setEmailAdress(userRegistrationServiceIn.getEmailAdress());
-		selectRegisteredUserParam.setRegisterStatusCode(CommonConst.DEFINITIVE_REGISTRATION);
 		SelectRegisteredUserEntity selectRegisteredUserEntity = dao.selectByPk(selectRegisteredUserParam);
 		
+		//ユーザ登録済み判定処理
+		userRegistrationServiceOut.setProvisionallyRegistered(false);
+		userRegistrationServiceOut.setDefinitivlyRegistered(false);
 		if(!(selectRegisteredUserEntity==null)) {
-			//入力したメアドと一致するユーザが存在する場合
-			userRegistrationServiceOut.setEmailExistingFlg(true);
-		}else {
-			//入力したメアドと一致するユーザが存在しない場合
-			userRegistrationServiceOut.setEmailExistingFlg(false);
+			//仮登録済みの場合
+			if(selectRegisteredUserEntity.getRegisterStatusCode().equals(CommonConst.PROVISIONAL_REGISTRATION)) {
+				userRegistrationServiceOut.setProvisionallyRegistered(true);
+				
+				//本登録済みの場合
+			}else if(selectRegisteredUserEntity.getRegisterStatusCode().equals(CommonConst.DEFINITIVE_REGISTRATION)){
+				userRegistrationServiceOut.setDefinitivlyRegistered(true);
+			}
 		}
 		
 		//パスワードとパスワード（確認用）の整合性チェック
@@ -70,7 +75,7 @@ public class UserRegistrationService extends BaseService{
 		userRegistrationServiceOut.setPasswordCheckFlg(passwordIntegrity);
 		
 		//パスワードが不整合又はメールアドレスが登録済みの場合
-		if(!passwordIntegrity||userRegistrationServiceOut.isEmailExistingFlg()) {
+		if(!passwordIntegrity||userRegistrationServiceOut.isDefinitivlyRegistered()) {
 			//呼び出し元に戻る
 			return userRegistrationServiceOut;
 		}

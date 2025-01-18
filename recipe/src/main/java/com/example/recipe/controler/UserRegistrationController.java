@@ -97,9 +97,14 @@ public class UserRegistrationController extends BaseController {
 		UserRegistrationServiceOut userRegistrationServiceOut = userRegistrationService.register(userRegistrationServiceIn);
 		
 		//メールアドレスが登録済み又はパスワードとパスワード（確認用）の整合性がない場合
-		if(userRegistrationServiceOut.isEmailExistingFlg()||!(userRegistrationServiceOut.isPasswordCheckFlg())) {
-			//メールアドレスが登録済みの場合
-			if(userRegistrationServiceOut.isEmailExistingFlg()) {
+		if(userRegistrationServiceOut.isProvisionallyRegistered()||userRegistrationServiceOut.isDefinitivlyRegistered()||!(userRegistrationServiceOut.isPasswordCheckFlg())) {
+			//メールアドレスが仮登録済みの場合
+			if(userRegistrationServiceOut.isProvisionallyRegistered()) {
+				String errorMessage = messageSource.getMessage("E208", new Object[] {}, Locale.JAPAN);
+				setErrorMessageList(userRegistrationFormDto, errorMessage);
+				
+				//メールアドレスが本登録済みの場合
+			}else if(userRegistrationServiceOut.isDefinitivlyRegistered()) {
 				String errorMessage = messageSource.getMessage("E402", new Object[] {}, Locale.JAPAN);
 				setErrorMessageList(userRegistrationFormDto, errorMessage);
 				
