@@ -2,7 +2,7 @@
  * ユーザ登録画面
  */
 
-package com.example.recipe.controler;
+package com.example.recipe.controller;
 
 import java.util.ArrayList;
 import java.util.Locale;

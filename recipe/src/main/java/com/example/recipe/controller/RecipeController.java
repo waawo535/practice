@@ -1,4 +1,4 @@
-package com.example.recipe.controler;
+package com.example.recipe.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
