@@ -31,7 +31,7 @@ public class InsertUserDetailParam extends BaseParam {
 	/**
 	 * 電話番号
 	 */
-	private int phoneNumber;
+	private String phoneNumber;
 	
 	/**
 	 * パスワード
