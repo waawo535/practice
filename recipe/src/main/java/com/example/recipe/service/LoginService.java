@@ -5,7 +5,6 @@ import jakarta.inject.Inject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-import com.example.entity.SelectUserDetailPasswordEntity;
 import com.example.recipe.base.BaseService;
 import com.example.recipe.common.MyBatisDao;
 import com.example.recipe.common.util.CommonConst;
@@ -16,6 +15,7 @@ import com.example.recipe.entity.param.SelectUserDetailParam;
 import com.example.recipe.entity.param.SelectUserDetailPasswordParam;
 import com.example.recipe.entity.result.SelectRegisteredUserEntity;
 import com.example.recipe.entity.result.SelectUserDetailEntity;
+import com.example.recipe.entity.result.SelectUserDetailPasswordEntity;
 
 @Service
 public class LoginService extends BaseService {

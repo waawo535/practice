@@ -1,4 +1,4 @@
-package com.example.entity;
+package com.example.recipe.entity.result;
 
 import com.example.recipe.base.BaseEntity;
 
