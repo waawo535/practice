@@ -9,7 +9,7 @@
 <body>
   <div class="container">
     <h2>アカウントを作成</h2>
-	<!-- エラーメッセージ表示領域 -->
+	<!-- エラーメッセージ表示領域 開始-->
 	<div th:if="${!(UserRegistrationDto.errormessageAreaList == null) and !#lists.isEmpty(UserRegistrationDto.errormessageAreaList)}">
 	  <div class="error-messages">
 	    <ul>
@@ -17,6 +17,7 @@
 	    </ul>
 	  </div>
 	</div>
+	<!-- エラーメッセージ表示領域 終了-->
     <form id="registrationForm" th:action="@{/UserRegistration/register}" th:object="${UserRegistrationDto}" method="POST">
       <div class="form-group">
         <label for="email">メールアドレス</label>
@@ -45,6 +46,5 @@
 	</div>
   </div>
   <script src="UserRegistration.js"></script>
-  <input type="hidden">
 </body>
 </html>

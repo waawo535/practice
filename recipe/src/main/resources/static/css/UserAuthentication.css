@@ -76,7 +76,7 @@ body {
 }
 
 .error-messages li::before {
-  content: '⚠'; /* スタイリッシュなアイコン（警告マーク） */
+  content: '⚠'; 
   color: #e74c3c;
   font-weight: bold;
   position: absolute;

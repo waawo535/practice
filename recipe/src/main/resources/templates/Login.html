@@ -9,6 +9,7 @@
 <body>
   <div class="container">
     <h2>ログイン</h2>
+	<!-- エラーメッセージ表示領域 開始-->
 	<div th:if="${!(LoginDto.errormessageAreaList == null) and !#lists.isEmpty(LoginDto.errormessageAreaList)}">
 	  <div class="error-messages">
 	    <ul>
@@ -16,6 +17,7 @@
 	    </ul>
 	  </div>
 	</div>
+	<!-- エラーメッセージ表示領域 終了-->
     <form th:action="@{/Login/login}" th:object="${LoginDto}" method="POST">
       <div class="form-group">
         <label for="email">メールアドレス</label>
