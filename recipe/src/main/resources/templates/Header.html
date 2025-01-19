@@ -1,16 +1,16 @@
 <div th:fragment="header">
 	 <header class="header">
     <div class="left-section">
-      <button class="home-button" onclick="location.href='/user-portal'">
+      <button class="home-button" onclick="userPortal()">
         <img src="app-icon.png" alt="App Icon" class="app-icon">
         <span>ホーム</span>
       </button>
     </div>
     <div class="center-section">
-      <input type="text" placeholder="検索...🔍" class="search-box">
+      <input type="text" placeholder="🔍検索..." class="search-box">
     </div>
     <div class="right-section">
-      <button class="user-info-button" th:onclick="@{/UserManagement/initShow}">ユーザ情報管理</button>
+      <button class="user-info-button" onclick="userInfo()">ユーザ情報管理</button>
       <button class="logout-button" onclick="logout()">ログアウト</button>
     </div>
 </header>

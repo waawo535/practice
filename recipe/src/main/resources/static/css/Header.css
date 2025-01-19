@@ -10,7 +10,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #009BFF;
+  background-color: #4A90E2;
   border-bottom: 1px solid #ddd;
   position: sticky;
   top: 0;
@@ -46,6 +46,12 @@ body {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  outline: none;
+}
+
+.search-box:focus {
+  border: 1px solid #007BFF; /* フォーカス時の枠線を青色に変更 */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* フォーカス時の視覚効果を追加 */
 }
 
 .right-section button {
@@ -53,7 +59,7 @@ body {
   padding: 8px 12px;
   font-size: 14px;
   color: white;
-  background-color: #FFFFFF;;
+  background-color: #4A90E2;;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -61,7 +67,7 @@ body {
 }
 
 .right-section button:hover {
-  background-color: #cce4ff;
+  background-color: #0984e3;
 }
 
 .logout-button {
