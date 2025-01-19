@@ -1,0 +1,110 @@
+.UserInfo body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafc;
+    margin: 0;
+    padding-top: 60px;
+    display: flex;
+	flex-direction: column;
+    height: 100vh;
+	box-sizing: border-box;
+	overflow-y: auto;
+}
+.container {
+    display: flex;
+	width: 100%;
+    flex: 1;
+    overflow: hidden;
+}
+.sidebar {
+    width: 25%;
+/*    max-width: 250px;*/
+	height: calc(100vh - 60px);
+    background: #fff;
+    border-right: 1px solid #e0e0e0;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+.main-content {
+	flex: 1;
+	justify-content: center; /* 横中央揃え */
+	align-items: center; /* 縦中央揃え */
+	padding: 20px;
+	background-color: #f9fafc;
+}
+.profile-img-container {
+    text-align: center;
+    margin-bottom: 16px;
+}
+.profile-img-container img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #e1e8ed;
+    object-fit: cover;
+}
+.profile-item {
+    margin-bottom: 16px;
+}
+.profile-item label {
+    font-weight: bold;
+    display: block;
+    color: #4a4a4a;
+    margin-bottom: 6px;
+}
+.profile-item span {
+    display: block;
+    color: #606770;
+}
+.recipes-container {
+	width: 100%;
+	max-width: 1100px; /* コンテナの最大幅を設定 */
+	margin: auto; 
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	text-align: center;
+}
+.recipes-container h2 {
+    margin-bottom: 16px;
+    color: #4a4a4a;
+}
+button {
+    padding: 10px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button.create-btn {
+    background-color: #4c6ef5;
+    color: #fff;
+}
+button.create-btn:hover {
+    background-color: #3b5bdb;
+}
+.edit-btn {
+    background-color: #4c6ef5;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.edit-btn:hover {
+    background-color: #3b5bdb;
+}
+.profile-edit {
+    display: none;
+}
+.profile-edit input[type="text"], input[type="email"], input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 6px;
+}

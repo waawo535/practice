@@ -121,7 +121,7 @@ public class LoginController extends BaseController {
 		sessionInfoDto.setUserName(loginServiceLoginOut.getUserName());
 		sessionInfoDto.setProfileImgUrl(loginServiceLoginOut.getProfileImgUrl());
 		sessionInfoDto.setPrevScreen(CommonConst.SCREENID_LOGIN);
-		session.setAttribute(CommonConst.KEY_SESSIONINFO_DTO, sessionInfoDto);
+		session.setAttribute(CommonConst.KEY_SYSYTEMINFO_DTO, sessionInfoDto);
 		
 		return CommonConst.SCREENID_USERPORTAL;
 	}
@@ -136,6 +136,7 @@ public class LoginController extends BaseController {
 		session.invalidate();
 		return CommonConst.REDIRECT_LOGIN;
 	}
+	
 	/**
 	 * 単項目チェック
 	 * @param userRegistrationFormDto

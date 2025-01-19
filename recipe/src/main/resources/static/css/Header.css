@@ -1,6 +1,14 @@
 @charset "UTF-8";
-
-body {
+* {
+    box-sizing: border-box; /* 全体のサイズ計算を統一 */
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%; /* ページ全体を確実にカバー */
+    overflow-x: hidden; /* 横スクロールを防ぐ */
+}
+.header body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
@@ -9,6 +17,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 60px; 
   padding: 10px 20px;
   background-color: #4A90E2;
   border-bottom: 1px solid #ddd;
@@ -32,13 +41,14 @@ body {
   border: none;
   cursor: pointer;
   font-size: 16px;
-  color: #333;
+  color: #FFFFFF;
 }
 
 .home-button .app-icon {
   width: 32px;
   height: 32px;
   margin-right: 8px;
+  margin-top: 5px;
 }
 
 .search-box {

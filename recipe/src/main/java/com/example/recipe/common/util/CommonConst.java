@@ -53,7 +53,8 @@ public class CommonConst {
 	public static final String KEY_USERAUTHENTICATION_DTO = "UserAuthenticationDto";
 	/** ログイン画面表示DTO*/
 	public static final String KEY_LOGIN_DTO = "LoginDto";
-	
+	/** ユーザ情報管理画面表示用DTO*/
+	public static final String KEY_USERINFOMANAGEMENT_DTO = "UserInfoManagementDto";
 	//------------------------------画面名------------------------------
 	/** ユーザ登録画面*/
 	public static final String SCREENID_USERREGISTRATION = "UserRegistration";
@@ -68,7 +69,7 @@ public class CommonConst {
 	/** ユーザ情報登録画面*/
 	public static final String SCREENID_USERINFOREGISTRATION = "UserInfoRegistration";
 	/** ユーザ情報管理画面*/
-	public static final String SCREENID_USERMANAGEMENT = "UserManagement";
+	public static final String SCREENID_USERINFOMANAGEMENT = "UserInfoManagement";
 	/** レシピ一覧画面*/
 	public static final String SCREENID_RECIPELIST = "RecipeList";
 	/** レシピ詳細画面*/
@@ -90,7 +91,7 @@ public class CommonConst {
 	/** ユーザ情報登録画面*/
 	public static final String REDIRECT_USERINFOREGISTRATION = "redirect:/UserInfoRegistration/initShow";
 	/** ユーザ情報管理画面*/
-	public static final String REDIRECT_USERMANAGEMENT = "redirect:/UserManagement/initShow";
+	public static final String REDIRECT_USERINFOMANAGEMENT = "redirect:/UserInfoManagement/initShow";
 	/** レシピ一覧画面*/
 	public static final String REDIRECT_RECIPELIST = "redirect:/RecipeList/initShow";
 	/** レシピ詳細画面*/

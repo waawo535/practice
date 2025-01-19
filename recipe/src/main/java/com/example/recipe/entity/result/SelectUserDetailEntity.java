@@ -1,6 +1,7 @@
 package com.example.recipe.entity.result;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import com.example.recipe.base.BaseEntity;
 
@@ -39,7 +40,7 @@ public class SelectUserDetailEntity extends BaseEntity {
 	/**
 	 * 生年月日
 	 */
-	private String birthDate;
+	private LocalDate birthDate;
 	
 	/**
 	 * 性別

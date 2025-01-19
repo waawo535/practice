@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ユーザ情報管理画面</title>
+<link rel="stylesheet" th:href="@{/css/Header.css}">
+<link rel="stylesheet" th:href="@{/css/UserInfoManagement.css}">
+</head>
+<body class="UserInfo">
+<div th:replace="~{Header :: header}"  ></div>
+<div class="container">
+<div class="sidebar">
+    <div class="profile-img-container">
+        <img id="profileImg" th:src="@{/img/home.png}" alt="プロフィール画像">
+    </div>
+    <div class="profile-item">
+        <label>ユーザ名:</label>
+        <span id="userName">山田太郎</span>
+    </div>
+    <div class="profile-item">
+        <label>Email:</label>
+        <span id="emailAddress">taro.yamada@example.com</span>
+    </div>
+    <div class="profile-item">
+        <label>電話番号:</label>
+        <span id="phoneNumber">080-1234-5678</span>
+    </div>
+    <div class="profile-item">
+        <label>自己紹介:</label>
+        <span id="bio">料理が大好きなソフトウェアエンジニアです。</span>
+    </div>
+    <div class="profile-item">
+        <label>誕生日:</label>
+        <span id="birthDate">1990-01-01</span>
+    </div>
+    <div class="profile-item">
+        <label>性別:</label>
+        <span id="gender">男性</span>
+    </div>
+    <div class="profile-item">
+        <label>登録日:</label>
+        <span id="registerDate">2023-01-01</span>
+    </div>
+    <div class="profile-item">
+        <label>更新日:</label>
+        <span id="updateDate">2025-01-19</span>
+    </div>
+    <button class="edit-btn" onclick="showEditProfile()">プロフィールを編集</button>
+</div>
+<div class="main-content">
+    <div class="recipes-container" id="recipesContainer">
+        <h2>作成したレシピ一覧</h2>
+        <div id="recipesList">
+            <p>作成したレシピがありません。</p>
+            <button class="create-btn" onclick="location.href='create_recipe.html'">レシピを作成する</button>
+        </div>
+    </div>
+</div>
+</div>
+<div class="profile-edit" id="profileEdit">
+    <div class="main-content">
+        <h2>プロフィール編集</h2>
+        <div class="profile-item">
+            <label for="editUserName">ユーザ名:</label>
+            <input type="text" id="editUserName" value="山田太郎">
+        </div>
+        <div class="profile-item">
+            <label for="editEmail">Email:</label>
+            <input type="email" id="editEmail" value="taro.yamada@example.com">
+        </div>
+        <div class="profile-item">
+            <label for="editPhoneNumber">電話番号:</label>
+            <input type="tel" id="editPhoneNumber" value="080-1234-5678">
+        </div>
+        <div class="profile-item">
+            <label for="editBio">自己紹介:</label>
+            <input type="text" id="editBio" value="料理が大好きなソフトウェアエンジニアです。">
+        </div>
+        <button class="edit-btn" onclick="showProfileView()">キャンセル</button>
+        <button class="edit-btn" onclick="saveProfile()">保存</button>
+    </div>
+</div>
+
+<script th:src="@{/js/Header.js}"></script>
+<script th:src="@{/js/UserInfoManagement.js}"></script>
+</body>
+</html>
