@@ -9,7 +9,7 @@
 <body class="UserInfo">
 <div th:replace="~{Header :: header}"  ></div>
 <div class="container">
-<div class="sidebar">
+<div class="sidebar active"  id="profileViewInf">
     <div class="profile-img-container">
         <img id="profileImg" th:src="@{/img/home.png}" alt="プロフィール画像">
     </div>
@@ -47,7 +47,7 @@
     </div>
     <button class="edit-btn" onclick="showEditProfile()">プロフィールを編集</button>
 </div>
-<div class="main-content">
+<div class="main-content active" id="profileViewRec">
     <div class="recipes-container" id="recipesContainer">
         <h2>作成したレシピ一覧</h2>
         <div id="recipesList">

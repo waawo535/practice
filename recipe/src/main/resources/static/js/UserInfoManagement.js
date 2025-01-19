@@ -1,11 +1,13 @@
 function showEditProfile() {
-    document.getElementById('profileView').classList.remove('active');
+    document.getElementById('profileViewInf').classList.remove('active');
+	document.getElementById('profileViewRec').classList.remove('active');
     document.getElementById('profileEdit').classList.add('active');
 }
 
 function showProfileView() {
     document.getElementById('profileEdit').classList.remove('active');
-    document.getElementById('profileView').classList.add('active');
+	document.getElementById('profileViewInf').classList.add('active');
+    document.getElementById('profileViewRec').classList.add('active');
 }
 
 function saveProfile() {

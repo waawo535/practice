@@ -108,3 +108,18 @@ button.create-btn:hover {
     font-size: 14px;
     margin-top: 6px;
 }
+
+/* まずは両方とも「非表示」がデフォルト */
+#profileViewInf, 
+#profileViewRec,
+#profileEdit {
+  display: none;
+}
+
+/* active が付いた要素だけ表示する */
+#profileViewInf.active, 
+#profileViewRec.active, 
+#profileEdit.active {
+  display: block;
+}
+
