@@ -43,6 +43,8 @@ public class CommonConst {
 	//------------------------------キー------------------------------
 	/** セッション情報保持DTO*/
 	public static final String KEY_SESSIONINFO_DTO = "SessionInfo";
+	/** システム情報*/
+	public static final String KEY_SYSYTEMINFO_DTO = "SystemInfo";
 	/** 遷移元画面名*/
 	public static final String KEY_PREVSCREEN = "prevScreen";
 	/** ユーザ登録画面表示DTO*/
@@ -59,6 +61,8 @@ public class CommonConst {
 	public static final String SCREENID_AUTHENTICATION = "UserAuthentication";
 	/** ログイン画面*/
 	public static final String SCREENID_LOGIN = "Login";
+	/**ログアウト*/
+	public static final String SCREENID_LOGOUT = "Logout";
 	/** ユーザポータル画面*/
 	public static final String SCREENID_USERPORTAL = "UserPortal";
 	/** ユーザ情報登録画面*/

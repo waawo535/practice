@@ -9,6 +9,13 @@
 <body>
   <div class="container">
     <h2>ログイン</h2>
+	<div th:if="${!(SystemInfo.successmessageAreaList == null) and !#lists.isEmpty(SystemInfo.successmessageAreaList)}">
+	  <div class="success-message">
+	    <ul>
+	      <li th:each="success : ${SystemInfo.successmessageAreaList}" th:text="${success.successMessage}"></li>
+	    </ul>
+	  </div>
+	</div>
 	<!-- エラーメッセージ表示領域 開始-->
 	<div th:if="${!(LoginDto.errormessageAreaList == null) and !#lists.isEmpty(LoginDto.errormessageAreaList)}">
 	  <div class="error-messages">

@@ -21,6 +21,7 @@ import com.example.recipe.common.util.CommonConst;
 import com.example.recipe.dto.ErrorMessageDto;
 import com.example.recipe.dto.SessionInfoDto;
 import com.example.recipe.dto.SingleFieldCheckCheckForBiddenCharOut;
+import com.example.recipe.dto.SuccessMessageDto;
 import com.example.recipe.dto.ServiceIn.LoginServiceLoginIn;
 import com.example.recipe.dto.ServiceOut.LoginServiceLoginOut;
 import com.example.recipe.dto.view.LoginDto;
@@ -57,6 +58,13 @@ public class LoginController extends BaseController {
 		if (!model.containsAttribute(CommonConst.KEY_LOGIN_DTO)) {
 			LoginDto dto = new LoginDto();
 	        model.addAttribute(CommonConst.KEY_LOGIN_DTO, dto);
+	    }
+		if (!model.containsAttribute(CommonConst.KEY_PREVSCREEN)) {
+	        model.addAttribute(CommonConst.KEY_PREVSCREEN, null);
+	    }
+		if (!model.containsAttribute(CommonConst.KEY_SYSYTEMINFO_DTO)) {
+			SessionInfoDto sessionInfoDto = new SessionInfoDto();
+	        model.addAttribute(CommonConst.KEY_SYSYTEMINFO_DTO, sessionInfoDto);
 	    }
 		return CommonConst.SCREENID_LOGIN;
 	}
@@ -118,6 +126,16 @@ public class LoginController extends BaseController {
 		return CommonConst.SCREENID_USERPORTAL;
 	}
 	
+	//ログアウト
+	@GetMapping("/logout")
+	public String logout(SessionInfoDto sessionInfoDto, RedirectAttributes redirectAttributes) {
+		String successMessage = messageSource.getMessage("I103", new Object[] { }, Locale.JAPAN);
+		setSuccessMessageList(sessionInfoDto, successMessage);
+		redirectAttributes.addFlashAttribute(CommonConst.KEY_SYSYTEMINFO_DTO, sessionInfoDto);
+		redirectAttributes.addFlashAttribute(CommonConst.KEY_PREVSCREEN, CommonConst.SCREENID_LOGOUT);
+		session.invalidate();
+		return CommonConst.REDIRECT_LOGIN;
+	}
 	/**
 	 * 単項目チェック
 	 * @param userRegistrationFormDto
@@ -178,9 +196,21 @@ public class LoginController extends BaseController {
 	 * @param errorMessage
 	 */
 	private void setErrorMessageList(LoginDto loginDto, String errorMessage) {
-		ArrayList<ErrorMessageDto> ErrorMessageList = loginDto.getErrormessageAreaList();
+		ArrayList<ErrorMessageDto> errorMessageList = loginDto.getErrormessageAreaList();
 		ErrorMessageDto errorMessageDto = new ErrorMessageDto();
 		errorMessageDto.setErrorMessage(errorMessage);
-		ErrorMessageList.add(errorMessageDto);
+		errorMessageList.add(errorMessageDto);
+	}
+	
+	/**
+	 * 画面に表示する成功メッセージの設定
+	 * @param userRegistrationFormDto
+	 * @param errorMessage
+	 */
+	private void setSuccessMessageList(SessionInfoDto sessionInfoDto, String successMessage) {
+		ArrayList<SuccessMessageDto> successmessageAreaList = sessionInfoDto.getSuccessmessageAreaList();
+		SuccessMessageDto successMessageDto = new SuccessMessageDto();
+		successMessageDto.setSuccessMessage(successMessage);
+		successmessageAreaList.add(successMessageDto);
 	}
 }

@@ -57,6 +57,36 @@ h2 {
   margin-bottom: 20px;
 }
 
+.success-message {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #E8F5E9 ;
+  border: 1px solid #4CAF50;
+  border-radius: 5px;
+}
+
+.success-message ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.success-message li {
+  color: #388E3C ;
+  font-size: 14px;
+  margin-bottom: 5px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.success-message li::before {
+  content: '✨';
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
 /* エラーメッセージエリア */
 .error-messages {
   margin-bottom: 20px;
