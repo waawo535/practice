@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.entity.result">
+	 <update id="UpdateUserDetailProfile">
+		 UPDATE public.user_detail 
+		SET
+		    user_name = #{userName}
+		    , email_address = #{emailAddress}
+		    , phone_number = #{phoneNumber}
+		    , profile_img_url = #{profileImgUrl}
+		    , bio = #{bio}
+		    , update_date = #{updateDate}
+		    , updated_user_id = #{updatedUserId}
+		WHERE
+		    user_id = #{userId};
+	 </update>
+</mapper>
