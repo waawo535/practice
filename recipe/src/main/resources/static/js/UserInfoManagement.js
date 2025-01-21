@@ -10,6 +10,9 @@ function showProfileView() {
     document.getElementById('profileViewRec').classList.add('active');
 }
 
+function createRecipe(){
+	window.location.href = "/recipe/CreateRecipe/initShow";
+}
 //function saveProfile() {
 ////    window.location.href = "/recipe/UserInfoManagement/editUserInfo";
 //	fetch('/recipe/UserInfoManagement/editUserInfo', {

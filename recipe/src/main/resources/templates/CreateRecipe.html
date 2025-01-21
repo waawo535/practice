@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/CreateRecipe.css}">
+</head>
+<body>
+	<div class="container">
+	  <h1>レシピ入力フォーム</h1>
+	  <form id="recipeForm" th:action="@{/CreateRecipe/saveRecipe}" th:object="${CreateRecipeDto}" method="POST">
+	    <!-- レシピ名 -->
+	    <div class="form-group">
+	      <label for="recipeName">レシピ名</label>
+	      <input type="text" id="recipeName" name="recipeName" placeholder="ふわふわオムレツ" th:field="*{recipeName}" required />
+	    </div>
+
+	    <!-- レシピ画像アップロード＋プレビュー -->
+	    <div class="form-group">
+	      <label for="recipeImage">レシピの画像</label>
+	      <input type="file" id="recipeImg" name="recipeImage" accept="image/*" th:field="*{recipeImg}" />
+	      <div class="preview" id="imagePreview"></div>
+	    </div>
+
+	    <!-- レシピの説明 -->
+	    <div class="form-group">
+	      <label for="recipeDescription">レシピの説明</label>
+	      <textarea id="recipeDescription" name="recipeDescription" placeholder="・味やおすすめポイント
+		  ・楽しみ方
+		  ・この料理を作ったきっかけ など"  th:field="*{recipeDiscrip}"></textarea>
+	    </div>
+
+	    <!-- レシピカテゴリ -->
+	    <div class="form-group">
+	      <label for="recipeCategory">レシピカテゴリ</label>
+	      <select id="recipeCategory" name="recipeCategory" th:field="*{recipeCategory}">
+	        <option value="">選択してください</option>
+	        <option value="和食">和食</option>
+	        <option value="洋食">洋食</option>
+	        <option value="中華">中華</option>
+	        <option value="スイーツ">スイーツ</option>
+	      </select>
+	    </div>
+
+	    <!-- レシピの材料 -->
+	    <div class="form-group">
+	      <label>レシピの材料</label>
+	      <div class="ingredient-list" id="ingredientList" th:field="*{recipeIngredients}">
+	        <!-- 追加された材料項目がここに入る -->
+	      </div>
+	      <button type="button" class="add-button" id="addIngredientBtn">＋</button>
+	    </div>
+
+	    <!-- 作り方 -->
+	    <div class="form-group">
+	      <label>作り方</label>
+	      <div class="steps-list" id="stepsList" th:field="*{stepsList}">
+	        <!-- 追加された手順項目がここに入る -->
+	      </div>
+	      <button type="button" class="add-button" id="addStepBtn">＋</button>
+	    </div>
+
+	    <!-- 公開/非公開 -->
+	    <div class="form-group">
+	      <label>公開設定</label>
+	      <div class="radio-group" th:field="*{publishStatus}">
+	        <label><input type="radio" name="publishStatus" value="public" checked /> 公開</label>
+	        <label><input type="radio" name="publishStatus" value="private" /> 非公開</label>
+	      </div>
+	    </div>
+
+	    <!-- ボタン -->
+	    <div class="button-group">
+	      <button type="button" class="cancel-btn" onclick="handleCancel()">キャンセル</button>
+	      <button type="submit" class="submit-btn">登録する</button>
+	    </div>
+	  </form>
+	</div>
+<script th:src="@{/js/CreateRecipe.js}"></script>
+</body>
+</html>
