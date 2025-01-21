@@ -79,7 +79,6 @@ public class UserInfoManagementController extends BaseController {
 	 */
 	@PostMapping("/editUserInfo")
 	public String editUserInfo(UserInfoManagementDto viewDto, RedirectAttributes redirectAttributes) {
-		
 		//単項目チェック
 		checkSingeField(viewDto);
 		

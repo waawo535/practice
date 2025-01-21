@@ -10,8 +10,21 @@ function showProfileView() {
     document.getElementById('profileViewRec').classList.add('active');
 }
 
-function saveProfile() {
-    // 保存処理はここに実装
-    alert('プロフィールが保存されました。');
-    showProfileView();
-}
+//function saveProfile() {
+////    window.location.href = "/recipe/UserInfoManagement/editUserInfo";
+//	fetch('/recipe/UserInfoManagement/editUserInfo', {
+//	  method: 'POST',
+//	  headers: {
+//	    'Content-Type': 'application/json',
+//	    // 例: CSRFトークンが必要な場合はここに追加する
+//	  },
+//	  body: JSON.stringify({ someParam: 'someValue' })
+//	})
+//	.then(response => {
+//	  // 成功時の処理
+//	})
+//	.catch(err => {
+//	  // エラー時の処理
+//	});
+
+//}

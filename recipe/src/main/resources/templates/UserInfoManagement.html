@@ -15,35 +15,35 @@
     </div>
     <div class="profile-item">
         <label>ユーザ名:</label>
-        <span id="userName" th:text="*{userName}">山田太郎</span>
+        <span id="userName" th:text="*{userName}"></span>
     </div>
     <div class="profile-item">
         <label>Email:</label>
-        <span id="emailAddress" th:text="*{emailAddress}">taro.yamada@example.com</span>
+        <span id="emailAddress" th:text="*{emailAddress}"></span>
     </div>
     <div class="profile-item">
         <label>電話番号:</label>
-        <span id="phoneNumber" th:text="*{phoneNumber}">080-1234-5678</span>
+        <span id="phoneNumber" th:text="*{phoneNumber}"></span>
     </div>
     <div class="profile-item">
         <label>自己紹介:</label>
-        <span id="bio" th:text="*{bio}">料理が大好きなソフトウェアエンジニアです。</span>
+        <span id="bio" th:text="*{bio}"></span>
     </div>
     <div class="profile-item">
         <label>誕生日:</label>
-        <span id="birthDate" th:text="*{birthDate}">1990-01-01</span>
+        <span id="birthDate" th:text="*{birthDate}"></span>
     </div>
     <div class="profile-item">
         <label>性別:</label>
-        <span id="gender" th:text="*{gender}">男性</span>
+        <span id="gender" th:text="*{gender}"></span>
     </div>
     <div class="profile-item">
         <label>登録日:</label>
-        <span id="registerDate" th:text="*{registerDate}">2023-01-01</span>
+        <span id="registerDate" th:text="*{registerDate}"></span>
     </div>
     <div class="profile-item">
         <label>更新日:</label>
-        <span id="updateDate" th:text="*{updateDate}">2025-01-19</span>
+        <span id="updateDate" th:text="*{updateDate}"></span>
     </div>
     <button class="edit-btn" onclick="showEditProfile()">プロフィールを編集</button>
 </div>
@@ -58,26 +58,28 @@
 </div>
 </div>
 <div th:classappend="${#strings.isEmpty(errorMessage)} ? 'profile-edit' : 'profile-edit active'" id="profileEdit">
-    <div class="main-content" th:object="${UserInfoManagementDto}">
-        <h2>プロフィール編集</h2>
-        <div class="profile-item">
-            <label for="editUserName">ユーザ名:</label>
-            <input type="text" id="editUserName" placeholder="山田太郎" th:field="*{userName}">
-        </div>
-        <div class="profile-item">
-            <label for="editEmail">Email:</label>
-            <input type="email" id="editEmail" placeholder="taro.yamada@example.com" th:field="*{emailAddress}">
-        </div>
-        <div class="profile-item">
-            <label for="editPhoneNumber">電話番号:</label>
-            <input type="tel" id="editPhoneNumber" placeholder="080-1234-5678" th:field="*{phoneNumber}">
-        </div>
-        <div class="profile-item">
-            <label for="editBio">自己紹介:</label>
-            <input type="text" id="editBio" placeholder="料理が大好きなソフトウェアエンジニアです。" th:field="*{bio}">
-        </div>
-        <button class="edit-btn" onclick="showProfileView()">キャンセル</button>
-        <button class="edit-btn" onclick="saveProfile()">保存</button>
+    <div class="main-content">
+		<form id="profileEditForm" th:action="@{/UserInfoManagement/editUserInfo}"  th:object="${UserInfoManagementDto}" method="POST">
+	        <h2>プロフィール編集</h2>
+	        <div class="profile-item">
+	            <label for="editUserName">ユーザ名:</label>
+	            <input type="text" id="editUserName" placeholder="山田太郎" th:field="*{userName}">
+	        </div>
+	        <div class="profile-item">
+	            <label for="editEmail">Email:</label>
+	            <input type="email" id="editEmail" placeholder="taro.yamada@example.com" th:field="*{emailAddress}">
+	        </div>
+	        <div class="profile-item">
+	            <label for="editPhoneNumber">電話番号:</label>
+	            <input type="tel" id="editPhoneNumber" placeholder="080-1234-5678" th:field="*{phoneNumber}">
+	        </div>
+	        <div class="profile-item">
+	            <label for="editBio">自己紹介:</label>
+	            <input type="text" id="editBio" placeholder="料理が大好きなソフトウェアエンジニアです。" th:field="*{bio}">
+	        </div>
+	        <button class="edit-btn" onclick="showProfileView()">キャンセル</button>
+	        <button type="submit" class="edit-btn">保存</button>
+		</form>
     </div>
 </div>
 
