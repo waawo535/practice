@@ -1,11 +1,17 @@
 package com.example.recipe.dto.ServiceIn;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class CreateRecipeSaveRecipeIn {
+	
+	private String userId;
+	
 	private String recipeId;
 	
 	private String recipeName;
@@ -16,9 +22,9 @@ public class CreateRecipeSaveRecipeIn {
 	
 	private String recipeDiscrip;
 	
-	private String recipeIngredients;
+	private HashMap<String, String> recipeIngredients;
 	
-	private String stepsList;
+	private ArrayList<String> stepsList;
 	
 	private String publishStatus;
 }

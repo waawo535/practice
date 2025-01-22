@@ -1,5 +1,7 @@
 package com.example.recipe.controller;
 
+import java.io.IOException;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -39,7 +41,7 @@ public class CreateRecipeController extends BaseController {
 	
 	@PostMapping("/saveRecipe")
 	public String saveRecipe(CreateRecipeDto createRecipeDto) {
-		
+		try {
 		//DB保存処理
 		CreateRecipeSaveRecipeIn inDto = new CreateRecipeSaveRecipeIn();
 		inDto.setRecipeName(createRecipeDto.getRecipeName());
@@ -49,7 +51,12 @@ public class CreateRecipeController extends BaseController {
 		inDto.setRecipeIngredients(createRecipeDto.getRecipeIngredients());
 		inDto.setStepsList(createRecipeDto.getStepsList());
 		inDto.setPublishStatus(createRecipeDto.getPublishStatus());
-		createRecipeService.saveRecipe(inDto);
+		
+			createRecipeService.saveRecipe(inDto);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 		
 		
 		

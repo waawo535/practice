@@ -1,5 +1,8 @@
 package com.example.recipe.dto.view;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.example.recipe.base.BaseDto;
 
 import lombok.Getter;
@@ -19,9 +22,9 @@ public class CreateRecipeDto extends BaseDto {
 	
 	private String recipeDiscrip;
 	
-	private String recipeIngredients;
+	private HashMap<String, String> recipeIngredients;
 	
-	private String stepsList;
+	private ArrayList<String> stepsList;
 	
 	private String publishStatus;
 	
