@@ -96,6 +96,8 @@ public class CommonConst {
 	public static final String REDIRECT_USERINFOREGISTRATION = "redirect:/UserInfoRegistration/initShow";
 	/** ユーザ情報管理画面*/
 	public static final String REDIRECT_USERINFOMANAGEMENT = "redirect:/UserInfoManagement/initShow";
+	/** レシピ作成画面*/
+	public static final String REDIRECT_CREATERECIPE = "redirect:/CreateRecipe/initShow";
 	/** レシピ一覧画面*/
 	public static final String REDIRECT_RECIPELIST = "redirect:/RecipeList/initShow";
 	/** レシピ詳細画面*/

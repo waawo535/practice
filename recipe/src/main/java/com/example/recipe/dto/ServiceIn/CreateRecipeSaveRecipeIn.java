@@ -20,11 +20,23 @@ public class CreateRecipeSaveRecipeIn {
 	
 	private String recipeImg;
 	
+	/**
+	 * 説明
+	 */
 	private String recipeDiscrip;
 	
+	/**
+	 * 材料
+	 */
 	private HashMap<String, String> recipeIngredients;
 	
+	/**
+	 * 手順
+	 */
 	private ArrayList<String> stepsList;
 	
+	/**
+	 * 公開非公開フラグ
+	 */
 	private String publishStatus;
 }

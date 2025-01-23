@@ -13,21 +13,28 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.recipe.base.BaseService;
 import com.example.recipe.common.DateTimeGenerator;
 import com.example.recipe.common.MyBatisDao;
+import com.example.recipe.common.util.CommonConst;
 import com.example.recipe.dto.ServiceIn.CreateRecipeSaveRecipeIn;
 import com.example.recipe.dto.ServiceOut.CreateRecipeSaveRecipeOut;
+import com.example.recipe.entity.param.InsertRecipeInfoParam;
+import com.example.recipe.entity.param.InsertRecipeIngredientsParam;
 
 @Service
 public class CreateRecipeService extends BaseService {
 	
 	MultipartFile multipartFile;
+	
+	IdNumberingService idNumberingService;
+	
 	/**
 	 * コンストラクタ
 	 * @param dao
 	 */
 	@Inject
-	public CreateRecipeService(MyBatisDao dao, MultipartFile multipartFile) {
+	public CreateRecipeService(MyBatisDao dao, MultipartFile multipartFile, IdNumberingService idNumberingService) {
 		this.dao = dao;
 		this.multipartFile = multipartFile;
+		this.idNumberingService = idNumberingService;
 	}
 	
 	
@@ -37,6 +44,38 @@ public class CreateRecipeService extends BaseService {
 		//ファイル保存処理
 		String fileName = createFileName(inDto.getRecipeImg(), inDto.getUserId());
 		saveFile(fileName);
+		
+		//レシピID取得
+		String recipeId = idNumberingService.getNumbering(CommonConst.ID_TYPE_RC, inDto.getUserId());
+		
+		//レシピテーブル登録処理
+		InsertRecipeInfoParam insertRecipeInfoParam = new InsertRecipeInfoParam();
+		insertRecipeInfoParam.setUserId(inDto.getUserId());
+		insertRecipeInfoParam.setRecipeId(recipeId);
+		insertRecipeInfoParam.setRecipeName(inDto.getRecipeName());
+		insertRecipeInfoParam.setRecipeCategory(inDto.getRecipeCategory());
+		insertRecipeInfoParam.setRecipeAveRating(null);
+		insertRecipeInfoParam.setRecipeIngredients(null);
+		insertRecipeInfoParam.setRecipeImg(fileName);
+		insertRecipeInfoParam.setRecipeDiscrip(inDto.getRecipeDiscrip());
+		insertRecipeInfoParam.setRecipeMainTxt(null);
+		insertRecipeInfoParam.setDeleteFlg(false);
+		insertRecipeInfoParam.setRegisterDate(DateTimeGenerator.getTimestampDateTime());
+		insertRecipeInfoParam.setRegistereduserId(inDto.getUserId());
+		insertRecipeInfoParam.setUpdateDate(DateTimeGenerator.getTimestampDateTime());
+		insertRecipeInfoParam.setUpdatedUserId(inDto.getUserId());
+		dao.insertByValue(insertRecipeInfoParam);
+		
+		//材料テーブル登録処理
+		InsertRecipeIngredientsParam insertRecipeIngredientsParam = new InsertRecipeIngredientsParam();
+		for(int i=1;i<=inDto.getRecipeIngredients().size();i++) {
+			insertRecipeIngredientsParam.setRecipeId(recipeId);
+			insertRecipeIngredientsParam.setIngredientNumber(i);
+			//HashMapじゃだめだからあとで考える
+			insertRecipeIngredientsParam.setIngredientName(inDto.getRecipeIngredients().);
+		}
+		//手順テーブル登録処理
+		
 		
 		return outDto;
 	}
