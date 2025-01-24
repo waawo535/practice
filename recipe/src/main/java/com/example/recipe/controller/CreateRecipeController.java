@@ -74,6 +74,7 @@ public class CreateRecipeController extends BaseController {
 			return CommonConst.REDIRECT_CREATERECIPE;
 		}
 		
+		//ユーザポータルにすべきか
 		return CommonConst.SCREENID_RECIPELIST;
 	}
 	

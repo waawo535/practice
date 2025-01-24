@@ -1,5 +1,7 @@
 package com.example.recipe.entity.result;
 
+import java.sql.Timestamp;
+
 import com.example.recipe.base.BaseEntity;
 
 import lombok.Getter;
@@ -10,35 +12,27 @@ import lombok.ToString;
 @Setter
 @ToString
 public class SelectRecipeListEntity extends BaseEntity {
-	/*
-	 * レシピ名
-	 */
+	
+	private String userId;
+	
+	private String recipeId;
+	
 	private String recipeName;
 	
-	/*
-	 * レシピ画像
-	 */
+	private String recipeAveRating;
+	
 	private String recipeImg;
 	
-	/*
-	 * レシピ説明文
-	 */
-	private String recipeDescrip;
+	private String recipeDiscrip;
 	
-	/*
-	 * レシピ本文
-	 */
-	private String recipeMainTxt;
+	private Timestamp registerDate;
 	
-	/*
-	 * レシピ登録日
-	 */
-	private String registerDate;
+	private String registereduserId;
 	
-	/*
-	 * レシピ最終更新日
-	 */
-	private String updateDate;
+	private Timestamp updateDate;
+	
+	private String updatedUserId;
+	
 	public SelectRecipeListEntity() {
 		super("SelectRecipeList", "com.example.entity.result");
 	}

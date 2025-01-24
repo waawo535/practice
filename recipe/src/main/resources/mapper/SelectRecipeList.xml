@@ -3,12 +3,22 @@
 <mapper namespace="com.example.entity.result">
 	<select id="SelectRecipeList" resultType='com.example.recipe.entity.result.SelectRecipeListEntity'>
 		SELECT
-		    RECIPE_NAME
-		    , RECIPE_IMG
-		    , RECIPE_DESCRIP
-		    , REGISTER_DATE
-		    , UPDATE_DATE 
+		    user_id
+		    , recipe_id
+		    , recipe_name
+		    , recipe_ave_rating
+		    , recipe_img
+		    , register_date
+		    , registered_user_id
+		    , update_date
+		    , updated_user_id
 		FROM
-		    RECIPE_INFO 
+		    public.recipe_info 
+		WHERE
+		    delete_flag = FALSE 
+		    AND user_id NOT IN (#{userId}) 
+		ORDER BY
+		    register_date DESC
+		LIMIT #{limit} OFFSET #{offset};
 	</select>
 </mapper>
