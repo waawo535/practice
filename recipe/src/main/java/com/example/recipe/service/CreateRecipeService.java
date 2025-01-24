@@ -51,12 +51,9 @@ public class CreateRecipeService extends BaseService {
 		insertRecipeInfoParam.setUserId(inDto.getUserId());
 		insertRecipeInfoParam.setRecipeId(recipeId);
 		insertRecipeInfoParam.setRecipeName(inDto.getRecipeName());
-		insertRecipeInfoParam.setRecipeCategory(inDto.getRecipeCategory());
 		insertRecipeInfoParam.setRecipeAveRating(null);
-		insertRecipeInfoParam.setRecipeIngredients(null);
 		insertRecipeInfoParam.setRecipeImg(fileName);
 		insertRecipeInfoParam.setRecipeDiscrip(inDto.getRecipeDiscrip());
-		insertRecipeInfoParam.setRecipeMainTxt(null);
 		insertRecipeInfoParam.setDeleteFlg(false);
 		insertRecipeInfoParam.setRegisterDate(DateTimeGenerator.getTimestampDateTime());
 		insertRecipeInfoParam.setRegistereduserId(inDto.getUserId());
@@ -83,6 +80,7 @@ public class CreateRecipeService extends BaseService {
 			dao.insertByValue(insertRecipeStepsParam);
 		}
 		
+		//戻り値いらない気がする
 		return outDto;
 	}
 	

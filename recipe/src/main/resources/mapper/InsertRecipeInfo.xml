@@ -7,12 +7,9 @@
 		    user_id
 		    , recipe_id
 		    , recipe_name
-		    , recipe_category
 		    , recipe_ave_rating
-		    , recipe_ingredients
 		    , recipe_img
 		    , recipe_descrip
-		    , recipe_main_txt
 		    , delete_flag
 		    , register_date
 		    , registered_user_id
@@ -23,12 +20,9 @@
 		    #{userId}
 		    , #{recipeId}
 		    , #{recipeName}
-		    , #{recipeCategory}
 		    , #{recipeAveRating}
-		    , #{recipeIngredients}
 		    , #{recipeImg}
 		    , #{recipeDescrip}
-		    , #{recipeMainTxt}
 		    , #{deleteFlg}		    
 		    , #{registerDate}
 		    , #{registeredUserDate}

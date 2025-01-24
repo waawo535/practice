@@ -17,17 +17,11 @@ public class InsertRecipeInfoParam extends BaseParam {
 	
 	private String recipeName;
 	
-	private String recipeCategory;
-	
 	private String recipeAveRating;
-	
-	private String recipeIngredients;
 	
 	private String recipeImg;
 	
 	private String recipeDiscrip;
-	
-	private String recipeMainTxt;
 	
 	private boolean deleteFlg;
 	

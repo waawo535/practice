@@ -51,6 +51,10 @@ public class CreateRecipeController extends BaseController {
 	@PostMapping("/saveRecipe")
 	public String saveRecipe(CreateRecipeDto createRecipeDto, RedirectAttributes redirectAttributes, MultipartFile multipartFile) {
 		try {
+			
+		//単項目チェック実装する	
+		
+		
 		//DB保存処理
 		CreateRecipeSaveRecipeIn inDto = new CreateRecipeSaveRecipeIn();
 		inDto.setRecipeName(createRecipeDto.getRecipeName());
@@ -60,8 +64,8 @@ public class CreateRecipeController extends BaseController {
 		inDto.setRecipeIngredients(createRecipeDto.getRecipeIngredients());
 		inDto.setStepsList(createRecipeDto.getStepsList());
 		inDto.setPublishStatus(createRecipeDto.getPublishStatus());
+		createRecipeService.saveRecipe(inDto, multipartFile);
 		
-			createRecipeService.saveRecipe(inDto, multipartFile);
 		} catch (IOException e) {
 			//ファイルアップロードに失敗した場合、エラーメッセージを設定して編集画面にリダイレクトする
 			String errorMessage = messageSource.getMessage("E407", new Object[] { }, Locale.JAPAN);
@@ -69,8 +73,6 @@ public class CreateRecipeController extends BaseController {
 			redirectAttributes.addAttribute(CommonConst.KEY_CREATERECIPE_DTO, createRecipeDto);
 			return CommonConst.REDIRECT_CREATERECIPE;
 		}
-		
-		
 		
 		return CommonConst.SCREENID_RECIPELIST;
 	}
