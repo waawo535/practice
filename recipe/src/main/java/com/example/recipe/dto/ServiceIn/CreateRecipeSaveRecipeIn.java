@@ -1,7 +1,8 @@
 package com.example.recipe.dto.ServiceIn;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+
+import com.example.recipe.dto.Ingredient;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,12 +29,12 @@ public class CreateRecipeSaveRecipeIn {
 	/**
 	 * 材料
 	 */
-	private HashMap<String, String> recipeIngredients;
+	private List<Ingredient> recipeIngredients;
 	
 	/**
 	 * 手順
 	 */
-	private ArrayList<String> stepsList;
+	private List<String> stepsList;
 	
 	/**
 	 * 公開非公開フラグ

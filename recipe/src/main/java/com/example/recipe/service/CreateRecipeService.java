@@ -18,11 +18,10 @@ import com.example.recipe.dto.ServiceIn.CreateRecipeSaveRecipeIn;
 import com.example.recipe.dto.ServiceOut.CreateRecipeSaveRecipeOut;
 import com.example.recipe.entity.param.InsertRecipeInfoParam;
 import com.example.recipe.entity.param.InsertRecipeIngredientsParam;
+import com.example.recipe.entity.param.InsertRecipeStepsParam;
 
 @Service
 public class CreateRecipeService extends BaseService {
-	
-	MultipartFile multipartFile;
 	
 	IdNumberingService idNumberingService;
 	
@@ -31,19 +30,18 @@ public class CreateRecipeService extends BaseService {
 	 * @param dao
 	 */
 	@Inject
-	public CreateRecipeService(MyBatisDao dao, MultipartFile multipartFile, IdNumberingService idNumberingService) {
+	public CreateRecipeService(MyBatisDao dao, IdNumberingService idNumberingService) {
 		this.dao = dao;
-		this.multipartFile = multipartFile;
 		this.idNumberingService = idNumberingService;
 	}
 	
 	
-	public CreateRecipeSaveRecipeOut saveRecipe(CreateRecipeSaveRecipeIn inDto) throws IOException {
+	public CreateRecipeSaveRecipeOut saveRecipe(CreateRecipeSaveRecipeIn inDto, MultipartFile multipartFile) throws IOException {
 		CreateRecipeSaveRecipeOut outDto = new CreateRecipeSaveRecipeOut();
 		
 		//ファイル保存処理
 		String fileName = createFileName(inDto.getRecipeImg(), inDto.getUserId());
-		saveFile(fileName);
+		saveFile(fileName, multipartFile);
 		
 		//レシピID取得
 		String recipeId = idNumberingService.getNumbering(CommonConst.ID_TYPE_RC, inDto.getUserId());
@@ -71,11 +69,19 @@ public class CreateRecipeService extends BaseService {
 		for(int i=1;i<=inDto.getRecipeIngredients().size();i++) {
 			insertRecipeIngredientsParam.setRecipeId(recipeId);
 			insertRecipeIngredientsParam.setIngredientNumber(i);
-			//HashMapじゃだめだからあとで考える
-			insertRecipeIngredientsParam.setIngredientName(inDto.getRecipeIngredients().);
+			insertRecipeIngredientsParam.setIngredientName(inDto.getRecipeIngredients().get(i-1).getIngredientName());
+			insertRecipeIngredientsParam.setAmount(inDto.getRecipeIngredients().get(i-1).getAmount());
+			dao.insertByValue(insertRecipeIngredientsParam);
 		}
-		//手順テーブル登録処理
 		
+		//手順テーブル登録処理
+		InsertRecipeStepsParam insertRecipeStepsParam = new InsertRecipeStepsParam();
+		for(int i=1;i<=inDto.getStepsList().size();i++) {
+			insertRecipeStepsParam.setRecipeid(recipeId);
+			insertRecipeStepsParam.setStepNumber(i);
+			insertRecipeStepsParam.setInstruction(inDto.getStepsList().get(i-1));
+			dao.insertByValue(insertRecipeStepsParam);
+		}
 		
 		return outDto;
 	}
@@ -106,7 +112,7 @@ public class CreateRecipeService extends BaseService {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	private void saveFile(String fileName) throws IOException {
+	private void saveFile(String fileName, MultipartFile multipartFile) throws IOException {
 		//保存先パスを指定
 		String folderPath = "src/main/resources/static/img";
 		Path filePath = Paths.get(folderPath, fileName);

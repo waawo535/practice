@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/Header.css}">
 <link rel="stylesheet" th:href="@{/css/CreateRecipe.css}">
 </head>
 <body>
+<div th:replace="~{Header :: header}"  ></div>
 	<div class="container">
 	  <h1>レシピ入力フォーム</h1>
 	  <form id="recipeForm" th:action="@{/CreateRecipe/saveRecipe}" th:object="${CreateRecipeDto}" method="POST">
@@ -76,6 +78,7 @@
 	    </div>
 	  </form>
 	</div>
+<script th:src="@{/js/Header.js}"></script>
 <script th:src="@{/js/CreateRecipe.js}"></script>
 </body>
 </html>

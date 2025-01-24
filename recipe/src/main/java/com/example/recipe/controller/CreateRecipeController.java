@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.recipe.base.BaseController;
@@ -48,7 +49,7 @@ public class CreateRecipeController extends BaseController {
 	}
 	
 	@PostMapping("/saveRecipe")
-	public String saveRecipe(CreateRecipeDto createRecipeDto, RedirectAttributes redirectAttributes) {
+	public String saveRecipe(CreateRecipeDto createRecipeDto, RedirectAttributes redirectAttributes, MultipartFile multipartFile) {
 		try {
 		//DB保存処理
 		CreateRecipeSaveRecipeIn inDto = new CreateRecipeSaveRecipeIn();
@@ -60,7 +61,7 @@ public class CreateRecipeController extends BaseController {
 		inDto.setStepsList(createRecipeDto.getStepsList());
 		inDto.setPublishStatus(createRecipeDto.getPublishStatus());
 		
-			createRecipeService.saveRecipe(inDto);
+			createRecipeService.saveRecipe(inDto, multipartFile);
 		} catch (IOException e) {
 			//ファイルアップロードに失敗した場合、エラーメッセージを設定して編集画面にリダイレクトする
 			String errorMessage = messageSource.getMessage("E407", new Object[] { }, Locale.JAPAN);
