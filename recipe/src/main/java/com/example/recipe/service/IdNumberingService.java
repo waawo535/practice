@@ -52,7 +52,7 @@ public class IdNumberingService extends BaseService {
 			InsertIdNumberingMasterParam insertIdNumberingMasterParam = new InsertIdNumberingMasterParam();
 			insertIdNumberingMasterParam.setIdType(idType);
 			insertIdNumberingMasterParam.setIdPrefix(idPrefix);
-			insertIdNumberingMasterParam.setIdSerialNumber("0000000000");
+			insertIdNumberingMasterParam.setIdSerialNumber("00000");
 			insertIdNumberingMasterParam.setRegisterDate(DateTimeGenerator.getTimestampDateTime());
 			insertIdNumberingMasterParam.setRegisteredUserId("system");
 			dao.insertByValue(insertIdNumberingMasterParam);
@@ -67,7 +67,7 @@ public class IdNumberingService extends BaseService {
 		int  nextSerialNumber = (Integer.parseInt(selectSerialNumberEntity.getIdSerialNumber())) + 1;
 		
 		//10桁に満たない場合は左に0を詰める
-		String formattedNextSerialNumber = String.format("%010d", nextSerialNumber);
+		String formattedNextSerialNumber = String.format("%05d", nextSerialNumber);
 		
 		String numberedId = idType + idPrefix + formattedNextSerialNumber;
 		
