@@ -23,6 +23,7 @@ import com.example.recipe.common.checker.NullOrEmptyChecker;
 import com.example.recipe.common.checker.SingleFieldCheck;
 import com.example.recipe.common.util.CommonConst;
 import com.example.recipe.dto.ErrorMessageDto;
+import com.example.recipe.dto.SessionInfoDto;
 import com.example.recipe.dto.SingleFieldCheckCheckForBiddenCharOut;
 import com.example.recipe.dto.UserRegistrationFormDto;
 import com.example.recipe.dto.ServiceIn.UserRegistrationServiceCheckTokenIn;
@@ -189,6 +190,11 @@ public class UserRegistrationController extends BaseController {
 		UserRegistrationServiceIn userRegistrationServiceIn = new UserRegistrationServiceIn();
 		userRegistrationServiceIn.setUserId(userDto.getUserId());
 		userRegistrationService.definitiveRegistration(userRegistrationServiceIn);
+		
+		SessionInfoDto sessionInfoDto = new SessionInfoDto();
+		sessionInfoDto.setUserId(userDto.getUserId());
+		sessionInfoDto.setPrevScreen(CommonConst.SCREENID_AUTHENTICATION);
+		session.setAttribute(CommonConst.KEY_SYSYTEMINFO_DTO, sessionInfoDto);
 		
 		return CommonConst.SCREENID_USERPORTAL;
 	}
