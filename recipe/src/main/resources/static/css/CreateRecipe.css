@@ -98,7 +98,7 @@
       text-align: center;
       margin-top: 20px;
     }
-    .cancel-btn,
+    .clear-btn,
     .submit-btn {
       padding: 10px 20px;
       border: none;
@@ -106,7 +106,7 @@
       font-size: 16px;
       cursor: pointer;
     }
-    .cancel-btn {
+    .clear-btn {
       background-color: #ccc;
       color: #333;
       margin-right: 10px;

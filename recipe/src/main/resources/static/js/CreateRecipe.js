@@ -1,21 +1,25 @@
-const recipeImageInput = document.getElementById('recipeImage');
-const imagePreview = document.getElementById('imagePreview');
 
-recipeImageInput.addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (!file) {
-    imagePreview.innerHTML = '';
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = function() {
-    const img = document.createElement('img');
-    img.src = reader.result;
-    imagePreview.innerHTML = '';
-    imagePreview.appendChild(img);
-  }
-  reader.readAsDataURL(file);
-});
+  const recipeImageInput = document.getElementById('recipeImageInput');
+  const imagePreview = document.getElementById('imagePreview');
+
+  recipeImageInput.addEventListener('change', function (e) {
+    const file = e.target.files[0];
+    if (!file) {
+      imagePreview.innerHTML = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function () {
+      const img = document.createElement('img');
+      img.src = reader.result;
+	  img.style.maxWidth = '50%';
+      imagePreview.innerHTML = '';
+      imagePreview.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+
+
 
 // ********** 材料の動的追加 **********
 const ingredientList = document.getElementById('ingredientList');
@@ -92,7 +96,7 @@ recipeForm.addEventListener('submit', (e) => {
   addStepItem();
 });
 
-function handleCancel() {
+function handleClear() {
   if (confirm('入力を取り消してよろしいですか？')) {
     // キャンセル時のリセット処理など
     recipeForm.reset();

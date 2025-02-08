@@ -2,7 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>レシピ登録</title>
 <link rel="stylesheet" th:href="@{/css/Header.css}">
 <link rel="stylesheet" th:href="@{/css/CreateRecipe.css}">
 </head>
@@ -20,16 +20,14 @@
 	    <!-- レシピ画像アップロード＋プレビュー -->
 	    <div class="form-group">
 	      <label for="recipeImage">レシピの画像</label>
-	      <input type="file" id="recipeImg" name="recipeImage" accept="image/*" th:field="*{recipeImg}" />
+	      <input type="file" id="recipeImageInput" name="recipeImage" accept="image/*" th:field="*{recipeImg}" title="レシピ画像を選択してください" />
 	      <div class="preview" id="imagePreview"></div>
 	    </div>
 
 	    <!-- レシピの説明 -->
 	    <div class="form-group">
 	      <label for="recipeDescription">レシピの説明</label>
-	      <textarea id="recipeDescription" name="recipeDescription" placeholder="・味やおすすめポイント
-		  ・楽しみ方
-		  ・この料理を作ったきっかけ など"  th:field="*{recipeDiscrip}"></textarea>
+	      <textarea id="recipeDescription" name="recipeDescription" placeholder="&#10;・味やおすすめポイント&#10;・楽しみ方&#10;・この料理を作ったきっかけ など"  th:field="*{recipeDiscrip}"></textarea>
 	    </div>
 
 	    <!-- レシピカテゴリ -->
@@ -73,7 +71,7 @@
 
 	    <!-- ボタン -->
 	    <div class="button-group">
-	      <button type="button" class="cancel-btn" onclick="handleCancel()">キャンセル</button>
+	      <button type="button" class="clear-btn" onclick="handleClear()">クリア</button>
 	      <button type="submit" class="submit-btn">登録する</button>
 	    </div>
 	  </form>
