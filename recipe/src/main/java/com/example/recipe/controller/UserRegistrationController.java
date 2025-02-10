@@ -39,8 +39,6 @@ import com.example.recipe.service.UserRegistrationService;
 @RequestMapping("/UserRegistration")
 public class UserRegistrationController extends BaseController {
 	
-	private final HttpSession session;
-	
 	private final UserRegistrationService userRegistrationService;
 	
 	private final SingleFieldCheck singleFieldCheck;
@@ -51,7 +49,6 @@ public class UserRegistrationController extends BaseController {
     
 	public UserRegistrationController(HttpServletRequest request, HttpSession session, UserRegistrationService userRegistrationService, SingleFieldCheck singleFieldCheck, MessageSource messageSource, EmailService emailService) {
 		super(request, session);
-		this.session = session;
 		this.userRegistrationService = userRegistrationService;
 		this.singleFieldCheck = singleFieldCheck;
 		this.messageSource = messageSource;
@@ -194,7 +191,7 @@ public class UserRegistrationController extends BaseController {
 		SessionInfoDto sessionInfoDto = new SessionInfoDto();
 		sessionInfoDto.setUserId(userDto.getUserId());
 		sessionInfoDto.setPrevScreen(CommonConst.SCREENID_AUTHENTICATION);
-		session.setAttribute(CommonConst.KEY_SYSYTEMINFO_DTO, sessionInfoDto);
+		session.setAttribute(CommonConst.KEY_SYSTEMINFO_DTO, sessionInfoDto);
 		
 		return CommonConst.SCREENID_USERPORTAL;
 	}

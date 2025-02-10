@@ -31,8 +31,6 @@ import com.example.recipe.service.UserInfoManagementService;
 @RequestMapping("/UserInfoManagement")
 public class UserInfoManagementController extends BaseController {
 	
-	private final HttpSession session;
-	
 	private final UserInfoManagementService userInfoManagementService;
 	
 	private final SingleFieldCheck singleFieldCheck;
@@ -41,7 +39,6 @@ public class UserInfoManagementController extends BaseController {
 	
 	public UserInfoManagementController(HttpServletRequest request, HttpSession session, UserInfoManagementService userInfoManagementService, SingleFieldCheck singleFieldCheck, MessageSource messageSource) {
 		super(request, session);
-		this.session = session;
 		this.userInfoManagementService = userInfoManagementService;
 		this.singleFieldCheck = singleFieldCheck;
 		this.messageSource = messageSource;
@@ -52,10 +49,10 @@ public class UserInfoManagementController extends BaseController {
 	 * @return
 	 */
 	@GetMapping("/initShow")
-	public String initShow(Model model, HttpSession session) {
+	public String initShow(Model model) {
 		
 		//セッション情報を取得する
-		SessionInfoDto sessionInfoDto = (SessionInfoDto) session.getAttribute(CommonConst.KEY_SYSYTEMINFO_DTO);
+		SessionInfoDto sessionInfoDto = (SessionInfoDto) session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
 		
 		//F層呼び出しでユーザ情報を取得
 		UserInfoManagementShowUserInfoIn inDto = new UserInfoManagementShowUserInfoIn();

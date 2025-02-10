@@ -1,6 +1,9 @@
 package com.example.recipe.dto.ServiceIn;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.recipe.dto.Ingredient;
 
@@ -19,7 +22,7 @@ public class CreateRecipeSaveRecipeIn {
 	
 	private String recipeCategory;
 	
-	private String recipeImg;
+	private MultipartFile  recipeImg;
 	
 	/**
 	 * 説明
@@ -40,4 +43,12 @@ public class CreateRecipeSaveRecipeIn {
 	 * 公開非公開フラグ
 	 */
 	private String publishStatus;
+	
+	/**
+	 * コンストラクタ
+	 */
+	public CreateRecipeSaveRecipeIn() {
+		this.recipeIngredients = new ArrayList<Ingredient>();
+		this.stepsList = new ArrayList<String>();
+	}
 }

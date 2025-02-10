@@ -21,13 +21,13 @@ public class InsertRecipeInfoParam extends BaseParam {
 	
 	private String recipeImg;
 	
-	private String recipeDiscrip;
+	private String recipeDescrip;
 	
 	private boolean deleteFlg;
 	
 	private Timestamp registerDate;
 	
-	private String registereduserId;
+	private String registeredUserId;
 	
 	private Timestamp updateDate;
 	

@@ -1,6 +1,9 @@
 package com.example.recipe.dto.view;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.recipe.base.BaseDto;
 import com.example.recipe.dto.Ingredient;
@@ -18,7 +21,7 @@ public class CreateRecipeDto extends BaseDto {
 	
 	private String recipeCategory;
 	
-	private String recipeImg;
+	private MultipartFile  recipeImg;
 	
 	private String recipeDiscrip;
 	
@@ -28,4 +31,13 @@ public class CreateRecipeDto extends BaseDto {
 	
 	private String publishStatus;
 	
+	/**
+	 * コンストラクタ
+	 */
+	public CreateRecipeDto() {
+		this.recipeIngredients = new ArrayList<Ingredient>();
+		this.stepsList = new ArrayList<String>();
+		this.recipeIngredients.add(new Ingredient());
+		this.stepsList.add("");
+	}
 }	

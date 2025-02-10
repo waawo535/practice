@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.recipe.base.BaseService;
 import com.example.recipe.common.DateTimeGenerator;
 import com.example.recipe.common.MyBatisDao;
+import com.example.recipe.common.checker.NullOrEmptyChecker;
 import com.example.recipe.common.util.CommonConst;
 import com.example.recipe.dto.ServiceIn.CreateRecipeSaveRecipeIn;
 import com.example.recipe.dto.ServiceOut.CreateRecipeSaveRecipeOut;
@@ -36,12 +37,16 @@ public class CreateRecipeService extends BaseService {
 	}
 	
 	
-	public CreateRecipeSaveRecipeOut saveRecipe(CreateRecipeSaveRecipeIn inDto, MultipartFile multipartFile) throws IOException {
+	public CreateRecipeSaveRecipeOut saveRecipe(CreateRecipeSaveRecipeIn inDto) throws IOException {
 		CreateRecipeSaveRecipeOut outDto = new CreateRecipeSaveRecipeOut();
 		
-		//ファイル保存処理
-		String fileName = createFileName(inDto.getRecipeImg(), inDto.getUserId());
-		saveFile(fileName, multipartFile);
+		String fileName = "";
+		//ファイルアップロードをしているかどうか判定
+		if(!NullOrEmptyChecker.isNullOrEmpty(inDto.getRecipeImg().getOriginalFilename())) {
+			//ファイル保存処理
+//			fileName = createFileName(inDto.getRecipeImg(), inDto.getUserId());
+			saveFile(inDto.getRecipeImg());
+		}
 		
 		//レシピID取得
 		String recipeId = idNumberingService.getNumbering(CommonConst.ID_TYPE_RC, inDto.getUserId());
@@ -53,31 +58,35 @@ public class CreateRecipeService extends BaseService {
 		insertRecipeInfoParam.setRecipeName(inDto.getRecipeName());
 		insertRecipeInfoParam.setRecipeAveRating(null);
 		insertRecipeInfoParam.setRecipeImg(fileName);
-		insertRecipeInfoParam.setRecipeDiscrip(inDto.getRecipeDiscrip());
+		insertRecipeInfoParam.setRecipeDescrip(inDto.getRecipeDiscrip());
 		insertRecipeInfoParam.setDeleteFlg(false);
 		insertRecipeInfoParam.setRegisterDate(DateTimeGenerator.getTimestampDateTime());
-		insertRecipeInfoParam.setRegistereduserId(inDto.getUserId());
+		insertRecipeInfoParam.setRegisteredUserId(inDto.getUserId());
 		insertRecipeInfoParam.setUpdateDate(DateTimeGenerator.getTimestampDateTime());
 		insertRecipeInfoParam.setUpdatedUserId(inDto.getUserId());
 		dao.insertByValue(insertRecipeInfoParam);
 		
 		//材料テーブル登録処理
 		InsertRecipeIngredientsParam insertRecipeIngredientsParam = new InsertRecipeIngredientsParam();
-		for(int i=1;i<=inDto.getRecipeIngredients().size();i++) {
-			insertRecipeIngredientsParam.setRecipeId(recipeId);
-			insertRecipeIngredientsParam.setIngredientNumber(i);
-			insertRecipeIngredientsParam.setIngredientName(inDto.getRecipeIngredients().get(i-1).getIngredientName());
-			insertRecipeIngredientsParam.setAmount(inDto.getRecipeIngredients().get(i-1).getAmount());
-			dao.insertByValue(insertRecipeIngredientsParam);
+		if(!NullOrEmptyChecker.isNullOrEmpty(inDto.getRecipeIngredients())) {
+			for(int i=1;i<=inDto.getRecipeIngredients().size();i++) {
+				insertRecipeIngredientsParam.setRecipeId(recipeId);
+				insertRecipeIngredientsParam.setIngredientNumber(i);
+				insertRecipeIngredientsParam.setIngredientName(inDto.getRecipeIngredients().get(i-1).getIngredientName());
+				insertRecipeIngredientsParam.setAmount(inDto.getRecipeIngredients().get(i-1).getAmount());
+				dao.insertByValue(insertRecipeIngredientsParam);
+			}
 		}
 		
 		//手順テーブル登録処理
 		InsertRecipeStepsParam insertRecipeStepsParam = new InsertRecipeStepsParam();
-		for(int i=1;i<=inDto.getStepsList().size();i++) {
-			insertRecipeStepsParam.setRecipeid(recipeId);
-			insertRecipeStepsParam.setStepNumber(i);
-			insertRecipeStepsParam.setInstruction(inDto.getStepsList().get(i-1));
-			dao.insertByValue(insertRecipeStepsParam);
+		if(!NullOrEmptyChecker.isNullOrEmpty(inDto.getStepsList())) {
+			for(int i=1;i<=inDto.getStepsList().size();i++) {
+				insertRecipeStepsParam.setRecipeId(recipeId);
+				insertRecipeStepsParam.setStepNumber(i);
+				insertRecipeStepsParam.setInstruction(inDto.getStepsList().get(i-1));
+				dao.insertByValue(insertRecipeStepsParam);
+			}
 		}
 		
 		//戻り値いらない気がする
@@ -110,10 +119,10 @@ public class CreateRecipeService extends BaseService {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	private void saveFile(String fileName, MultipartFile multipartFile) throws IOException {
+	private void saveFile(MultipartFile multipartFile) throws IOException {
 		//保存先パスを指定
 		String folderPath = "src/main/resources/static/img";
-		Path filePath = Paths.get(folderPath, fileName);
+		Path filePath = Paths.get(folderPath, multipartFile.getOriginalFilename());
 		
 		try {
 			//ファイルを保存

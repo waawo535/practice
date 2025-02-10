@@ -25,7 +25,7 @@
 		    , #{recipeDescrip}
 		    , #{deleteFlg}		    
 		    , #{registerDate}
-		    , #{registeredUserDate}
+		    , #{registeredUserId}
 		    , #{updateDate}
 		    , #{updatedUserId}
 		);

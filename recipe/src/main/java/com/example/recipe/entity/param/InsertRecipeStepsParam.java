@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class InsertRecipeStepsParam extends BaseParam {
 	
-	private String recipeid;
+	private String recipeId;
 	
 	private int stepNumber;
 	

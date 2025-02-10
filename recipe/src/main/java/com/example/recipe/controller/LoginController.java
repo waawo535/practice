@@ -31,8 +31,6 @@ import com.example.recipe.service.LoginService;
 @RequestMapping("/Login")
 public class LoginController extends BaseController {
 	
-	private final HttpSession session;
-	
 	private final MessageSource messageSource;
 	
 	private final SingleFieldCheck singleFieldCheck;
@@ -41,7 +39,6 @@ public class LoginController extends BaseController {
 	
 	public LoginController(HttpServletRequest request, HttpSession session, MessageSource messageSource, SingleFieldCheck singleFieldCheck, LoginService loginService) {
 		super(request, session);
-		this.session = session;
 		this.messageSource = messageSource;
 		this.singleFieldCheck = singleFieldCheck;
 		this.loginService = loginService;
@@ -62,9 +59,9 @@ public class LoginController extends BaseController {
 		if (!model.containsAttribute(CommonConst.KEY_PREVSCREEN)) {
 	        model.addAttribute(CommonConst.KEY_PREVSCREEN, null);
 	    }
-		if (!model.containsAttribute(CommonConst.KEY_SYSYTEMINFO_DTO)) {
+		if (!model.containsAttribute(CommonConst.KEY_SYSTEMINFO_DTO)) {
 			SessionInfoDto sessionInfoDto = new SessionInfoDto();
-	        model.addAttribute(CommonConst.KEY_SYSYTEMINFO_DTO, sessionInfoDto);
+	        model.addAttribute(CommonConst.KEY_SYSTEMINFO_DTO, sessionInfoDto);
 	    }
 		return CommonConst.SCREENID_LOGIN;
 	}
@@ -121,7 +118,7 @@ public class LoginController extends BaseController {
 		sessionInfoDto.setUserName(loginServiceLoginOut.getUserName());
 		sessionInfoDto.setProfileImgUrl(loginServiceLoginOut.getProfileImgUrl());
 		sessionInfoDto.setPrevScreen(CommonConst.SCREENID_LOGIN);
-		session.setAttribute(CommonConst.KEY_SYSYTEMINFO_DTO, sessionInfoDto);
+		session.setAttribute(CommonConst.KEY_SYSTEMINFO_DTO, sessionInfoDto);
 		
 		return CommonConst.SCREENID_USERPORTAL;
 	}
@@ -131,7 +128,7 @@ public class LoginController extends BaseController {
 	public String logout(SessionInfoDto sessionInfoDto, RedirectAttributes redirectAttributes) {
 		String successMessage = messageSource.getMessage("I103", new Object[] { }, Locale.JAPAN);
 		setSuccessMessageList(sessionInfoDto, successMessage);
-		redirectAttributes.addFlashAttribute(CommonConst.KEY_SYSYTEMINFO_DTO, sessionInfoDto);
+		redirectAttributes.addFlashAttribute(CommonConst.KEY_SYSTEMINFO_DTO, sessionInfoDto);
 		redirectAttributes.addFlashAttribute(CommonConst.KEY_PREVSCREEN, CommonConst.SCREENID_LOGOUT);
 		session.invalidate();
 		return CommonConst.REDIRECT_LOGIN;

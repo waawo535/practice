@@ -10,7 +10,7 @@
 <div th:replace="~{Header :: header}"  ></div>
 	<div class="container">
 	  <h1>レシピ入力フォーム</h1>
-	  <form id="recipeForm" th:action="@{/CreateRecipe/saveRecipe}" th:object="${CreateRecipeDto}" method="POST">
+	  <form id="recipeForm" th:action="@{/CreateRecipe/saveRecipe}" th:object="${CreateRecipeDto}" enctype="multipart/form-data" method="POST">
 	    <!-- レシピ名 -->
 	    <div class="form-group">
 	      <label for="recipeName">レシピ名</label>
@@ -42,20 +42,28 @@
 	      </select>
 	    </div>
 
-	    <!-- レシピの材料 -->
-	    <div class="form-group">
-	      <label>レシピの材料</label>
-	      <div class="ingredient-list" id="ingredientList" th:field="*{recipeIngredients}">
-	        <!-- 追加された材料項目がここに入る -->
-	      </div>
-	      <button type="button" class="add-button" id="addIngredientBtn">＋</button>
-	    </div>
+		<!-- レシピの材料 -->
+		<div class="form-group">
+		    <label>レシピの材料</label>
+		    <div class="ingredient-list" id="ingredientList">
+		        <!-- 追加された材料項目がここに入る -->
+		        <div class="ingredient-item" th:each="ingredient, iterStat : *{recipeIngredients}">
+		            <span>・</span>
+		            <input type="text" th:name="|recipeIngredients[${iterStat.index}].ingredientName|" th:value="${ingredient.ingredientName}" />
+		        </div>
+		    </div>
+		    <button type="button" class="add-button" id="addIngredientBtn">＋</button>
+		</div>
 
 	    <!-- 作り方 -->
 	    <div class="form-group">
 	      <label>作り方</label>
-	      <div class="steps-list" id="stepsList" th:field="*{stepsList}">
+	      <div class="steps-list" id="stepsList">
 	        <!-- 追加された手順項目がここに入る -->
+			<div class="stepsList-item" th:each="stepsList, iterStat : *{stepsList}">
+	            <span>・</span>
+	            <input type="text" th:name="|stepsList[${iterStat.index}]|" th:value="${stepsList}" />
+	        </div>
 	      </div>
 	      <button type="button" class="add-button" id="addStepBtn">＋</button>
 	    </div>

@@ -10,9 +10,9 @@
 	    , amount
 	) 
 	VALUES ( 
-	    #{recipeid}
+	    #{recipeId}
 	    , #{ingredientNumber}
-	    , #{IngredientName}
+	    , #{ingredientName}
 	    , #{amount}
 	);
 	</insert>

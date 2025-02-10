@@ -44,7 +44,7 @@ public class CommonConst {
 	/** セッション情報保持DTO*/
 	public static final String KEY_SESSIONINFO_DTO = "SessionInfo";
 	/** システム情報*/
-	public static final String KEY_SYSYTEMINFO_DTO = "SystemInfo";
+	public static final String KEY_SYSTEMINFO_DTO = "SystemInfo";
 	/** 遷移元画面名*/
 	public static final String KEY_PREVSCREEN = "prevScreen";
 	/** ユーザ登録画面表示DTO*/
