@@ -44,8 +44,8 @@ public class CreateRecipeService extends BaseService {
 		//ファイルアップロードをしているかどうか判定
 		if(!NullOrEmptyChecker.isNullOrEmpty(inDto.getRecipeImg().getOriginalFilename())) {
 			//ファイル保存処理
-//			fileName = createFileName(inDto.getRecipeImg(), inDto.getUserId());
-			saveFile(inDto.getRecipeImg());
+			fileName = createFileName(inDto.getRecipeImg(), inDto.getUserId());
+			saveFile(inDto.getRecipeImg(), fileName);
 		}
 		
 		//レシピID取得
@@ -99,17 +99,17 @@ public class CreateRecipeService extends BaseService {
 	 * @param fileName
 	 * @param userId
 	 */
-	private String createFileName(String fileName, String userId){
+	private String createFileName(MultipartFile multipartFile, String userId){
 		
 		//システム日付をyyyyMMddHHmmssに変換
 		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 		 String now = DateTimeGenerator.now().format(formatter);
 		 
 		//拡張子を取得
-		String extension = fileName.substring(fileName.lastIndexOf("."));
+		String extension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
 		
 		//「userId_yyyyMMddHHmmss.拡張子」のファイル名を生成
-		String newFileName = userId + "_" + now + extension;
+		String newFileName = "RecipeThumbnail" + "_" + userId + "_" + now + extension;
 		
 		return newFileName;
 	}
@@ -119,10 +119,10 @@ public class CreateRecipeService extends BaseService {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	private void saveFile(MultipartFile multipartFile) throws IOException {
+	private void saveFile(MultipartFile multipartFile, String fileName) throws IOException {
 		//保存先パスを指定
 		String folderPath = "src/main/resources/static/img";
-		Path filePath = Paths.get(folderPath, multipartFile.getOriginalFilename());
+		Path filePath = Paths.get(folderPath, fileName);
 		
 		try {
 			//ファイルを保存
