@@ -2,6 +2,9 @@ package com.example.recipe.dto.ServiceOut;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.List;
+
+import com.example.recipe.entity.result.SelectUserRecipeListEntity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,4 +32,6 @@ public class UserInfoManagementShowUserInfoOut {
 	private Timestamp registerDate;
 	
 	private Timestamp updateDate;
+	
+	private List<SelectUserRecipeListEntity> recipeList;
 }

@@ -51,8 +51,42 @@
     <div class="recipes-container" id="recipesContainer">
         <h2>作成したレシピ一覧</h2>
         <div id="recipesList">
-            <p>作成したレシピがありません。</p>
-            <button class="create-btn" onclick="createRecipe()">レシピを作成する</button>
+			<!-- レシピが1件もない場合 -->
+			<div th:if="${#lists.isEmpty(UserInfoManagementDto.recipeList)}">
+	            <p>作成したレシピがありません。</p>
+	            <button class="create-btn" onclick="createRecipe()">レシピを作成する</button>
+			</div>
+			<!-- レシピが存在する場合 -->
+	        <div th:if="${!#lists.isEmpty(UserInfoManagementDto.recipeList)}">
+	            <ul class="recipe-list">
+	                <!-- 各レシピをループで表示 -->
+	                <li th:each="recipe : ${UserInfoManagementDto.recipeList}" class="recipe-item"
+	                    th:onclick="'viewRecipeDetail(' + '${recipe.recipeId}' + ');'">
+	                    
+	                    <!-- レシピ画像 -->
+	                    <img th:src="@{${recipe.recipeImg}}" alt="レシピ画像" class="recipe-image">
+	                    
+	                    <!-- レシピ情報 -->
+	                    <div class="recipe-info">
+	                        <h3 th:text="${recipe.recipeName}">レシピ名</h3>
+	                        <p th:text="${recipe.recipeDescrip}">レシピ説明文</p>
+	                        <p class="rating" th:text="'評価: ' + ${recipe.recipeAveRating}">現在の評価</p>
+	                    </div>
+	                    
+	                    <!-- 編集・削除ボタン -->
+	                    <div class="recipe-actions">
+	                        <button class="edit-btn" 
+	                            th:onclick="'event.stopPropagation(); editRecipe(' + '${recipe.recipeId}' + ');'">
+	                            編集
+	                        </button>
+	                        <button class="delete-btn" 
+	                            th:onclick="'event.stopPropagation(); deleteRecipe(' + '${recipe.recipeId}' + ');'">
+	                            削除
+	                        </button>
+	                    </div>
+	                </li>
+	            </ul>
+	        </div>
         </div>
     </div>
 </div>

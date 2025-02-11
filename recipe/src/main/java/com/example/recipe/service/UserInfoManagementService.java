@@ -1,5 +1,7 @@
 package com.example.recipe.service;
 
+import java.util.List;
+
 import jakarta.inject.Inject;
 
 import org.springframework.beans.BeanUtils;
@@ -13,8 +15,10 @@ import com.example.recipe.dto.ServiceIn.UserInfoManagementShowUserInfoIn;
 import com.example.recipe.dto.ServiceOut.UserInfoManagementEditProfileOut;
 import com.example.recipe.dto.ServiceOut.UserInfoManagementShowUserInfoOut;
 import com.example.recipe.entity.param.SelectUserDetailParam;
+import com.example.recipe.entity.param.SelectUserRecipeListParam;
 import com.example.recipe.entity.param.UpdateUserDetailProfileParam;
 import com.example.recipe.entity.result.SelectUserDetailEntity;
+import com.example.recipe.entity.result.SelectUserRecipeListEntity;
 
 @Service
 public class UserInfoManagementService extends BaseService {
@@ -41,8 +45,22 @@ public class UserInfoManagementService extends BaseService {
 		selectUserDetailParam.setUserId(inDto.getUserId());
 		SelectUserDetailEntity selectUserDetailEntity = dao.selectByPk(selectUserDetailParam);
 		
+		//ユーザが作成したレシピ情報を取得
+		SelectUserRecipeListParam selectUserRecipeListParam = new SelectUserRecipeListParam();
+		selectUserRecipeListParam.setUserId(inDto.getUserId());
+		selectUserRecipeListParam.setDeleteFlag(false);
+		selectUserRecipeListParam.setLimit(10);
+		selectUserRecipeListParam.setOffset(0);
+		List<SelectUserRecipeListEntity> selectUserRecipeListEntityList = dao.selectList(selectUserRecipeListParam);
+		
+		//パスを設定する
+		for(int i=0; i<selectUserRecipeListEntityList.size();i++) {
+			selectUserRecipeListEntityList.get(i).setRecipeImg("/img/" + selectUserRecipeListEntityList.get(i).getRecipeImg());
+		}
+		
 		//Outパラメタに取得したユーザ情報を設定
 		BeanUtils.copyProperties(selectUserDetailEntity, outDto);
+		outDto.setRecipeList(selectUserRecipeListEntityList);
 		
 		return outDto;
 	}

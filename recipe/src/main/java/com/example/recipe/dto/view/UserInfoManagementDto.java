@@ -2,8 +2,11 @@ package com.example.recipe.dto.view;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.example.recipe.base.BaseDto;
+import com.example.recipe.entity.result.SelectUserRecipeListEntity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,4 +33,10 @@ public class UserInfoManagementDto extends BaseDto {
 	private Timestamp registerDate;
 	
 	private Timestamp updateDate;
+	
+	private List<SelectUserRecipeListEntity> recipeList;
+	
+	public UserInfoManagementDto() {
+		this.recipeList = new ArrayList<>();
+	}
 }

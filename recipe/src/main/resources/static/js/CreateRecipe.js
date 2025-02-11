@@ -42,9 +42,6 @@ function addIngredientItem() {
   ingredientList.appendChild(newItem);
 }
 
-//// 初期表示として１つ作る
-//addIngredientItem();
-
 // プラスボタンが押されたら材料を１行追加
 addIngredientBtn.addEventListener('click', () => {
   addIngredientItem();
@@ -54,7 +51,6 @@ addIngredientBtn.addEventListener('click', () => {
 const stepsList = document.getElementById('stepsList');
 const addStepBtn = document.getElementById('addStepBtn');
 
-let stepCount = 0;
 
 function addStepItem() {
 	const stepsList = document.getElementById('stepsList');
@@ -73,9 +69,6 @@ function addStepItem() {
 	stepsList.appendChild(newItem);
 }
 
-// 初期表示として１ステップ作る
-//addStepItem();
-
 // プラスボタンが押されたらステップを１つ追加
 addStepBtn.addEventListener('click', () => {
   addStepItem();
@@ -92,8 +85,45 @@ function handleClear() {
     imagePreview.innerHTML = '';
     ingredientList.innerHTML = '';
     stepsList.innerHTML = '';
-    stepCount = 0;
-    addIngredientItem();
-    addStepItem();
   }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    let submitButton = document.getElementById("submit-btn");
+	console.log("登録");
+    submitButton.addEventListener("click", function (event) {
+        if (!confirm("登録しますか？")) {
+            event.preventDefault(); // 送信をキャンセル
+        }
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    let isFormDirty = false;
+	
+	// クリアボタンと登録ボタンのクラスを指定
+	const excludeButtons = ["clear-btn", "submit-btn", "addIngredientBtn", "addStepBtn"]; 
+	   
+    // 入力があったらフラグを立てる
+    document.querySelectorAll("input, select").forEach(element => {
+        element.addEventListener("input", () => {
+            isFormDirty = true;
+        });
+    });
+
+    // 画面遷移しようとしたら confirm を表示
+    document.querySelectorAll("a, button").forEach(element => {
+        element.addEventListener("click", function (event) {
+			// クリアボタンと登録ボタンは除外
+			if (excludeButtons.includes(event.target.id)) {
+				return;
+			}
+            if (isFormDirty) {
+                if (!confirm("入力した内容は保存されません。よろしいですか？")) {
+                    event.preventDefault(); // 画面遷移をキャンセル
+                }
+            }
+        });
+    });
+});

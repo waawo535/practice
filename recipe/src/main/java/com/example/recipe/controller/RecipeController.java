@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.recipe.base.BaseController;
-import com.example.recipe.dto.ListShowDto;
 
 @Controller
 @RequestMapping("recipeList")
@@ -21,7 +20,7 @@ public class RecipeController extends BaseController {
 	
 	@GetMapping("initShow")
 	public String initShow(Model model) {
-		ListShowDto listShowDto = new ListShowDto();
+		
 		
 		return "list";
 	}

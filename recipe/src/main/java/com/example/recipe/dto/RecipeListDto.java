@@ -9,16 +9,26 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class ListShowDto implements Serializable {
+public class RecipeListDto implements Serializable {
 	/*
 	 * シリアルバージョンUID
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * レシピID
+	 */
+	private String recipeId;
+	
 	/*
 	 * レシピ名
 	 */
 	private String recipeName;
+	
+	/**
+	 * 評価
+	 */
+	private int recipeAveRating;
 	
 	/*
 	 * レシピ画像

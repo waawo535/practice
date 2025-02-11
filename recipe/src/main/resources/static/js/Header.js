@@ -11,3 +11,7 @@ function userPortal(){
 function userInfo(){
 	window.location.href = "/recipe/UserInfoManagement/initShow";
 }
+
+function createRecipe(){
+	window.location.href = "/recipe/CreateRecipe/initShow";
+}

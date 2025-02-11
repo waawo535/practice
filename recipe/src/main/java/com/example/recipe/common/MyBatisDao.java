@@ -16,8 +16,8 @@ public class MyBatisDao extends SqlSessionDaoSupportEx {
 		return getSqlSession().selectOne(param.getNameSpace()+"."+sqlId, param);
 	}
 	
-	public <Entity extends BaseEntity> List<Entity> selectList(Entity entity) {
-		return getSqlSession().selectList(entity.getNameSpace()+"."+entity.getTableName()+".selectAll", entity);
+	public <Entity extends BaseEntity, Param extends BaseParam> List<Entity> selectList(Param param) {
+		return getSqlSession().selectList(param.getNameSpace()+"."+ param.getSqlId(), param);
 	}
 	
 	public <Entity extends BaseEntity, Param extends BaseParam> int insertByValue(Param param) {
