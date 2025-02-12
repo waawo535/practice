@@ -17,6 +17,6 @@
 		    AND delete_flag = #{deleteFlag}
 		ORDER BY
 			register_date DESC
-		LIMIT #{lmit} OFFSET #{offset};
+		LIMIT #{limit} OFFSET #{offset};
 	</select>
 </mapper>

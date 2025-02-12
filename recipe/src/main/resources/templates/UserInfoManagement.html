@@ -58,14 +58,15 @@
 			</div>
 			<!-- レシピが存在する場合 -->
 	        <div th:if="${!#lists.isEmpty(UserInfoManagementDto.recipeList)}">
-	            <ul class="recipe-list">
+	            <ul class="recipe-list" id="recipe-list">
 	                <!-- 各レシピをループで表示 -->
 	                <li th:each="recipe : ${UserInfoManagementDto.recipeList}" class="recipe-item"
 	                    th:onclick="'viewRecipeDetail(' + '${recipe.recipeId}' + ');'">
 	                    
 	                    <!-- レシピ画像 -->
-	                    <img th:src="@{${recipe.recipeImg}}" alt="レシピ画像" class="recipe-image">
-	                    
+						<div class="recipe-img" th:if="${!#strings.isEmpty(recipe.recipeImg) and !#strings.equals(recipe.recipeImg, '/img/')}">
+	                    	<img th:src="@{${recipe.recipeImg}}" alt="レシピ画像" class="recipe-image">
+						</div>
 	                    <!-- レシピ情報 -->
 	                    <div class="recipe-info">
 	                        <h3 th:text="${recipe.recipeName}">レシピ名</h3>

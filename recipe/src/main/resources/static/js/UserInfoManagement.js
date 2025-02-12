@@ -21,7 +21,7 @@ let loading = false; // ロード中フラグ
 const screenId = "UserInfoManagement";
 
 //初期表示はControllerから取得してさらに読み込む分はAPIで取得するように後で修正する
-function loadRecipes(isInit = false) {
+function loadRecipes() {
     if (loading) return; // すでにロード中なら処理しない
     loading = true;
 	
@@ -29,7 +29,7 @@ function loadRecipes(isInit = false) {
 	const recipeList = document.getElementById("recipe-list");
 	if (!recipeList) return;
 	
-    const endpoint = isInit ? `/api/recipes/init?screenId=${screenId}` : `/api/recipes/more?offset=${offset}&screenId=${screenId}`;
+    const endpoint = `/recipe/api/recipes/more?offset=${offset}&screenId=${screenId}`;
     fetch(endpoint)
         .then(response => response.json())
         .then(data => {
@@ -40,13 +40,10 @@ function loadRecipes(isInit = false) {
                 document.getElementById("recipe-list").appendChild(recipeElement);
             });
 
-            if (!isInit) offset += limit; // もっと見る用にoffsetを更新
+            offset += limit; // もっと見る用にoffsetを更新
         })
         .finally(() => loading = false); // ロード完了後、フラグを解除
 }
-
-// 初期表示
-document.addEventListener("DOMContentLoaded", () => loadRecipes(true));
 
 // スクロールイベントで自動読み込み
 window.addEventListener("scroll", () => {

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.recipe.base.BaseService;
 import com.example.recipe.common.MyBatisDao;
-import com.example.recipe.dto.RecipeListDto;
+import com.example.recipe.common.util.CommonConst;
+import com.example.recipe.entity.param.SelectUserRecipeListParam;
+import com.example.recipe.entity.result.SelectUserRecipeListEntity;
 
 @Service
 public class RecipeListService extends BaseService {
@@ -23,7 +25,20 @@ public class RecipeListService extends BaseService {
 	
 	//レシピ一覧取得
 	//画面IDに応じて出力を変えるようにする
-	public List<RecipeListDto> getRecipeList(int offset, String screenId) {
-		return null;
+	public List<SelectUserRecipeListEntity> getRecipeList(int offset, String screenId, String userId) {
+		
+		//画面によって処理を変えるかどうか......
+		if(screenId.equals(CommonConst.SCREENID_USERINFOMANAGEMENT)) {
+			
+		}
+		
+		SelectUserRecipeListParam selectUserRecipeListParam = new SelectUserRecipeListParam();
+		selectUserRecipeListParam.setUserId(userId);
+		selectUserRecipeListParam.setDeleteFlag(false);
+		selectUserRecipeListParam.setLimit(10);
+		selectUserRecipeListParam.setOffset(offset);
+		List<SelectUserRecipeListEntity> selectUserRecipeListEntityList = dao.selectList(selectUserRecipeListParam);
+		
+		return selectUserRecipeListEntityList;
 	}
 }

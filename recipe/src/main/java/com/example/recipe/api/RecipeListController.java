@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.recipe.base.BaseController;
-import com.example.recipe.dto.RecipeListDto;
+import com.example.recipe.common.util.CommonConst;
+import com.example.recipe.dto.SessionInfoDto;
+import com.example.recipe.entity.result.SelectUserRecipeListEntity;
 import com.example.recipe.service.RecipeListService;
 
 @RestController
@@ -25,16 +27,11 @@ public class RecipeListController extends BaseController {
 		this.recipeListService = recipeListService;
 	}
 	
-	//初期表示はControllerから渡して追加で読み込む分だけAPIで取得するように修正する。なのでこれいらない
-	 // 初期表示用のレシピ一覧
-	@GetMapping("/init")
-	public List<RecipeListDto> getInitialRecipes(@RequestParam String screenId) {
-	    return recipeListService.getRecipeList(0, screenId);
-	}
-	
 	// 無限スクロールで追加読み込み
 	@GetMapping("/more")
-	public List<RecipeListDto> getMoreRecipes(@RequestParam int offset, @RequestParam String screenId) {
-	    return recipeListService.getRecipeList(offset, screenId);
+	public List<SelectUserRecipeListEntity> getMoreRecipes(@RequestParam int offset, @RequestParam String screenId) {
+		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
+		System.out.println("offset: " + offset + ", screenId: " + screenId);
+	    return recipeListService.getRecipeList(offset, screenId, sessionInfoDto.getUserId());
 	}
 }
