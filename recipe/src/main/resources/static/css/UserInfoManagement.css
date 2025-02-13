@@ -122,4 +122,7 @@ button.create-btn:hover {
 #profileEdit.active {
   display: block;
 }
-
+.recipe-list {
+    list-style: none; 
+    padding: 0;
+}

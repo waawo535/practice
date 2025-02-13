@@ -15,7 +15,7 @@ function createRecipe(){
 }
 
 //10づつ一覧を取得する
-let offset = 0; // 初期値
+let offset = 10; // 初期値
 const limit = 10;
 let loading = false; // ロード中フラグ
 const screenId = "UserInfoManagement";
@@ -34,10 +34,60 @@ function loadRecipes() {
         .then(response => response.json())
         .then(data => {
             data.forEach(recipe => {
-                const recipeElement = document.createElement("div");
+				const recipeElement = document.createElement("li"); 
                 recipeElement.className = "recipe-item";
-                recipeElement.textContent = recipe.recipe_name;
-                document.getElementById("recipe-list").appendChild(recipeElement);
+                recipeElement.setAttribute("onclick", `viewRecipeDetail(${recipe.recipeId});`);
+
+                // レシピ画像の生成
+                if (recipe.recipeImg && recipe.recipeImg !== "/img/") {
+                    const imgDiv = document.createElement("div");
+                    imgDiv.className = "recipe-img";
+                    const img = document.createElement("img");
+                    img.className = "recipe-image";
+                    img.src = recipe.recipeImg;
+                    img.alt = "レシピ画像";
+                    imgDiv.appendChild(img);
+                    recipeElement.appendChild(imgDiv);
+                }
+
+                // レシピ情報の生成
+                const infoDiv = document.createElement("div");
+                infoDiv.className = "recipe-info";
+
+                const title = document.createElement("h3");
+                title.textContent = recipe.recipeName || "レシピ名";
+                infoDiv.appendChild(title);
+
+                const description = document.createElement("p");
+                description.textContent = recipe.recipeDescrip || "レシピ説明文";
+                infoDiv.appendChild(description);
+
+                const rating = document.createElement("p");
+                rating.className = "rating";
+                rating.textContent = `評価: ${recipe.recipeAveRating || "未評価"}`;
+                infoDiv.appendChild(rating);
+
+                recipeElement.appendChild(infoDiv);
+
+                // 編集・削除ボタン
+                const actionsDiv = document.createElement("div");
+                actionsDiv.className = "recipe-actions";
+
+                const editButton = document.createElement("button");
+                editButton.className = "edit-btn";
+                editButton.textContent = "編集";
+                editButton.setAttribute("onclick", `event.stopPropagation(); editRecipe(${recipe.recipeId});`);
+                actionsDiv.appendChild(editButton);
+
+                const deleteButton = document.createElement("button");
+                deleteButton.className = "delete-btn";
+                deleteButton.textContent = "削除";
+                deleteButton.setAttribute("onclick", `event.stopPropagation(); deleteRecipe(${recipe.recipeId});`);
+                actionsDiv.appendChild(deleteButton);
+
+                recipeElement.appendChild(actionsDiv);
+
+                recipeList.appendChild(recipeElement);
             });
 
             offset += limit; // もっと見る用にoffsetを更新
