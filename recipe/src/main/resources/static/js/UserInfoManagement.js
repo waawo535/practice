@@ -14,6 +14,30 @@ function createRecipe(){
 	window.location.href = "/recipe/CreateRecipe/initShow";
 }
 
+function deleteRecipe(recipeId) {
+    if (!confirm("本当に削除しますか？")) return;
+
+    fetch(`/recipe/api/recipe/${recipeId}/delete`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("削除に失敗しました");
+        }
+		alert("削除しました");
+        window.location.reload(); 
+    })
+    .catch(error => console.error("削除エラー:", error));
+}
+
+//
+//function editRecipe(recipeId){
+//	window.location.href = "/recipe/EditRecipe/updateRecipe/initShow";
+//}
+
 //10づつ一覧を取得する
 let offset = 10; // 初期値
 const limit = 10;
@@ -73,11 +97,19 @@ function loadRecipes() {
                 const actionsDiv = document.createElement("div");
                 actionsDiv.className = "recipe-actions";
 
-                const editButton = document.createElement("button");
-                editButton.className = "edit-btn";
-                editButton.textContent = "編集";
-                editButton.setAttribute("onclick", `event.stopPropagation(); editRecipe(${recipe.recipeId});`);
-                actionsDiv.appendChild(editButton);
+                const editForm = document.createElement("form");
+                editForm.action = "/editRecipe/initShow";
+				editForm.method = "GET";
+				const inputEdit = document.createElement("input");
+				inputEdit.type = "hidden";
+				inputEdit.name = "recipeId";
+				inputEdit.value = `${recipe.recipeId}`;
+				const editButton = document.createElement("button");
+				editButton.type = "submit";
+				editButton.textContent = "編集";
+				editForm.appendChild(inputEdit);
+				editForm.appendChild(editButton);
+                actionsDiv.appendChild(editForm);
 
                 const deleteButton = document.createElement("button");
                 deleteButton.className = "delete-btn";

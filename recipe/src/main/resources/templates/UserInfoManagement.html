@@ -61,7 +61,8 @@
 	            <ul class="recipe-list" id="recipe-list">
 	                <!-- 各レシピをループで表示 -->
 	                <li th:each="recipe : ${UserInfoManagementDto.recipeList}" class="recipe-item"
-	                    th:onclick="'viewRecipeDetail(' + '${recipe.recipeId}' + ');'">
+						th:data-recipe-id="${recipe.recipeId}"
+	                    th:onclick="viewRecipeDetail(this.getAttribute('data-recipe-id'));">
 	                    
 	                    <!-- レシピ画像 -->
 						<div class="recipe-img" th:if="${!#strings.isEmpty(recipe.recipeImg) and !#strings.equals(recipe.recipeImg, '/img/')}">
@@ -76,12 +77,13 @@
 	                    
 	                    <!-- 編集・削除ボタン -->
 	                    <div class="recipe-actions">
-	                        <button class="edit-btn" 
-	                            th:onclick="'event.stopPropagation(); editRecipe(' + '${recipe.recipeId}' + ');'">
-	                            編集
-	                        </button>
+	                        <form action="/editRecipe/initShow" method="GET">
+								<input type="hidden" name="recipeId" value="${recipe.recipeId}">
+								<button type="submit">編集</button>
+	                        </form>
 	                        <button class="delete-btn" 
-	                            th:onclick="'event.stopPropagation(); deleteRecipe(' + '${recipe.recipeId}' + ');'">
+								th:data-recipe-id="${recipe.recipeId}"
+	                            th:onclick="event.stopPropagation(); deleteRecipe(this.getAttribute('data-recipe-id'));">
 	                            削除
 	                        </button>
 	                    </div>

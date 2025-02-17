@@ -4,11 +4,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.recipe.base.BaseController;
 import com.example.recipe.common.util.CommonConst;
+import com.example.recipe.dto.view.EditRecipeDto;
 import com.example.recipe.service.EditRecipeService;
 
 @Controller
@@ -22,15 +26,18 @@ public class EditRecipeController extends BaseController {
 		this.editRecipeService = editRecipeService;
 	}
 	
-	@PostMapping("/update")
-	public String updateRecipe() {
+	@GetMapping("/initShow")
+	public String updateRecipe(@RequestParam("recipeId") String recipeId, Model model) {
 		
+		//編集画面にする
 		return CommonConst.SCREENID_USERINFOMANAGEMENT;
 	}
 	
-	@PostMapping("/delete")
-	public String deleteRecipe() {
-		
+	@PostMapping("/update/confirm")
+	public String confirmUpdate(EditRecipeDto editRecipeDto) {
+		editRecipeService.update();
 		return CommonConst.SCREENID_USERINFOMANAGEMENT;
 	}
+	
+
 }
