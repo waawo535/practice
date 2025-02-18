@@ -16,6 +16,6 @@ public class InsertRecipeStepsParam extends BaseParam {
 	private String instruction;
 	
 	public InsertRecipeStepsParam() {
-		super("InsertRecipeSteps", "com.example.entity.result");
+		super("InsertRecipeSteps", "mapper.RecipeSteps");
 	}
 }

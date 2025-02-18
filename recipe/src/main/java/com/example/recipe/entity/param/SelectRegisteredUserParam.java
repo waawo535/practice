@@ -26,6 +26,6 @@ public class SelectRegisteredUserParam extends BaseParam {
 	public SelectRegisteredUserParam() {
 		//第一引数SQLID
 		//第二引数namespace
-		super("SelectRegisteredUser", "com.example.entity.result");
+		super("SelectRegisteredUser", "mapper.Users");
 	}
 }

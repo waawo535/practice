@@ -77,7 +77,7 @@ public class UpdateUserDetailProfileParam extends BaseParam {
 	private String updatedUserId;
 	
 	public UpdateUserDetailProfileParam() {
-		super("UpdateUserDetailProfile", "com.example.entity.result");
+		super("UpdateUserDetailProfile", "mapper.UserDetail");
 	}
 
 }

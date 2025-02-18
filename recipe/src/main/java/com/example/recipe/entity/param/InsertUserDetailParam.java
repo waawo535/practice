@@ -79,6 +79,6 @@ public class InsertUserDetailParam extends BaseParam {
 	private String updatedUserId;
 	
 	public InsertUserDetailParam() {
-		super("InsertUserDetail", "com.example.entity.result");
+		super("InsertUserDetail", "mapper.UserDetail");
 	}
 }

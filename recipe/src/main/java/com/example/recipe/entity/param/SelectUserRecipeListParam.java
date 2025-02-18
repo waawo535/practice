@@ -18,7 +18,7 @@ public class SelectUserRecipeListParam extends BaseParam {
 	private int offset;
 	
 	public SelectUserRecipeListParam() {
-		super("SelectUserRecipeList", "com.example.entity.result");
+		super("SelectUserRecipeList", "mapper.RecipeInfo");
 	}
 
 }

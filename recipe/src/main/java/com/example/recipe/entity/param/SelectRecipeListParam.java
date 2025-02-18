@@ -19,12 +19,13 @@ public class SelectRecipeListParam extends BaseParam {
 	 */
 	private int limit;
 	
+	private boolean deleteFlag;
 	/**
 	 * 取得開始位置
 	 */
 	private int offset;
 	
 	public SelectRecipeListParam() {
-		super("initShowList", "com.example.");
+		super("SelectRecipeList", "mapper.RecipeInfo");
 	}
 }

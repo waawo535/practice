@@ -37,7 +37,7 @@ public class InsertRecipeInfoParam extends BaseParam {
 	//private String publishStatus;
 	
 	public InsertRecipeInfoParam() {
-		super("InsertRecipeInfo", "com.example.entity.result");
+		super("InsertRecipeInfo", "mapper.RecipeInfo");
 	}
 
 }

@@ -37,7 +37,7 @@ public class UpdateIdNumberingMagnageParam extends BaseParam {
 	private String idPrefix;
 	
 	public UpdateIdNumberingMagnageParam() {
-		super("UpdateIdNumberingMagnage", "com.example.entity.result");
+		super("UpdateIdNumberingMagnage", "mapper.IdNumberingMaster");
 	}
 
 }

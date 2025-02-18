@@ -20,7 +20,7 @@ public class UpdateRegisterStatusParam extends BaseParam {
 	private String registerStatusCode;
 	
 	public UpdateRegisterStatusParam() {
-		super("UpdateRegisterStatus", "com.example.entity.result");
+		super("UpdateRegisterStatus", "mapper.Users");
 	}
 
 }

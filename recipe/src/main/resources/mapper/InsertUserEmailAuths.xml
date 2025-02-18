@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.entity.result">
-	<insert id="InsertUserEmailAuths">
-		INSERT 
-			INTO public.user_email_auths(user_id, email_address, token, expiry_date) 
-			VALUES (#{userId}, #{emailAddress}, #{token}, #{expiryDate});
-	</insert>
-</mapper>

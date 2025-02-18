@@ -47,7 +47,7 @@ public class InsertIdNumberingMasterParam extends BaseParam {
 	private String updatedUserId;
 	
 	public InsertIdNumberingMasterParam() {
-		super("InsertIdNumberingMaster", "com.example.entity.result");
+		super("InsertIdNumberingMaster", "mapper.IdNumberingMaster");
 	}
 
 }

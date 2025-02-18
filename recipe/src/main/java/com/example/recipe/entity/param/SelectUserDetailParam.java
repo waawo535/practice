@@ -15,6 +15,6 @@ public class SelectUserDetailParam extends BaseParam {
 	private String userId;
 	
 	public SelectUserDetailParam() {
-		super("SelectUserDetail", "com.example.entity.result");
+		super("SelectUserDetail", "mapper.UserDetail");
 	}
 }

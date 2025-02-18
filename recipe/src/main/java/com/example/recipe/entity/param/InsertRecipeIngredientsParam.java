@@ -18,7 +18,7 @@ public class InsertRecipeIngredientsParam extends BaseParam {
 	private String amount;
 	
 	public InsertRecipeIngredientsParam() {
-		super("InsertRecipeIngredients", "com.example.entity.result");
+		super("InsertRecipeIngredients", "mapper.RecipeIngredients");
 	}
 
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.Users">
+<!--	メールアドレスに一致するユーザを選択（削除フラグをパラメータで指定するように修正したい）-->
+	<select id="SelectRegisteredUser" resultType='com.example.recipe.entity.result.SelectRegisteredUserEntity'>
+		SELECT
+		    ud.email_address
+		    , u.register_status_code
+		FROM
+		    public.users u 
+		INNER JOIN 
+			user_detail ud 
+			ON u.user_id = ud.user_id 
+		WHERE
+		    delete_flag = false 
+		    AND ud.email_address = #{emailAddress}
+		<if test = "registerStatusCode != null">
+		    AND u.register_status_code = #{registerStatusCode}; 
+		</if>
+	</select>
+	
+<!--	ユーザを登録-->
+	<insert id="InsertRegisteredUser">
+		INSERT 
+			INTO users( 
+			    user_id
+			    , delete_flag
+			    , register_status_code
+			    , register_date
+			    , registered_user_id
+			) 
+			VALUES ( 
+			    #{userId}
+			    , #{deleteFlag}
+			    , #{registerStatusCode}
+			    , #{registerDate}
+			    , #{registeredUserId}
+			);
+	</insert>
+	
+<!--	登録ステータスコードを更新-->
+	<update id="UpdateRegisterStatus">
+		UPDATE public.users 
+		SET
+		    register_status_code = #{registerStatusCode} 
+		WHERE
+		    user_id = #{userId};
+	</update>
+</mapper>

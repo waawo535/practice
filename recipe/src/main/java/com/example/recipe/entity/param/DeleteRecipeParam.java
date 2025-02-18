@@ -12,7 +12,7 @@ public class DeleteRecipeParam extends BaseParam {
 	private String recipeId;
 	
 	public DeleteRecipeParam() {
-		super("DeleteRecipe", "mapper.DeleteRecipe");
+		super("DeleteRecipe", "mapper.RecipeInfo");
 	}
 
 }

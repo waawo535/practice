@@ -20,7 +20,7 @@ public class SelectUserDetailPasswordParam extends BaseParam {
 	private String emailAddress;
 	
 	public SelectUserDetailPasswordParam() {
-		super("SelectUserDetailPassword", "com.example.entity.result");
+		super("SelectUserDetailPassword", "mapper.UserDetail");
 	}
 
 }

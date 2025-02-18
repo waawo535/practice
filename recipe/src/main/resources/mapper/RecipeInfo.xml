@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.RecipeInfo">
+	
+<!--	ユーザIDに合致するレコードをSelect-->
+	<select id="SelectUserRecipeList" resultType="com.example.recipe.entity.result.SelectUserRecipeListEntity">
+		SELECT
+		    recipe_id
+		    , recipe_name
+		    , recipe_ave_rating
+		    , recipe_img
+		    , recipe_descrip
+		    , register_date
+		    , update_date 
+		FROM
+		    recipe_info 
+		WHERE
+		    user_id = #{userId} 
+		    AND delete_flag = #{deleteFlag}
+		ORDER BY
+			register_date DESC
+		LIMIT #{limit} OFFSET #{offset};
+	</select>
+	
+	
+	<select id="SelectRecipeList" resultType='com.example.recipe.entity.result.SelectRecipeListEntity'>
+		SELECT
+		    user_id
+		    , recipe_id
+		    , recipe_name
+		    , recipe_ave_rating
+		    , recipe_img
+		    , register_date
+		    , registered_user_id
+		    , update_date
+		    , updated_user_id
+		FROM
+		    public.recipe_info 
+		WHERE
+		    delete_flag = #{deleteFlag}
+		    AND user_id NOT IN (#{userId}) 
+		ORDER BY
+		    register_date DESC
+		LIMIT #{limit} OFFSET #{offset};
+	</select>
+<!--	 RecipeInfoテーブルにInsert -->
+	<insert id="InsertRecipeInfo">
+		INSERT 
+		INTO public.recipe_info( 
+		    user_id
+		    , recipe_id
+		    , recipe_name
+		    , recipe_ave_rating
+		    , recipe_img
+		    , recipe_descrip
+		    , delete_flag
+		    , register_date
+		    , registered_user_id
+		    , update_date
+		    , updated_user_id
+		) 
+		VALUES ( 
+		    #{userId}
+		    , #{recipeId}
+		    , #{recipeName}
+		    , #{recipeAveRating}
+		    , #{recipeImg}
+		    , #{recipeDescrip}
+		    , #{deleteFlg}		    
+		    , #{registerDate}
+		    , #{registeredUserId}
+		    , #{updateDate}
+		    , #{updatedUserId}
+		);
+	</insert>
+	
+<!--	recipeIdに合致するレコードを論理削除-->
+	<update id="DeleteRecipe">
+		UPDATE public.recipe_info 
+		SET
+		    delete_flag = TRUE
+		WHERE
+		    recipe_id = #{recipeId};
+	</update>
+</mapper>

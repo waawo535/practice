@@ -39,7 +39,7 @@ public class InsertRegisteredUserParam extends BaseParam {
 	private String registeredUserId;
 	
 	public InsertRegisteredUserParam() {
-		super("InsertRegisteredUser", "com.example.entity.result");
+		super("InsertRegisteredUser", "mapper.Users");
 	}
 
 }

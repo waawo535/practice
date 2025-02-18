@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.UserDetail">
+	
+<!--	ユーザ詳細を取得-->
+	<select id="SelectUserDetail" resultType="com.example.recipe.entity.result.SelectUserDetailEntity">
+		SELECT
+		    user_name
+		    , email_address
+		    , phone_number
+		    , profile_img_url
+		    , bio
+		    , birth_date
+		    , gender
+		    , register_date
+		    , registered_user_id
+		    , update_date
+		    , updated_user_id
+		FROM
+		    public.user_detail 
+		WHERE
+		    user_id = #{userId}
+	</select>
+	
+<!--	メールアドレスに合致するパスワードを取得-->
+	<select id="SelectUserDetailPassword" resultType="com.example.recipe.entity.result.SelectUserDetailPasswordEntity">
+		SELECT
+			user_id
+		    , password 
+		FROM
+		    public.user_detail 
+		WHERE
+		    <if test = "userId != null" > user_id = #{userId} 
+		    AND </if > 
+		    email_address = #{emailAddress}
+	</select>
+	
+<!--	ユーザ詳細をInsert-->
+	<insert id="InsertUserDetail">
+		INSERT 
+			INTO public.user_detail( 
+			    user_id
+			    , user_name
+			    , email_address
+			    , phone_number
+			    , password
+			    , profile_img_url
+			    , bio
+			    , birth_date
+			    , gender
+			    , register_date
+			    , registered_user_id
+			    , update_date
+			    , updated_user_id
+			) 
+			VALUES ( 
+			    #{userId}
+			    , #{userName}
+			    , #{emailAddress}
+			    , #{phoneNumber}
+			    , #{password}
+			    , #{profileImgUrl}
+			    , #{bio}
+			    , #{birthDate}
+			    , #{gender}
+			    , #{registerDate}
+			    , #{registeredUserId}
+			    , #{updateDate}
+			    , #{updatedUserId}
+			);
+	</insert>
+	
+<!--	ユーザ詳細を更新-->
+	<update id="UpdateUserDetailProfile">
+		 UPDATE public.user_detail 
+		SET
+		    user_name = #{userName}
+		    , email_address = #{emailAddress}
+		    , phone_number = #{phoneNumber}
+		    , profile_img_url = #{profileImgUrl}
+		    , bio = #{bio}
+		    , update_date = #{updateDate}
+		    , updated_user_id = #{updatedUserId}
+		WHERE
+		    user_id = #{userId};
+	 </update>
+</mapper>

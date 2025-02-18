@@ -32,7 +32,7 @@ public class InsertUserEmailAuthsParam extends BaseParam {
 	private Timestamp expiryDate;
 	
 	public InsertUserEmailAuthsParam() {
-		super("InsertUserEmailAuths", "com.example.entity.result");
+		super("InsertUserEmailAuths", "mapper.UserEmailAuths");
 	}
 
 }

@@ -20,6 +20,6 @@ public class SelectUserEmailAuthsParam extends BaseParam {
 	private String emailAddress;
 	
 	public SelectUserEmailAuthsParam() {
-		super("SelectUserEmailAuths", "com.example.entity.result");
+		super("SelectUserEmailAuths", "mapper.UserEmailAuths");
 	}
 }

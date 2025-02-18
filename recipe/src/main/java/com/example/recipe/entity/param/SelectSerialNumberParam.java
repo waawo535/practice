@@ -22,7 +22,7 @@ public class SelectSerialNumberParam extends BaseParam{
 	private String idPrefix;
 	
 	public SelectSerialNumberParam() {
-		super("SelectSerialNumber", "com.example.entity.result");
+		super("SelectSerialNumber", "mapper.IdNumberingMaster");
 	}
 
 }
