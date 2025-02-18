@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>レシピ編集</title>
+<link rel="stylesheet" th:href="@{/css/Header.css}">
+<link rel="stylesheet" th:href="@{/css/EditRecipe.css}">
+</head>
+<body>
+<div th:replace="~{Header :: header}"  ></div>
+	<div class="container">
+	  <h1>レシピ入力フォーム</h1>
+	  <form id="recipeForm" th:action="@{/editRecipe/update/confirm}" th:object="${EditRecipeDto}" enctype="multipart/form-data" method="POST">
+	    <!-- レシピ名 -->
+	    <div class="form-group">
+	      <label for="recipeName">レシピ名</label>
+	      <input type="text" id="recipeName" name="recipeName" placeholder="ふわふわオムレツ" th:field="*{recipeName}" required />
+	    </div>
+
+	    <!-- レシピ画像アップロード＋プレビュー -->
+	    <div class="form-group">
+	      <label for="recipeImage">レシピの画像</label>
+	      <input type="file" id="recipeImageInput" name="recipeImage" accept="image/*" th:field="*{recipeImg}" title="レシピ画像を選択してください" />
+	      <div class="preview" id="imagePreview"></div>
+	    </div>
+
+	    <!-- レシピの説明 -->
+	    <div class="form-group">
+	      <label for="recipeDescription">レシピの説明</label>
+	      <textarea id="recipeDescription" name="recipeDescription" placeholder="&#10;・味やおすすめポイント&#10;・楽しみ方&#10;・この料理を作ったきっかけ など"  th:field="*{recipeDiscrip}"></textarea>
+	    </div>
+
+	    <!-- レシピカテゴリ -->
+	    <div class="form-group">
+	      <label for="recipeCategory">レシピカテゴリ</label>
+	      <select id="recipeCategory" name="recipeCategory" th:field="*{recipeCategory}">
+	        <option value="">選択してください</option>
+	        <option value="和食">和食</option>
+	        <option value="洋食">洋食</option>
+	        <option value="中華">中華</option>
+	        <option value="スイーツ">スイーツ</option>
+	      </select>
+	    </div>
+
+		<!-- レシピの材料 -->
+		<div class="form-group">
+		    <label>レシピの材料</label>
+		    <div class="ingredient-list" id="ingredientList">
+		        <!-- 追加された材料項目がここに入る -->
+		        <div class="ingredient-item" th:each="ingredient, iterStat : *{recipeIngredients}">
+		            <span>・</span>
+		            <input type="text" th:name="|recipeIngredients[${iterStat.index}].ingredientName|" th:value="${ingredient.ingredientName}" />
+		        </div>
+		    </div>
+		    <button type="button" class="add-button" id="addIngredientBtn">＋</button>
+		</div>
+
+	    <!-- 作り方 -->
+	    <div class="form-group">
+	      <label>作り方</label>
+	      <div class="steps-list" id="stepsList">
+	        <!-- 追加された手順項目がここに入る -->
+			<div class="stepsList-item" th:each="stepsList, iterStat : *{stepsList}">
+	            <span>・</span>
+	            <input type="text" th:name="|stepsList[${iterStat.index}]|" th:value="${stepsList}" />
+	        </div>
+	      </div>
+	      <button type="button" class="add-button" id="addStepBtn">＋</button>
+	    </div>
+
+	    <!-- 公開/非公開 -->
+	    <div class="form-group">
+	      <label>公開設定</label>
+	      <div class="radio-group" th:field="*{publishStatus}">
+	        <label><input type="radio" name="publishStatus" value="public" checked /> 公開</label>
+	        <label><input type="radio" name="publishStatus" value="private" /> 非公開</label>
+	      </div>
+	    </div>
+
+	    <!-- ボタン -->
+	    <div class="button-group">
+	      <button type="button" id="clear-btn" class="clear-btn" onclick="handleClear()">クリア</button>
+	      <button type="submit" id="submit-btn" class="submit-btn">登録する</button>
+	    </div>
+	  </form>
+	</div>
+<script th:src="@{/js/Header.js}"></script>
+<script th:src="@{/js/EditRecipe.js}"></script>
+</body>
+</html>

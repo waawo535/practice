@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.recipe.base.BaseController;
 import com.example.recipe.common.util.CommonConst;
+import com.example.recipe.dto.ServiceIn.EditRecipeServiceUpdateIn;
 import com.example.recipe.dto.view.EditRecipeDto;
 import com.example.recipe.service.EditRecipeService;
 
@@ -28,16 +29,18 @@ public class EditRecipeController extends BaseController {
 	
 	@GetMapping("/initShow")
 	public String updateRecipe(@RequestParam("recipeId") String recipeId, Model model) {
+		EditRecipeDto editRecipeDto = new EditRecipeDto();
+		model.addAttribute(CommonConst.KEY_EDITRECIPE_DTO, editRecipeDto);
 		
-		//編集画面にする
-		return CommonConst.SCREENID_USERINFOMANAGEMENT;
+		return CommonConst.SCREENID_EDITRECIPE;
 	}
 	
 	@PostMapping("/update/confirm")
 	public String confirmUpdate(EditRecipeDto editRecipeDto) {
-		editRecipeService.update();
+		EditRecipeServiceUpdateIn editRecipeServiceUpdateIn = new EditRecipeServiceUpdateIn();
+		editRecipeService.update(editRecipeServiceUpdateIn);
 		return CommonConst.SCREENID_USERINFOMANAGEMENT;
 	}
 	
-
+	//単項目チェックなど実装する
 }

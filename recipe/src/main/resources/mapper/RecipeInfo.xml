@@ -74,6 +74,23 @@
 		);
 	</insert>
 	
+	<update id="UpdateRecipe">
+		UPDATE public.recipe_info 
+		SET
+		    user_id = #{userId}
+		    , recipe_name = #{recipeName}
+		    , recipe_ave_rating = #{recipeAveRating}
+		    , rating_total_count = #{ratingTotalCount}
+		    , recipe_img = #{recipeImg}
+		    , recipe_descrip = #{recipeDescrip}
+		    , delete_flag = #{deleteFlag}
+		    , register_date = #{registerDate}
+		    , registered_user_id = #{registeredUserId}
+		    , update_date = #{updateDate}
+		    , updated_user_id = #{updatedUserId} 
+		WHERE
+		    recipe_id = #{recipeId}
+	</update>
 <!--	recipeIdに合致するレコードを論理削除-->
 	<update id="DeleteRecipe">
 		UPDATE public.recipe_info 
