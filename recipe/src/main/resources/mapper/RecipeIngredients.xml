@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.RecipeIngredients">
+
+	<select id="SelectRecipeIngredients" resultType="com.example.recipe.entity.result.SelectRecipeIngredientsEntity">
+		SELECT
+		    recipe_id
+		    , ingredient_number
+		    , ingredient_name
+		    , amount
+		FROM
+		    public.recipe_ingredients 
+		WHERE
+		    recipe_id = #{recipeId}
+		ORDER BY
+		    recipe_id
+	</select>
+	
 	<insert id="InsertRecipeIngredients">
 	INSERT 
 	INTO public.recipe_ingredients( 
@@ -16,4 +31,12 @@
 	    , #{amount}
 	);
 	</insert>
+	
+	<delete id="DeleteRecipeIngredients">
+	DELETE 
+	FROM
+	    public.recipe_ingredients 
+	WHERE
+	    recipe_id = #{recipeId}
+	</delete>
 </mapper>

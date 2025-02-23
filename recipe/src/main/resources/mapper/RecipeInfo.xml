@@ -2,7 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.RecipeInfo">
 	
-<!--	ユーザIDに合致するレコードをSelect-->
+<!--	レシピIDを指定してレシピ情報を1件取得-->
+	<select id="SelectRecipeById" resultType="com.example.recipe.entity.result.SelectRecipeByIdEntity">
+		SELECT
+		    recipe_id
+		    , recipe_name
+		    , recipe_ave_rating
+		    , recipe_img
+		    , recipe_descrip
+		    , register_date
+		    , update_date 
+		FROM
+		    recipe_info 
+		WHERE
+		    recipe_id = #{recipeId} 
+	</select>
+	
+<!--	ユーザを指定してレシピ一覧を取得-->
 	<select id="SelectUserRecipeList" resultType="com.example.recipe.entity.result.SelectUserRecipeListEntity">
 		SELECT
 		    recipe_id
@@ -16,10 +32,12 @@
 		    recipe_info 
 		WHERE
 		    user_id = #{userId} 
+		    <if test="deleteFlag != null">
 		    AND delete_flag = #{deleteFlag}
+		    </if>
 		ORDER BY
 			register_date DESC
-		LIMIT #{limit} OFFSET #{offset};
+		LIMIT #{limit} OFFSET #{offset}
 	</select>
 	
 	
@@ -43,6 +61,7 @@
 		    register_date DESC
 		LIMIT #{limit} OFFSET #{offset};
 	</select>
+	
 <!--	 RecipeInfoテーブルにInsert -->
 	<insert id="InsertRecipeInfo">
 		INSERT 
@@ -74,23 +93,46 @@
 		);
 	</insert>
 	
-	<update id="UpdateRecipe">
-		UPDATE public.recipe_info 
-		SET
-		    user_id = #{userId}
-		    , recipe_name = #{recipeName}
-		    , recipe_ave_rating = #{recipeAveRating}
-		    , rating_total_count = #{ratingTotalCount}
-		    , recipe_img = #{recipeImg}
-		    , recipe_descrip = #{recipeDescrip}
-		    , delete_flag = #{deleteFlag}
-		    , register_date = #{registerDate}
-		    , registered_user_id = #{registeredUserId}
-		    , update_date = #{updateDate}
-		    , updated_user_id = #{updatedUserId} 
-		WHERE
-		    recipe_id = #{recipeId}
-	</update>
+<update id="UpdateRecipe">
+    UPDATE public.recipe_info 
+    <set>
+        <if test="userId != null">
+            user_id = #{userId}
+        </if>
+        <if test="recipeName != null">
+            , recipe_name = #{recipeName}
+        </if>
+        <if test="recipeAveRating != null">
+            , recipe_ave_rating = #{recipeAveRating}
+        </if>
+        <if test="ratingTotalCount != null">
+            , rating_total_count = #{ratingTotalCount}
+        </if>
+        <if test="recipeImg != null">
+            , recipe_img = #{recipeImg}
+        </if>
+        <if test="recipeDescrip != null">
+            , recipe_descrip = #{recipeDescrip}
+        </if>
+        <if test="deleteFlag != null">
+            , delete_flag = #{deleteFlag}
+        </if>
+        <if test="registerDate != null">
+            , register_date = #{registerDate}
+        </if>
+        <if test="registeredUserId != null">
+            , registered_user_id = #{registeredUserId}
+        </if>
+        <if test="updateDate != null">
+            , update_date = #{updateDate}
+        </if>
+        <if test="updatedUserId != null">
+            , updated_user_id = #{updatedUserId} 
+        </if>
+    </set>
+    WHERE recipe_id = #{recipeId}
+</update>
+
 <!--	recipeIdに合致するレコードを論理削除-->
 	<update id="DeleteRecipe">
 		UPDATE public.recipe_info 

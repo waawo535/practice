@@ -55,7 +55,9 @@ public class UserInfoManagementService extends BaseService {
 		
 		//パスを設定する
 		for(int i=0; i<selectUserRecipeListEntityList.size();i++) {
-			selectUserRecipeListEntityList.get(i).setRecipeImg("/img/" + selectUserRecipeListEntityList.get(i).getRecipeImg());
+			if(selectUserRecipeListEntityList.get(i).getRecipeImg()!=null) {	
+			selectUserRecipeListEntityList.get(i).setRecipeImg(System.getProperty("user.dir") + "/uploads/" + selectUserRecipeListEntityList.get(i).getRecipeImg());
+			}
 		}
 		
 		//Outパラメタに取得したユーザ情報を設定

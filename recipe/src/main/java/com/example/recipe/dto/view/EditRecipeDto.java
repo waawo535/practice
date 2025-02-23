@@ -22,7 +22,7 @@ public class EditRecipeDto extends BaseDto {
 	
 	private MultipartFile  recipeImg;
 	
-	private String recipeDiscrip;
+	private String recipeDescrip;
 	
 	private List<Ingredient> recipeIngredients;
 	

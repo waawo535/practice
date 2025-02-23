@@ -11,6 +11,7 @@
 	<div class="container">
 	  <h1>レシピ入力フォーム</h1>
 	  <form id="recipeForm" th:action="@{/editRecipe/update/confirm}" th:object="${EditRecipeDto}" enctype="multipart/form-data" method="POST">
+		<input type="hidden" name="recipeId" th:value="*{recipeId}">
 	    <!-- レシピ名 -->
 	    <div class="form-group">
 	      <label for="recipeName">レシピ名</label>
@@ -27,20 +28,20 @@
 	    <!-- レシピの説明 -->
 	    <div class="form-group">
 	      <label for="recipeDescription">レシピの説明</label>
-	      <textarea id="recipeDescription" name="recipeDescription" placeholder="&#10;・味やおすすめポイント&#10;・楽しみ方&#10;・この料理を作ったきっかけ など"  th:field="*{recipeDiscrip}"></textarea>
+	      <textarea id="recipeDescription" name="recipeDescription" placeholder="&#10;・味やおすすめポイント&#10;・楽しみ方&#10;・この料理を作ったきっかけ など"  th:field="*{recipeDescrip}"></textarea>
 	    </div>
 
-	    <!-- レシピカテゴリ -->
-	    <div class="form-group">
-	      <label for="recipeCategory">レシピカテゴリ</label>
-	      <select id="recipeCategory" name="recipeCategory" th:field="*{recipeCategory}">
-	        <option value="">選択してください</option>
-	        <option value="和食">和食</option>
-	        <option value="洋食">洋食</option>
-	        <option value="中華">中華</option>
-	        <option value="スイーツ">スイーツ</option>
-	      </select>
-	    </div>
+<!--	     レシピカテゴリ -->
+<!--	    <div class="form-group">-->
+<!--	      <label for="recipeCategory">レシピカテゴリ</label>-->
+<!--	      <select id="recipeCategory" name="recipeCategory" th:field="*{recipeCategory}">-->
+<!--	        <option value="">選択してください</option>-->
+<!--	        <option value="和食">和食</option>-->
+<!--	        <option value="洋食">洋食</option>-->
+<!--	        <option value="中華">中華</option>-->
+<!--	        <option value="スイーツ">スイーツ</option>-->
+<!--	      </select>-->
+<!--	    </div>-->
 
 		<!-- レシピの材料 -->
 		<div class="form-group">

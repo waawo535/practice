@@ -65,7 +65,7 @@
 	                    th:onclick="viewRecipeDetail(this.getAttribute('data-recipe-id'));">
 	                    
 	                    <!-- レシピ画像 -->
-						<div class="recipe-img" th:if="${!#strings.isEmpty(recipe.recipeImg) and !#strings.equals(recipe.recipeImg, '/img/')}">
+						<div class="recipe-img" th:if="${!#strings.isEmpty(recipe.recipeImg)}">
 	                    	<img th:src="@{${recipe.recipeImg}}" alt="レシピ画像" class="recipe-image">
 						</div>
 	                    <!-- レシピ情報 -->
@@ -77,8 +77,8 @@
 	                    
 	                    <!-- 編集・削除ボタン -->
 	                    <div class="recipe-actions">
-	                        <form action="/editRecipe/initShow" method="GET">
-								<input type="hidden" name="recipeId" value="${recipe.recipeId}">
+	                        <form th:action="@{/editRecipe/initShow}" method="GET">
+								<input type="hidden" name="recipeId" th:value="${recipe.recipeId}">
 								<button type="submit">編集</button>
 	                        </form>
 	                        <button class="delete-btn" 

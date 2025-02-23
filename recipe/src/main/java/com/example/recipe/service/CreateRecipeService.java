@@ -121,7 +121,7 @@ public class CreateRecipeService extends BaseService {
 	 */
 	private void saveFile(MultipartFile multipartFile, String fileName) throws IOException {
 		//保存先パスを指定
-		String folderPath = "src/main/resources/static/img";
+		String folderPath = System.getProperty("user.dir") + "/uploads/";
 		Path filePath = Paths.get(folderPath, fileName);
 		
 		try {

@@ -33,10 +33,6 @@ function deleteRecipe(recipeId) {
     .catch(error => console.error("削除エラー:", error));
 }
 
-//
-//function editRecipe(recipeId){
-//	window.location.href = "/recipe/EditRecipe/updateRecipe/initShow";
-//}
 
 //10づつ一覧を取得する
 let offset = 10; // 初期値
@@ -44,7 +40,7 @@ const limit = 10;
 let loading = false; // ロード中フラグ
 const screenId = "UserInfoManagement";
 
-//初期表示はControllerから取得してさらに読み込む分はAPIで取得するように後で修正する
+//初期表示はControllerから取得してさらに読み込む分はAPIで取得する
 function loadRecipes() {
     if (loading) return; // すでにロード中なら処理しない
     loading = true;
@@ -63,7 +59,7 @@ function loadRecipes() {
                 recipeElement.setAttribute("onclick", `viewRecipeDetail(${recipe.recipeId});`);
 
                 // レシピ画像の生成
-                if (recipe.recipeImg && recipe.recipeImg !== "/img/") {
+                if (recipe.recipeImg != null) {
                     const imgDiv = document.createElement("div");
                     imgDiv.className = "recipe-img";
                     const img = document.createElement("img");
