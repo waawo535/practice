@@ -40,6 +40,10 @@ public class CommonConst {
 	public static final String PROVISIONAL_REGISTRATION ="0";
 	/** 登録ステータスコード：本登録*/
 	public static final String DEFINITIVE_REGISTRATION = "1";
+	/** 公開ステータス：非公開*/
+	public static final String PUBLIC = "0";
+	/** 公開ステータス：公開*/
+	public static final String PRIVATE = "1";
 	//------------------------------キー------------------------------
 	/** セッション情報保持DTO*/
 	public static final String KEY_SESSIONINFO_DTO = "SessionInfo";

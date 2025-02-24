@@ -25,6 +25,8 @@ public class UpdateRecipeInfoParam extends BaseParam {
 	
 	private String recipeDescrip;
 	
+	private String publishStatus;
+	
 	private Boolean deleteFlag;
 	
 	private Timestamp registerDate;

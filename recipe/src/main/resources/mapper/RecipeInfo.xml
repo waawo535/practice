@@ -10,6 +10,7 @@
 		    , recipe_ave_rating
 		    , recipe_img
 		    , recipe_descrip
+		    , publish_status
 		    , register_date
 		    , update_date 
 		FROM
@@ -26,6 +27,7 @@
 		    , recipe_ave_rating
 		    , recipe_img
 		    , recipe_descrip
+		    , publish_status
 		    , register_date
 		    , update_date 
 		FROM
@@ -72,6 +74,7 @@
 		    , recipe_ave_rating
 		    , recipe_img
 		    , recipe_descrip
+		    , publish_status
 		    , delete_flag
 		    , register_date
 		    , registered_user_id
@@ -85,6 +88,7 @@
 		    , #{recipeAveRating}
 		    , #{recipeImg}
 		    , #{recipeDescrip}
+		    , #{publishStatus}
 		    , #{deleteFlg}		    
 		    , #{registerDate}
 		    , #{registeredUserId}
@@ -113,6 +117,9 @@
         </if>
         <if test="recipeDescrip != null">
             , recipe_descrip = #{recipeDescrip}
+        </if>
+        <if test="publishStatus != null">
+            , publish_status = #{publishStatus}
         </if>
         <if test="deleteFlag != null">
             , delete_flag = #{deleteFlag}

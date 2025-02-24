@@ -59,6 +59,7 @@ public class CreateRecipeService extends BaseService {
 		insertRecipeInfoParam.setRecipeAveRating(null);
 		insertRecipeInfoParam.setRecipeImg(fileName);
 		insertRecipeInfoParam.setRecipeDescrip(inDto.getRecipeDiscrip());
+		insertRecipeInfoParam.setPublishStatus(inDto.getPublishStatus());
 		insertRecipeInfoParam.setDeleteFlg(false);
 		insertRecipeInfoParam.setRegisterDate(DateTimeGenerator.getTimestampDateTime());
 		insertRecipeInfoParam.setRegisteredUserId(inDto.getUserId());

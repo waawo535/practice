@@ -23,6 +23,8 @@ public class InsertRecipeInfoParam extends BaseParam {
 	
 	private String recipeDescrip;
 	
+	private String publishStatus;
+	
 	private boolean deleteFlg;
 	
 	private Timestamp registerDate;
