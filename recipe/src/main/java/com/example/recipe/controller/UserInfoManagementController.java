@@ -6,7 +6,6 @@ import java.util.Locale;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +22,6 @@ import com.example.recipe.dto.ErrorMessageDto;
 import com.example.recipe.dto.SessionInfoDto;
 import com.example.recipe.dto.SingleFieldCheckCheckForBiddenCharOut;
 import com.example.recipe.dto.ServiceIn.UserInfoManagementShowUserInfoIn;
-import com.example.recipe.dto.ServiceOut.UserInfoManagementShowUserInfoOut;
 import com.example.recipe.dto.view.UserInfoManagementDto;
 import com.example.recipe.service.UserInfoManagementService;
 
@@ -53,15 +51,12 @@ public class UserInfoManagementController extends BaseController {
 		
 		//セッション情報を取得する
 		SessionInfoDto sessionInfoDto = (SessionInfoDto) session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
-		
+		UserInfoManagementDto viewDto =  new UserInfoManagementDto();
 		//F層呼び出しでユーザ情報を取得
 		UserInfoManagementShowUserInfoIn inDto = new UserInfoManagementShowUserInfoIn();
 		inDto.setUserId(sessionInfoDto.getUserId());
-		UserInfoManagementShowUserInfoOut showUserInfoOut = userInfoManagementService.showUserInfo(inDto);
-		
-		//画面表示DTOにF層から取得した値ををコピー
-		UserInfoManagementDto viewDto =  new UserInfoManagementDto();
-		BeanUtils.copyProperties(showUserInfoOut, viewDto);
+		inDto.setUserInfoManagementDto(viewDto);
+		userInfoManagementService.showUserInfo(inDto);
 		
 		//取得したユーザ情報をmodelに設定
 		model.addAttribute(CommonConst.KEY_USERINFOMANAGEMENT_DTO, viewDto);

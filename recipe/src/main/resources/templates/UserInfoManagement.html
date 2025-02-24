@@ -66,13 +66,18 @@
 	                    
 	                    <!-- レシピ画像 -->
 						<div class="recipe-img" th:if="${!#strings.isEmpty(recipe.recipeImg)}">
-	                    	<img th:src="@{${recipe.recipeImg}}" alt="レシピ画像" class="recipe-image">
+	                    	<img th:src="@{/uploads/{fileName}(fileName=${recipe.recipeImg})}" alt="レシピ画像" class="recipe-image">
+						</div>
+						<div class="recipe-img" th:if="${#strings.isEmpty(recipe.recipeImg)}">
+	                    	<img th:src="@{/img/noimage.jpg}" alt="レシピ画像" class="recipe-image">
 						</div>
 	                    <!-- レシピ情報 -->
 	                    <div class="recipe-info">
 	                        <h3 th:text="${recipe.recipeName}">レシピ名</h3>
 	                        <p th:text="${recipe.recipeDescrip}">レシピ説明文</p>
-	                        <p class="rating" th:text="'評価: ' + ${recipe.recipeAveRating}">現在の評価</p>
+	                    	<div th:if="${recipe.recipeAveRating}!=0">
+	                        	<p class="rating" th:text="'評価: ' + ${recipe.recipeAveRating}">現在の評価</p>
+							</div>
 	                    </div>
 	                    
 	                    <!-- 編集・削除ボタン -->

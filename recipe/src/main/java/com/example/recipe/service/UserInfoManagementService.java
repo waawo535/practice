@@ -13,7 +13,6 @@ import com.example.recipe.common.MyBatisDao;
 import com.example.recipe.dto.ServiceIn.UserInfoManagementEditProfileIn;
 import com.example.recipe.dto.ServiceIn.UserInfoManagementShowUserInfoIn;
 import com.example.recipe.dto.ServiceOut.UserInfoManagementEditProfileOut;
-import com.example.recipe.dto.ServiceOut.UserInfoManagementShowUserInfoOut;
 import com.example.recipe.entity.param.SelectUserDetailParam;
 import com.example.recipe.entity.param.SelectUserRecipeListParam;
 import com.example.recipe.entity.param.UpdateUserDetailProfileParam;
@@ -37,8 +36,7 @@ public class UserInfoManagementService extends BaseService {
 	 * @param inDto
 	 * @return
 	 */
-	public UserInfoManagementShowUserInfoOut showUserInfo(UserInfoManagementShowUserInfoIn inDto) {
-		UserInfoManagementShowUserInfoOut outDto = new UserInfoManagementShowUserInfoOut();
+	public void showUserInfo(UserInfoManagementShowUserInfoIn inDto) {
 		
 		//ユーザ情報を取得
 		SelectUserDetailParam selectUserDetailParam = new SelectUserDetailParam();
@@ -54,17 +52,15 @@ public class UserInfoManagementService extends BaseService {
 		List<SelectUserRecipeListEntity> selectUserRecipeListEntityList = dao.selectList(selectUserRecipeListParam);
 		
 		//パスを設定する
-		for(int i=0; i<selectUserRecipeListEntityList.size();i++) {
-			if(selectUserRecipeListEntityList.get(i).getRecipeImg()!=null) {	
-			selectUserRecipeListEntityList.get(i).setRecipeImg(System.getProperty("user.dir") + "/uploads/" + selectUserRecipeListEntityList.get(i).getRecipeImg());
-			}
-		}
-		
+//		for(int i=0; i<selectUserRecipeListEntityList.size();i++) {
+//			if(selectUserRecipeListEntityList.get(i).getRecipeImg()!=null) {
+//				selectUserRecipeListEntityList.get(i).setRecipeImg("\\uploads\\" + selectUserRecipeListEntityList.get(i).getRecipeImg());
+//			}
+//		}
 		//Outパラメタに取得したユーザ情報を設定
-		BeanUtils.copyProperties(selectUserDetailEntity, outDto);
-		outDto.setRecipeList(selectUserRecipeListEntityList);
+		BeanUtils.copyProperties(selectUserDetailEntity, inDto.getUserInfoManagementDto());
+		inDto.getUserInfoManagementDto().setRecipeList(selectUserRecipeListEntityList);
 		
-		return outDto;
 	}
 	
 	/**

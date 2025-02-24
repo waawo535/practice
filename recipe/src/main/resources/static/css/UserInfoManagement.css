@@ -126,3 +126,108 @@ button.create-btn:hover {
     list-style: none; 
     padding: 0;
 }
+/* レシピリストのスタイリング */
+.recipe-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 0;
+}
+
+.recipe-item {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.recipe-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* レシピ画像のスタイリング */
+.recipe-img {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.recipe-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* レシピ情報のスタイリング */
+.recipe-info {
+    padding: 15px;
+}
+
+.recipe-info h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.recipe-info p {
+    margin: 0 0 8px 0;
+    color: #666;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.rating {
+    color: #f0ad4e;
+    font-weight: bold;
+}
+
+/* 編集・削除ボタンのスタイリング */
+.recipe-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+}
+
+.recipe-actions button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+}
+
+.recipe-actions form button {
+    background-color: #4c6ef5;
+    color: white;
+}
+
+.recipe-actions form button:hover {
+    background-color: #3b5bdb;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* レシピが存在しない場合のスタイリング */
+.recipes-container p {
+    color: #666;
+    margin: 20px 0;
+}
+
+.create-btn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 1em;
+}

@@ -1,5 +1,6 @@
 package com.example.recipe.entity.result;
 
+import java.nio.file.Path;
 import java.sql.Timestamp;
 
 import com.example.recipe.base.BaseEntity;
@@ -15,6 +16,7 @@ public class SelectUserRecipeListEntity extends BaseEntity {
 	 private String  recipeName;
 	 private int recipeAveRating;
 	 private String recipeImg;
+	 private Path recipeImgPath;
 	 private String recipeDescrip;
 	 private Timestamp registerDate;
 	 private Timestamp updateDate; 
