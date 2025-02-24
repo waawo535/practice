@@ -57,6 +57,8 @@ public class CommonConst {
 	public static final String KEY_USERAUTHENTICATION_DTO = "UserAuthenticationDto";
 	/** ログイン画面表示DTO*/
 	public static final String KEY_LOGIN_DTO = "LoginDto";
+	/** ユーザポータル画面表示DTO*/
+	public static final String KEY_USERPORTAL_DTO = "UserPortalDto";
 	/** ユーザ情報管理画面表示用DTO*/
 	public static final String KEY_USERINFOMANAGEMENT_DTO = "UserInfoManagementDto";
 	/** */

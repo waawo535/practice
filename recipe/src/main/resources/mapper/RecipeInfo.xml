@@ -42,6 +42,51 @@
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
 	
+<!--	人気順で一覧を取得（自分が登録したもの以外から取得）-->
+	<select id="SelectRecipeListByPopularity" resultType='com.example.recipe.entity.result.SelectRecipeByIdEntity'>
+		SELECT
+		    recipe_id
+		    , recipe_name
+		    , recipe_ave_rating
+		    , recipe_img
+		    , recipe_descrip
+		    , publish_status
+		    , register_date
+		    , update_date
+		    , ( ( recipe_ave_rating / 5.0 + 1.96 * 1.96 / (2 * rating_total_count) - 1.96 * sqrt( 
+		                (recipe_ave_rating / 5.0) * (1 - recipe_ave_rating / 5.0) / rating_total_count + 1.96 * 1.96 / (4 * rating_total_count * rating_total_count))
+		        ) / (1 + 1.96 * 1.96 / rating_total_count)
+		    ) AS wilson_score 
+		FROM
+		    recipe_info 
+		WHERE
+		    rating_total_count > 0 
+		    AND update_date >= NOW() - INTERVAL '7 days' 
+		    AND registered_user_id != #{registeredUserId}
+		    AND delete_flag = #{deleteFlag}
+		ORDER BY
+		    wilson_score DESC;
+	</select>
+	
+<!--	新しい順でレシピ一覧を取得（自分が登録したもの以外から取得）-->
+	<select id="SelectRecipeListByTime" resultType='com.example.recipe.entity.result.SelectRecipeByIdEntity'>
+		SELECT
+		    recipe_id
+		    , recipe_name
+		    , recipe_ave_rating
+		    , recipe_img
+		    , recipe_descrip
+		    , publish_status
+		    , register_date
+		    , update_date
+		FROM
+		    recipe_info 
+		WHERE
+		    registered_user_id != #{registeredUserId}
+		    AND delete_flag = #{deleteFlag}
+		ORDER BY
+		    update_date DESC;
+	</select>
 	
 	<select id="SelectRecipeList" resultType='com.example.recipe.entity.result.SelectRecipeListEntity'>
 		SELECT

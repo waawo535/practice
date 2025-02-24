@@ -1,13 +1,93 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>ユーザポータル</title>
-<link rel="stylesheet" th:href="@{/css/Header.css}">
+    <meta charset="UTF-8">
+    <title>ユーザポータル</title>
+    <link rel="stylesheet" th:href="@{/css/Header.css}">
+    <link rel="stylesheet" th:href="@{/css/UserPortal.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-<div th:replace="~{Header :: header}"  ></div>
-ユーザポータル
-<script th:src="@{/js/Header.js}"></script>
+    <div th:replace="~{Header :: header}"></div>
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" data-tab="popular">人気順</button>
+            <button class="tab-button" data-tab="newest">新着順</button>
+        </div>
+
+        <!-- 人気順タブコンテンツ -->
+        <div class="tab-content active" id="popular-content">
+            <!-- データが空の場合 -->
+            <div th:if="${UserPortalDto == null || UserPortalDto.listByPopularity == null || UserPortalDto.listByPopularity.empty}" class="no-content">
+                <i class="fas fa-utensils"></i>
+                <p>表示できるレシピがありません</p>
+                <p class="sub-text">現在、人気のレシピはまだ登録されていません。</p>
+            </div>
+            <!-- データがある場合 -->
+            <div th:if="${UserPortalDto != null && UserPortalDto.listByPopularity != null && !UserPortalDto.listByPopularity.empty}" class="recipes-grid">
+                <div th:each="recipe : ${UserPortalDto.listByPopularity}" class="recipe-card">
+                    <div class="recipe-image">
+                        <img th:if="${!#strings.isEmpty(recipe.recipeImg)}" 
+                             th:src="@{/uploads/{fileName}(fileName=${recipe.recipeImg})}" 
+                             alt="レシピ画像">
+                        <img th:if="${#strings.isEmpty(recipe.recipeImg)}" 
+                             th:src="@{/img/noimage.jpg}" 
+                             alt="No Image">
+                        <button class="favorite-btn" 
+                                th:classappend="${recipe.favFlg == '1'} ? 'active' : ''"
+                                th:data-recipe-id="${recipe.recipeId}"
+                                onclick="toggleFavorite(this)">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="recipe-info" th:onclick="'location.href=\'' + @{/recipe/detail/{id}(id=${recipe.recipeId})} + '\''">
+                        <h3 th:text="${recipe.recipeName}">レシピ名</h3>
+                        <p class="description" th:text="${recipe.recipeDescrip}">レシピの説明</p>
+                        <div class="rating">
+                            <span class="stars" th:text="'★ ' + ${recipe.recipeAveRating}">★ 4.5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 新着順タブコンテンツ -->
+        <div class="tab-content" id="newest-content">
+            <!-- データが空の場合 -->
+            <div th:if="${UserPortalDto == null || UserPortalDto.listByTime == null || UserPortalDto.listByTime.empty}" class="no-content">
+                <i class="fas fa-clock"></i>
+                <p>表示できるレシピがありません</p>
+                <p class="sub-text">新着レシピはまだ登録されていません。</p>
+            </div>
+            <!-- データがある場合 -->
+            <div th:if="${UserPortalDto != null && UserPortalDto.listByTime != null}" class="recipes-grid">
+                <div th:each="recipe : ${UserPortalDto.listByTime}" class="recipe-card">
+                    <div class="recipe-image">
+                        <img th:if="${!#strings.isEmpty(recipe.recipeImg)}" 
+                             th:src="@{/uploads/{fileName}(fileName=${recipe.recipeImg})}" 
+                             alt="レシピ画像">
+                        <img th:if="${#strings.isEmpty(recipe.recipeImg)}" 
+                             th:src="@{/img/noimage.jpg}" 
+                             alt="No Image">
+                        <button class="favorite-btn" 
+                                th:classappend="${recipe.favFlg == '1'} ? 'active' : ''"
+                                th:data-recipe-id="${recipe.recipeId}"
+                                onclick="toggleFavorite(this)">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="recipe-info" th:onclick="'location.href=\'' + @{/recipe/detail/{id}(id=${recipe.recipeId})} + '\''">
+                        <h3 th:text="${recipe.recipeName}">レシピ名</h3>
+                        <p class="description" th:text="${recipe.recipeDescrip}">レシピの説明</p>
+                        <div class="rating">
+                            <span class="stars" th:text="'★ ' + ${recipe.recipeAveRating}">★ 4.5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/Header.js}"></script>
+    <script th:src="@{/js/UserPortal.js}"></script>
 </body>
 </html>

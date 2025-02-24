@@ -1,25 +1,46 @@
 package com.example.recipe.service;
 
+import java.util.List;
+
+import jakarta.inject.Inject;
+
 import org.springframework.stereotype.Service;
 
 import com.example.recipe.base.BaseService;
+import com.example.recipe.common.MyBatisDao;
 import com.example.recipe.dto.ServiceIn.UserPortalInitShowIn;
-import com.example.recipe.dto.ServiceOut.UserPortalInitShowOut;
+import com.example.recipe.entity.param.SelectRecipeListByPopularityParam;
+import com.example.recipe.entity.param.SelectRecipeListByTimeParam;
+import com.example.recipe.entity.result.SelectRecipeByIdEntity;
 
 @Service
 public class UserPortalService extends BaseService {
 	
+	MyBatisDao dao;
+	
+	@Inject
+	UserPortalService(MyBatisDao dao){
+		this.dao = dao;
+	}
 	/**
 	 * 初期表示用
 	 */
-	public UserPortalInitShowOut initShow(UserPortalInitShowIn inDto) {
-		UserPortalInitShowOut outDto = new UserPortalInitShowOut();
+	public void initShow(UserPortalInitShowIn inDto) {
 		
-		//レシピリスト一覧を取得する
+		//レシピリスト一覧（人気順）を取得する
+		SelectRecipeListByPopularityParam selectRecipeListByPopularityParam = new SelectRecipeListByPopularityParam();
+		selectRecipeListByPopularityParam.setDeleteFlag(false);
+		selectRecipeListByPopularityParam.setRegisteredUserId(inDto.getUserId());
+		List<SelectRecipeByIdEntity> listByPopularity = dao.selectList(selectRecipeListByPopularityParam);
 		
+		//レシピリスト一覧（新着順）を取得する
+		SelectRecipeListByTimeParam selectRecipeListByTimeParam = new SelectRecipeListByTimeParam();
+		selectRecipeListByTimeParam.setDeleteFlag(false);
+		selectRecipeListByTimeParam.setRegisteredUserId(inDto.getUserId());
+		List<SelectRecipeByIdEntity> listByTime = dao.selectList(selectRecipeListByTimeParam);
 		
-		
-		return outDto;
+		inDto.getUserPortalDto().setListByPopularity(listByPopularity);
+		inDto.getUserPortalDto().setListByTime(listByTime);
 	}
 	
 	/**
