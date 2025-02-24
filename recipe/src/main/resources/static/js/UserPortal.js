@@ -47,3 +47,6 @@ function toggleFavorite(button) {
         button.classList.toggle('active');
     });
 }
+function viewRecipeDetail(recipeId){
+	window.location.href = `/recipe/recipeDetail/initShow?recipeId=${recipeId}`;
+}

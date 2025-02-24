@@ -120,7 +120,7 @@ public class LoginController extends BaseController {
 		sessionInfoDto.setPrevScreen(CommonConst.SCREENID_LOGIN);
 		session.setAttribute(CommonConst.KEY_SYSTEMINFO_DTO, sessionInfoDto);
 		
-		return CommonConst.SCREENID_USERPORTAL;
+		return CommonConst.REDIRECT_USERPORTAL;
 	}
 	
 	//ログアウト

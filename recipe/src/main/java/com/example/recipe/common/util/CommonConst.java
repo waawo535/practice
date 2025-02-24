@@ -102,8 +102,8 @@ public class CommonConst {
 	public static final String REDIRECT_AUTHENTICATION = "redirect:/UserRegistration/authentication/initShow";
 	/** ログイン画面*/
 	public static final String REDIRECT_LOGIN = "redirect:/Login/initShow";
-	/** */
-	
+	/** ユーザポータル画面*/
+	public static final String REDIRECT_USERPORTAL = "redirect:/UserPortal/initShow";
 	/** ユーザ情報登録画面*/
 	public static final String REDIRECT_USERINFOREGISTRATION = "redirect:/UserInfoRegistration/initShow";
 	/** ユーザ情報管理画面*/
