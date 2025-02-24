@@ -24,8 +24,8 @@
                     <span class="rating-count" th:text="'(' + *{ratingTotalCount} + '件の評価)'">総評価数</span>
                 </div>
                 <div class="date-info">
-                    <span th:text="'作成日: ' + ${#dates.format(registerDate, 'yyyy/MM/dd')}">作成日</span>
-                    <span th:text="'更新日: ' + ${#dates.format(updateDate, 'yyyy/MM/dd')}">更新日</span>
+                    <span th:text="'作成日: ' + *{registerDate}">作成日</span>
+                    <span th:text="'更新日: ' + *{updateDate}">更新日</span>
                 </div>
             </div>
         </div>
