@@ -63,6 +63,8 @@ public class CommonConst {
 	public static final String KEY_CREATERECIPE_DTO = "CreateRecipeDto";
 	/** */
 	public static final String KEY_EDITRECIPE_DTO = "EditRecipeDto";
+	/** */
+	public static final String KEY_RECIPEDETAIL_DTO = "RecipeDetailDto";
 	//------------------------------画面名------------------------------
 	/** ユーザ登録画面*/
 	public static final String SCREENID_USERREGISTRATION = "UserRegistration";

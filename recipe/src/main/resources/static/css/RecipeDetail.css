@@ -1,0 +1,153 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafc;
+    margin: 0;
+    padding-top: 60px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.recipe-detail {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+/* レシピヘッダー部分 */
+.recipe-header {
+    margin-bottom: 30px;
+}
+
+.recipe-header h1 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 2em;
+}
+
+.recipe-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.rating-info .rating {
+    color: #f0ad4e;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.rating-count {
+    color: #888;
+    margin-left: 8px;
+}
+
+.date-info span {
+    margin-left: 15px;
+}
+
+/* レシピ画像 */
+.recipe-image-container {
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.recipe-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+}
+
+/* セクション共通スタイル */
+.recipe-section {
+    margin: 30px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.recipe-section h2 {
+    color: #4c6ef5;
+    margin: 0 0 15px 0;
+    font-size: 1.4em;
+}
+
+.recipe-description {
+    line-height: 1.6;
+    color: #444;
+}
+
+/* 材料リスト */
+.ingredients-list {
+    list-style: none;
+    padding: 0;
+}
+
+.ingredients-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    color: #555;
+}
+
+/* 手順リスト */
+.steps-list {
+    padding-left: 20px;
+}
+
+.steps-list li {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* 公開状態 */
+.recipe-status {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.status-public, .status-private {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+}
+
+.status-public {
+    background-color: #4c6ef5;
+    color: white;
+}
+
+.status-private {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .recipe-detail {
+        padding: 20px;
+    }
+
+    .recipe-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .date-info span {
+        display: block;
+        margin: 5px 0;
+    }
+}

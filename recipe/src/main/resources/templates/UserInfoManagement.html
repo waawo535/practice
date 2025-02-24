@@ -62,7 +62,7 @@
 	                <!-- 各レシピをループで表示 -->
 	                <li th:each="recipe : ${UserInfoManagementDto.recipeList}" class="recipe-item"
 						th:data-recipe-id="${recipe.recipeId}"
-	                    th:onclick="viewRecipeDetail(this.getAttribute('data-recipe-id'));">
+	                    th:onclick="event.stopPropagation(); viewRecipeDetail(this.getAttribute('data-recipe-id'));">
 	                    
 	                    <!-- レシピ画像 -->
 						<div class="recipe-img" th:if="${!#strings.isEmpty(recipe.recipeImg)}">

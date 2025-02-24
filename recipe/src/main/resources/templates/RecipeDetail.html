@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>レシピ詳細</title>
+<link rel="stylesheet" th:href="@{/css/Header.css}">
+<link rel="stylesheet" th:href="@{/css/RecipeDetail.css}">
+</head>
+<body>
+<div th:replace="~{Header :: header}"></div>
+<div class="container">
+    <div class="recipe-detail" th:object="${RecipeDetailDto}">
+        <!-- レシピ基本情報 -->
+        <div class="recipe-header">
+            <h1 th:text="*{recipeName}">レシピ名</h1>
+            <div class="recipe-meta">
+                <div class="rating-info">
+					<div th:if="*{recipeAveRating}!=0">
+						<span class="rating" th:text="'★ ' + *{recipeAveRating}">評価スコア</span>
+					</div>
+					<div th:if="*{recipeAveRating}==0">
+						<span class="rating" th:text="評価がありません">評価スコア</span>
+					</div>
+                    <span class="rating-count" th:text="'(' + *{ratingTotalCount} + '件の評価)'">総評価数</span>
+                </div>
+                <div class="date-info">
+                    <span th:text="'作成日: ' + ${#dates.format(registerDate, 'yyyy/MM/dd')}">作成日</span>
+                    <span th:text="'更新日: ' + ${#dates.format(updateDate, 'yyyy/MM/dd')}">更新日</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- レシピ画像 -->
+        <div class="recipe-image-container" th:if="${!#strings.isEmpty(recipeImg)}">
+            <img th:src="@{/uploads/{fileName}(fileName=${recipeImg})}" alt="レシピ画像" class="recipe-image">
+        </div>
+		<div class="recipe-image-container" th:if="${#strings.isEmpty(recipeImg)}">
+			<img th:src="@{/img/noimage.jpg}" alt="レシピ画像" class="recipe-image">
+		</div>
+        <!-- レシピの説明 -->
+        <div class="recipe-section">
+            <p th:text="*{recipeDescrip}" class="recipe-description"></p>
+        </div>
+
+        <!-- 材料 -->
+        <div class="recipe-section">
+            <h2>材料</h2>
+            <ul class="ingredients-list">
+                <li th:each="ingredient : *{recipeIngredients}" 
+                    th:text="${ingredient.ingredientName}">材料名</li>
+            </ul>
+        </div>
+
+        <!-- 作り方 -->
+        <div class="recipe-section">
+            <h2>作り方</h2>
+            <ol class="steps-list">
+				<li th:each="step : *{stepsList}" 
+                    th:text="${step}">手順</li>
+            </ol>
+        </div>
+
+        <!-- 公開状態 -->
+        <div class="recipe-status">
+            <span th:text="*{publishStatus == 0 ? '公開中' : '非公開'}" 
+                  th:class="*{publishStatus == 0 ? 'status-public' : 'status-private'}">
+            </span>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/Header.js}"></script>
+</body>
+</html>

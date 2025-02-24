@@ -130,3 +130,7 @@ window.addEventListener("scroll", () => {
         loadRecipes();
     }
 });
+
+function viewRecipeDetail(recipeId){
+	window.location.href = `/recipe/recipeDetail/initShow?recipeId=${recipeId}`;
+}
