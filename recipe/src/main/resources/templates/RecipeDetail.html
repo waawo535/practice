@@ -5,6 +5,7 @@
 <title>レシピ詳細</title>
 <link rel="stylesheet" th:href="@{/css/Header.css}">
 <link rel="stylesheet" th:href="@{/css/RecipeDetail.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 <div th:replace="~{Header :: header}"></div>
@@ -15,12 +16,12 @@
             <h1 th:text="*{recipeName}">レシピ名</h1>
             <div class="recipe-meta">
                 <div class="rating-info">
-					<div th:if="*{recipeAveRating}!=0">
-						<span class="rating" th:text="'★ ' + *{recipeAveRating}">評価スコア</span>
-					</div>
-					<div th:if="*{recipeAveRating}==0">
-						<span class="rating" th:text="評価がありません">評価スコア</span>
-					</div>
+                    <div th:if="*{recipeAveRating}!=0">
+                        <span class="rating" th:text="'★ ' + *{recipeAveRating}">評価スコア</span>
+                    </div>
+                    <div th:if="*{recipeAveRating}==0">
+                        <span class="rating" th:text="評価がありません">評価スコア</span>
+                    </div>
                     <span class="rating-count" th:text="'(' + *{ratingTotalCount} + '件の評価)'">総評価数</span>
                 </div>
                 <div class="date-info">
@@ -31,12 +32,34 @@
         </div>
 
         <!-- レシピ画像 -->
-        <div class="recipe-image-container" th:if="${!#strings.isEmpty(recipeImg)}">
-            <img th:src="@{/uploads/{fileName}(fileName=${recipeImg})}" alt="レシピ画像" class="recipe-image">
+        <div class="recipe-image-container">
+            <div class="favorite-button-container">
+                <button class="favorite-btn" 
+                        th:classappend="*{favFlg == true} ? 'active' : ''"
+                        th:data-recipe-id="*{recipeId}"
+                        onclick="toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+            </div>
+            <img th:if="${!#strings.isEmpty(recipeImg)}" th:src="@{/uploads/{fileName}(fileName=${recipeImg})}" alt="レシピ画像" class="recipe-image">
+            <img th:if="${#strings.isEmpty(recipeImg)}" th:src="@{/img/noimage.jpg}" alt="レシピ画像" class="recipe-image">
         </div>
-		<div class="recipe-image-container" th:if="${#strings.isEmpty(recipeImg)}">
-			<img th:src="@{/img/noimage.jpg}" alt="レシピ画像" class="recipe-image">
-		</div>
+
+        <!-- ユーザー評価 -->
+        <div class="recipe-rating-section">
+            <h3>このレシピを評価する</h3>
+            <div class="star-rating">
+                <div class="star-container" th:data-recipe-id="*{recipeId}">
+                    <span class="star" data-rating="1" onclick="rateRecipe(1, this.parentElement)"><i class="far fa-star"></i></span>
+                    <span class="star" data-rating="2" onclick="rateRecipe(2, this.parentElement)"><i class="far fa-star"></i></span>
+                    <span class="star" data-rating="3" onclick="rateRecipe(3, this.parentElement)"><i class="far fa-star"></i></span>
+                    <span class="star" data-rating="4" onclick="rateRecipe(4, this.parentElement)"><i class="far fa-star"></i></span>
+                    <span class="star" data-rating="5" onclick="rateRecipe(5, this.parentElement)"><i class="far fa-star"></i></span>
+                </div>
+                <span class="rating-message">評価するには星をクリックしてください</span>
+            </div>
+        </div>
+
         <!-- レシピの説明 -->
         <div class="recipe-section">
             <p th:text="*{recipeDescrip}" class="recipe-description"></p>
@@ -55,7 +78,7 @@
         <div class="recipe-section">
             <h2>作り方</h2>
             <ol class="steps-list">
-				<li th:each="step : *{stepsList}" 
+                <li th:each="step : *{stepsList}" 
                     th:text="${step}">手順</li>
             </ol>
         </div>
@@ -69,5 +92,6 @@
     </div>
 </div>
 <script th:src="@{/js/Header.js}"></script>
+<script th:src="@{/js/RecipeDetail.js}"></script>
 </body>
 </html>

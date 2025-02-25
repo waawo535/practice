@@ -4,33 +4,38 @@
     margin: 0;
     padding-top: 60px;
     display: flex;
-	flex-direction: column;
+    flex-direction: column;
     height: 100vh;
-	box-sizing: border-box;
-	overflow-y: auto;
+    box-sizing: border-box;
+    overflow-y: hidden; /* 全体のスクロールを無効化 */
 }
 .container {
     display: flex;
-	width: 100%;
+    width: 100%;
     flex: 1;
     overflow: hidden;
 }
 .sidebar {
     width: 25%;
-/*    max-width: 250px;*/
-	height: calc(100vh - 60px);
+    max-width: 300px;
+    height: calc(100vh - 60px);
     background: #fff;
     border-right: 1px solid #e0e0e0;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    position: fixed; /* サイドバーを固定 */
+    top: 60px; /* ヘッダーの高さ分下げる */
 }
 .main-content {
-	flex: 1;
-	justify-content: center; /* 横中央揃え */
-	align-items: center; /* 縦中央揃え */
-	padding: 20px;
-	background-color: #f9fafc;
+    flex: 1;
+    justify-content: center; /* 横中央揃え */
+    align-items: center; /* 縦中央揃え */
+    padding: 20px;
+    background-color: #f9fafc;
+    margin-left: 25%; /* サイドバーの幅分だけマージンを設定 */
+    height: calc(100vh - 60px);
+    overflow-y: auto; /* メインコンテンツだけをスクロール可能に */
 }
 .profile-img-container {
     text-align: center;
@@ -57,14 +62,14 @@
     color: #606770;
 }
 .recipes-container {
-	width: 100%;
-	max-width: 1100px; /* コンテナの最大幅を設定 */
-	margin: auto; 
-	background: #fff;
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	padding: 20px;
-	text-align: center;
+    width: 100%;
+    max-width: 1100px; /* コンテナの最大幅を設定 */
+    margin: auto; 
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
 }
 .recipes-container h2 {
     margin-bottom: 16px;
@@ -230,4 +235,58 @@ button.create-btn:hover {
     margin-top: 20px;
     padding: 12px 24px;
     font-size: 1em;
+}
+
+/* プロフィール編集画面 */
+#profileEdit.active {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background-color: #f9fafc;
+    z-index: 100;
+    overflow-y: auto;
+}
+
+#profileEdit .main-content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* レスポンシブデザイン対応 */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 35%;
+        max-width: none;
+    }
+    
+    .main-content {
+        margin-left: 35%;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
+        overflow-y: visible;
+        max-height: none;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        height: auto;
+    }
+    
+    .recipe-list {
+        grid-template-columns: 1fr;
+    }
 }

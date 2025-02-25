@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.UserRecipeRelation">
+	<select id="SelectUserRecipeRelation" resultType="com.example.recipe.entity.result.SelectRecipeUserRelationEntity">
+		SELECT
+		    user_id
+		    , recipe_id
+		    , status
+		    , fav_flg
+		    , note
+		    , rating
+		    , related_at
+		    , updated_at
+		FROM
+		    public.user_recipe_relation 
+		WHERE
+		    user_id = #{userId} 
+		    and recipe_id = #{recipeId} 
+	</select>
+	<insert id="InsertUserRecipeRelation">
+		INSERT 
+		INTO public.user_recipe_relation( 
+		    user_id
+		    , recipe_id
+		    , status
+		    , fav_flg
+		    , note
+		    , rating
+		    , related_at
+		    , updated_at
+		) 
+		VALUES ( 
+		    #{userId}
+		    , #{recipeId}
+		    , #{status}
+		    , #{favFlg}
+		    , #{note}
+		    , #{rating}
+		    , #{relatedAt}
+		    , #{updatedAt}
+		)
+	</insert>
+	<update id="UpdateUserRecipeRelation">
+		UPDATE public.user_recipe_relation 
+	<set>
+	    <if test="status != null">
+	 	   status = #{status}
+	    </if>
+	    <if test="favFlg != null">
+		    , fav_flg = #{favFlg}
+	    </if>
+	    <if test="note != null">
+		    , note = #{note}
+	    </if>
+	    <if test="rating != null">
+		    , rating = #{rating}
+	    </if>
+	    <if test="relatedAt != null">
+			, related_at = #{relatedAt}
+		</if>
+	    <if test="updatedAt != null">
+		    , updated_at = #{updatedAt}
+	    </if>
+	    </set>
+		WHERE
+		    user_id = #{userId} 
+		    and recipe_id = #{recipeId}
+	</update>
+</mapper>

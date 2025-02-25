@@ -25,8 +25,8 @@ function toggleFavorite(button) {
     button.classList.toggle('active');
     
     // バックエンドへのリクエスト
-    fetch('/api/favorites/toggle', {
-        method: 'POST',
+    fetch('/recipe/api/recipe/favorites', {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },

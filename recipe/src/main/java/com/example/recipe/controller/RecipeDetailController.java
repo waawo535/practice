@@ -33,6 +33,7 @@ public class RecipeDetailController extends BaseController {
 		
 		RecipeDetailServiceInitShowIn inDto= new RecipeDetailServiceInitShowIn();
 		RecipeDetailDto recipeDetailDto= new RecipeDetailDto();
+		inDto.setUserId(sessionInfoDto.getUserId());
 		inDto.setRecipeDetailDto(recipeDetailDto);
 		inDto.setRecipeId(recipeId);
 		recipeDetailService.initShow(inDto);

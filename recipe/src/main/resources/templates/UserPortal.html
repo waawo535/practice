@@ -34,7 +34,7 @@
                              th:src="@{/img/noimage.jpg}" 
                              alt="No Image">
                         <button class="favorite-btn" 
-                                th:classappend="${recipe.favFlg == '1'} ? 'active' : ''"
+                                th:classappend="*{recipe.favFlg == true} ? 'active' : ''"
                                 th:data-recipe-id="${recipe.recipeId}"
                                 onclick="toggleFavorite(this)">
                             <i class="fas fa-heart"></i>
@@ -70,7 +70,7 @@
                              th:src="@{/img/noimage.jpg}" 
                              alt="No Image">
                         <button class="favorite-btn" 
-                                th:classappend="${recipe.favFlg == '1'} ? 'active' : ''"
+                                th:classappend="*{recipe.favFlg == true} ? 'active' : ''"
                                 th:data-recipe-id="${recipe.recipeId}"
                                 onclick="toggleFavorite(this)">
                             <i class="fas fa-heart"></i>

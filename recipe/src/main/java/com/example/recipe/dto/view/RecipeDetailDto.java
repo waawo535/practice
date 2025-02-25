@@ -35,5 +35,7 @@ public class RecipeDetailDto extends BaseDto {
 	private List<Ingredient> recipeIngredients;
 	
 	private List<String> stepsList;
+	
+	private boolean favFlg;
 
 }

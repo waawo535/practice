@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RecipeDetailServiceInitShowIn extends BaseDto {
+	private String userId;
 	private String recipeId;
 	private RecipeDetailDto recipeDetailDto;
 }

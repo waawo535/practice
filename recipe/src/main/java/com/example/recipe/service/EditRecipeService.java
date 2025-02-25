@@ -99,7 +99,7 @@ public class EditRecipeService extends BaseService {
 		updateRecipeInfoParam.setUpdateDate(DateTimeGenerator.getTimestampDateTime());
 		//画像をアップロードした場合は
 		String fileName = null;
-		if(!NullOrEmptyChecker.isNullOrEmpty(editRecipeServiceUpdateIn.getEditRecipeDto().getRecipeImg())) {
+		if(!NullOrEmptyChecker.isNullOrEmpty(editRecipeServiceUpdateIn.getEditRecipeDto().getRecipeImg().getOriginalFilename())) {
 			SelectRecipeByIdParam selectRecipeByIdParam = new SelectRecipeByIdParam();
 			selectRecipeByIdParam.setRecipeId(recipeId);
 			SelectRecipeByIdEntity selectRecipeByIdEntity = dao.selectByPk(selectRecipeByIdParam);

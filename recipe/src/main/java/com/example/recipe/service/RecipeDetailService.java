@@ -15,9 +15,11 @@ import com.example.recipe.dto.ServiceIn.RecipeDetailServiceInitShowIn;
 import com.example.recipe.entity.param.SelectRecipeByIdParam;
 import com.example.recipe.entity.param.SelectRecipeIngredientsParam;
 import com.example.recipe.entity.param.SelectRecipeStepsParam;
+import com.example.recipe.entity.param.SelectUserRecipeRelationParam;
 import com.example.recipe.entity.result.SelectRecipeByIdEntity;
 import com.example.recipe.entity.result.SelectRecipeIngredientsEntity;
 import com.example.recipe.entity.result.SelectRecipeStepsEntity;
+import com.example.recipe.entity.result.SelectRecipeUserRelationEntity;
 
 @Service
 public class RecipeDetailService extends BaseService {
@@ -55,8 +57,17 @@ public class RecipeDetailService extends BaseService {
 			stepList.add(instruction.getInstruction());
 		}
 		
+		// お気に入りステータス取得
+		SelectUserRecipeRelationParam selectUserRecipeRelationParam = new SelectUserRecipeRelationParam();
+		selectUserRecipeRelationParam.setRecipeId(inDto.getRecipeId());
+		selectUserRecipeRelationParam.setUserId(inDto.getUserId());
+		SelectRecipeUserRelationEntity selectRecipeUserRelationEntity = dao.selectByPk(selectUserRecipeRelationParam);
+		
 		BeanUtils.copyProperties(selectRecipeByIdEntity, inDto.getRecipeDetailDto());
 		inDto.getRecipeDetailDto().setRecipeIngredients(ingredients);
 		inDto.getRecipeDetailDto().setStepsList(stepList);
+		if(selectRecipeUserRelationEntity!=null) {
+			inDto.getRecipeDetailDto().setFavFlg(selectRecipeUserRelationEntity.isFavFlg());
+		}
 	}
 }

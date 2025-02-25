@@ -19,7 +19,7 @@ public class SelectRecipeByIdEntity extends BaseEntity {
 	
 	private String recipeAveRating;
 	
-	private String favFlg;
+	private boolean favFlg;
 	
 	private String recipeImg;
 	
