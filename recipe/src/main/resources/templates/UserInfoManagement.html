@@ -5,9 +5,10 @@
 <title>ユーザ情報管理画面</title>
 <link rel="stylesheet" th:href="@{/css/Header.css}">
 <link rel="stylesheet" th:href="@{/css/UserInfoManagement.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body class="UserInfo">
-<div th:replace="~{Header :: header}"  ></div>
+<div th:replace="~{Header :: header}"></div>
 <div class="container">
 <div th:classappend="${#strings.isEmpty(UserInfoManagementDto.errormessageAreaList)} ? 'sidebar' : 'sidebar active'"  id="profileViewInf" th:object="${UserInfoManagementDto}">
     <div class="profile-img-container">
@@ -49,79 +50,133 @@
 </div>
 <div th:classappend="${#strings.isEmpty(UserInfoManagementDto.errormessageAreaList)} ? 'main-content' : 'main-content active'" id="profileViewRec">
     <div class="recipes-container" id="recipesContainer">
-        <h2>作成したレシピ一覧</h2>
-        <div id="recipesList">
-			<!-- レシピが1件もない場合 -->
-			<div th:if="${#lists.isEmpty(UserInfoManagementDto.recipeList)}">
-	            <p>作成したレシピがありません。</p>
-	            <button class="create-btn" onclick="createRecipe()">レシピを作成する</button>
-			</div>
-			<!-- レシピが存在する場合 -->
-	        <div th:if="${!#lists.isEmpty(UserInfoManagementDto.recipeList)}">
-	            <ul class="recipe-list" id="recipe-list">
-	                <!-- 各レシピをループで表示 -->
-	                <li th:each="recipe : ${UserInfoManagementDto.recipeList}" class="recipe-item"
-						th:data-recipe-id="${recipe.recipeId}"
-	                    th:onclick="event.stopPropagation(); viewRecipeDetail(this.getAttribute('data-recipe-id'));">
-	                    
-	                    <!-- レシピ画像 -->
-						<div class="recipe-img" th:if="${!#strings.isEmpty(recipe.recipeImg)}">
-	                    	<img th:src="@{/uploads/{fileName}(fileName=${recipe.recipeImg})}" alt="レシピ画像" class="recipe-image">
-						</div>
-						<div class="recipe-img" th:if="${#strings.isEmpty(recipe.recipeImg)}">
-	                    	<img th:src="@{/img/noimage.jpg}" alt="レシピ画像" class="recipe-image">
-						</div>
-	                    <!-- レシピ情報 -->
-	                    <div class="recipe-info">
-	                        <h3 th:text="${recipe.recipeName}">レシピ名</h3>
-	                        <p th:text="${recipe.recipeDescrip}">レシピ説明文</p>
-	                    	<div th:if="${recipe.recipeAveRating}!=0">
-	                        	<p class="rating" th:text="'評価: ' + ${recipe.recipeAveRating}">現在の評価</p>
-							</div>
-	                    </div>
-	                    
-	                    <!-- 編集・削除ボタン -->
-	                    <div class="recipe-actions">
-	                        <form th:action="@{/editRecipe/initShow}" method="GET">
-								<input type="hidden" name="recipeId" th:value="${recipe.recipeId}">
-								<button type="submit">編集</button>
-	                        </form>
-	                        <button class="delete-btn" 
-								th:data-recipe-id="${recipe.recipeId}"
-	                            th:onclick="event.stopPropagation(); deleteRecipe(this.getAttribute('data-recipe-id'));">
-	                            削除
-	                        </button>
-	                    </div>
-	                </li>
-	            </ul>
-	        </div>
+        <!-- タブボタン -->
+        <div class="tabs">
+            <button class="tab-button active" data-tab="my-recipes">作成したレシピ</button>
+            <button class="tab-button" data-tab="favorite-recipes">お気に入りレシピ</button>
+        </div>
+
+        <!-- 自分のレシピタブコンテンツ -->
+        <div class="tab-content active" id="my-recipes-content">
+            <!-- レシピが1件もない場合 -->
+            <div th:if="${#lists.isEmpty(UserInfoManagementDto.recipeList)}" class="no-content">
+                <i class="fas fa-utensils"></i>
+                <p>作成したレシピがありません。</p>
+                <p class="sub-text">レシピを作成して料理の楽しさを共有しましょう！</p>
+                <button class="create-btn" onclick="createRecipe()">レシピを作成する</button>
+            </div>
+            <!-- レシピが存在する場合 -->
+            <div th:if="${!#lists.isEmpty(UserInfoManagementDto.recipeList)}">
+                <ul class="recipe-list" id="recipe-list">
+                    <!-- 各レシピをループで表示 -->
+                    <li th:each="recipe : ${UserInfoManagementDto.recipeList}" class="recipe-item"
+                        th:data-recipe-id="${recipe.recipeId}"
+                        th:onclick="event.stopPropagation(); viewRecipeDetail(this.getAttribute('data-recipe-id'));">
+                        
+                        <!-- レシピ画像 -->
+                        <div class="recipe-img" th:if="${!#strings.isEmpty(recipe.recipeImg)}">
+                            <img th:src="@{/uploads/{fileName}(fileName=${recipe.recipeImg})}" alt="レシピ画像" class="recipe-image">
+                        </div>
+                        <div class="recipe-img" th:if="${#strings.isEmpty(recipe.recipeImg)}">
+                            <img th:src="@{/img/noimage.jpg}" alt="レシピ画像" class="recipe-image">
+                        </div>
+                        <!-- レシピ情報 -->
+                        <div class="recipe-info">
+                            <h3 th:text="${recipe.recipeName}">レシピ名</h3>
+                            <p th:text="${recipe.recipeDescrip}">レシピ説明文</p>
+                            <div th:if="${recipe.recipeAveRating}!=0">
+                                <p class="rating" th:text="'評価: ' + ${recipe.recipeAveRating}">現在の評価</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 編集・削除ボタン -->
+                        <div class="recipe-actions">
+                            <form th:action="@{/editRecipe/initShow}" method="GET">
+                                <input type="hidden" name="recipeId" th:value="${recipe.recipeId}">
+                                <button type="submit">編集</button>
+                            </form>
+                            <button class="delete-btn" 
+                                th:data-recipe-id="${recipe.recipeId}"
+                                th:onclick="event.stopPropagation(); deleteRecipe(this.getAttribute('data-recipe-id'));">
+                                削除
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- お気に入りレシピタブコンテンツ -->
+        <div class="tab-content" id="favorite-recipes-content">
+            <!-- お気に入りレシピが1件もない場合 -->
+            <div th:if="${#lists.isEmpty(UserInfoManagementDto.favoriteRecipeList)}" class="no-content">
+                <i class="fas fa-heart"></i>
+                <p>お気に入りレシピがありません</p>
+                <p class="sub-text">気に入ったレシピを見つけてお気に入りに追加しましょう！</p>
+                <button class="browse-btn" onclick="userPortal()">レシピを探す</button>
+            </div>
+            <!-- お気に入りレシピが存在する場合 -->
+            <div th:if="${!#lists.isEmpty(UserInfoManagementDto.favoriteRecipeList)}">
+                <ul class="recipe-list" id="favorite-recipe-list">
+                    <!-- 各お気に入りレシピをループで表示 -->
+                    <li th:each="recipe : ${UserInfoManagementDto.favoriteRecipeList}" class="recipe-item"
+                        th:data-recipe-id="${recipe.recipeId}"
+                        th:onclick="event.stopPropagation(); viewRecipeDetail(this.getAttribute('data-recipe-id'));">
+                        
+                        <!-- レシピ画像 -->
+                        <div class="recipe-img" th:if="${!#strings.isEmpty(recipe.recipeImg)}">
+                            <img th:src="@{/uploads/{fileName}(fileName=${recipe.recipeImg})}" alt="レシピ画像" class="recipe-image">
+                        </div>
+                        <div class="recipe-img" th:if="${#strings.isEmpty(recipe.recipeImg)}">
+                            <img th:src="@{/img/noimage.jpg}" alt="レシピ画像" class="recipe-image">
+                        </div>
+                        <!-- レシピ情報 -->
+                        <div class="recipe-info">
+                            <h3 th:text="${recipe.recipeName}">レシピ名</h3>
+                            <p th:text="${recipe.recipeDescrip}">レシピ説明文</p>
+                            <div th:if="${recipe.recipeAveRating}!=0">
+                                <p class="rating" th:text="'評価: ' + ${recipe.recipeAveRating}">現在の評価</p>
+                            </div>
+                        </div>
+                        
+<!--                         お気に入り解除ボタン -->
+<!--                        <div class="recipe-actions">-->
+<!--                            <button class="favorite-toggle-btn active" -->
+<!--                                th:data-recipe-id="${recipe.recipeId}"-->
+<!--                                th:onclick="event.stopPropagation(); toggleFavorite(this);">-->
+<!--                                <i class="fas fa-heart"></i> お気に入り解除-->
+<!--                            </button>-->
+<!--                        </div>-->
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
 </div>
 <div th:classappend="${#strings.isEmpty(errorMessage)} ? 'profile-edit' : 'profile-edit active'" id="profileEdit">
     <div class="main-content">
-		<form id="profileEditForm" th:action="@{/UserInfoManagement/editUserInfo}"  th:object="${UserInfoManagementDto}" method="POST">
-	        <h2>プロフィール編集</h2>
-	        <div class="profile-item">
-	            <label for="editUserName">ユーザ名:</label>
-	            <input type="text" id="editUserName" placeholder="山田太郎" th:field="*{userName}">
-	        </div>
-	        <div class="profile-item">
-	            <label for="editEmail">Email:</label>
-	            <input type="email" id="editEmail" placeholder="taro.yamada@example.com" th:field="*{emailAddress}">
-	        </div>
-	        <div class="profile-item">
-	            <label for="editPhoneNumber">電話番号:</label>
-	            <input type="tel" id="editPhoneNumber" placeholder="080-1234-5678" th:field="*{phoneNumber}">
-	        </div>
-	        <div class="profile-item">
-	            <label for="editBio">自己紹介:</label>
-	            <input type="text" id="editBio" placeholder="料理が大好きなソフトウェアエンジニアです。" th:field="*{bio}">
-	        </div>
-	        <button class="edit-btn" onclick="showProfileView()">キャンセル</button>
-	        <button type="submit" class="edit-btn">保存</button>
-		</form>
+        <form id="profileEditForm" th:action="@{/UserInfoManagement/editUserInfo}"  th:object="${UserInfoManagementDto}" method="POST">
+            <h2>プロフィール編集</h2>
+            <div class="profile-item">
+                <label for="editUserName">ユーザ名:</label>
+                <input type="text" id="editUserName" placeholder="山田太郎" th:field="*{userName}">
+            </div>
+            <div class="profile-item">
+                <label for="editEmail">Email:</label>
+                <input type="email" id="editEmail" placeholder="taro.yamada@example.com" th:field="*{emailAddress}">
+            </div>
+            <div class="profile-item">
+                <label for="editPhoneNumber">電話番号:</label>
+                <input type="tel" id="editPhoneNumber" placeholder="080-1234-5678" th:field="*{phoneNumber}">
+            </div>
+            <div class="profile-item">
+                <label for="editBio">自己紹介:</label>
+                <input type="text" id="editBio" placeholder="料理が大好きなソフトウェアエンジニアです。" th:field="*{bio}">
+            </div>
+            <button type="button" class="edit-btn cancel-btn" onclick="showProfileView()">キャンセル</button>
+            <button type="submit" class="edit-btn save-btn">保存</button>
+        </form>
     </div>
 </div>
 

@@ -83,11 +83,16 @@ button {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-button.create-btn {
+button.create-btn,
+button.browse-btn {
     background-color: #4c6ef5;
     color: #fff;
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 1em;
 }
-button.create-btn:hover {
+button.create-btn:hover,
+button.browse-btn:hover {
     background-color: #3b5bdb;
 }
 .edit-btn {
@@ -101,6 +106,16 @@ button.create-btn:hover {
 }
 .edit-btn:hover {
     background-color: #3b5bdb;
+}
+.edit-btn.cancel-btn {
+    background-color: #6c757d;
+    margin-right: 10px;
+}
+.edit-btn.cancel-btn:hover {
+    background-color: #5a6268;
+}
+.edit-btn.save-btn {
+    background-color: #4c6ef5;
 }
 .profile-edit {
     display: none;
@@ -129,11 +144,6 @@ button.create-btn:hover {
 }
 .recipe-list {
     list-style: none; 
-    padding: 0;
-}
-/* レシピリストのスタイリング */
-.recipe-list {
-    list-style: none;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -225,16 +235,51 @@ button.create-btn:hover {
     background-color: #c82333;
 }
 
-/* レシピが存在しない場合のスタイリング */
-.recipes-container p {
-    color: #666;
-    margin: 20px 0;
+/* お気に入りボタン */
+.favorite-toggle-btn {
+    background-color: #ff4757;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
 }
 
-.create-btn {
-    margin-top: 20px;
-    padding: 12px 24px;
-    font-size: 1em;
+.favorite-toggle-btn:hover {
+    background-color: #e84118;
+}
+
+.favorite-toggle-btn i {
+    font-size: 14px;
+}
+
+/* レシピが存在しない場合のスタイリング */
+.no-content {
+    text-align: center;
+    padding: 40px 20px;
+    background: #fff;
+}
+
+.no-content i {
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.no-content p {
+    margin: 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.no-content .sub-text {
+    margin-top: 10px;
+    color: #666;
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 20px;
 }
 
 /* プロフィール編集画面 */
@@ -255,6 +300,39 @@ button.create-btn:hover {
     padding: 40px 20px;
 }
 
+/* タブスタイル */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.tab-button {
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    background: #f0f0f0;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.tab-button.active {
+    background: #4c6ef5;
+    color: white;
+}
+
+/* タブコンテンツ */
+.tab-content {
+    display: none;
+    margin-top: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
 /* レスポンシブデザイン対応 */
 @media (max-width: 768px) {
     .sidebar {
@@ -264,6 +342,16 @@ button.create-btn:hover {
     
     .main-content {
         margin-left: 35%;
+    }
+    
+    .tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .tab-button {
+        width: 100%;
+        margin: 5px 0;
     }
 }
 

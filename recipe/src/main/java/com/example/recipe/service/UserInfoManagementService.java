@@ -1,5 +1,6 @@
 package com.example.recipe.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.inject.Inject;
@@ -13,9 +14,13 @@ import com.example.recipe.common.MyBatisDao;
 import com.example.recipe.dto.ServiceIn.UserInfoManagementEditProfileIn;
 import com.example.recipe.dto.ServiceIn.UserInfoManagementShowUserInfoIn;
 import com.example.recipe.dto.ServiceOut.UserInfoManagementEditProfileOut;
+import com.example.recipe.entity.param.SelectRecipeByIdParam;
 import com.example.recipe.entity.param.SelectUserDetailParam;
 import com.example.recipe.entity.param.SelectUserRecipeListParam;
+import com.example.recipe.entity.param.SelectUserRecipeRelationParam;
 import com.example.recipe.entity.param.UpdateUserDetailProfileParam;
+import com.example.recipe.entity.result.SelectRecipeByIdEntity;
+import com.example.recipe.entity.result.SelectRecipeUserRelationEntity;
 import com.example.recipe.entity.result.SelectUserDetailEntity;
 import com.example.recipe.entity.result.SelectUserRecipeListEntity;
 
@@ -51,16 +56,26 @@ public class UserInfoManagementService extends BaseService {
 		selectUserRecipeListParam.setOffset(0);
 		List<SelectUserRecipeListEntity> selectUserRecipeListEntityList = dao.selectList(selectUserRecipeListParam);
 		
-		//パスを設定する
-//		for(int i=0; i<selectUserRecipeListEntityList.size();i++) {
-//			if(selectUserRecipeListEntityList.get(i).getRecipeImg()!=null) {
-//				selectUserRecipeListEntityList.get(i).setRecipeImg("\\uploads\\" + selectUserRecipeListEntityList.get(i).getRecipeImg());
-//			}
-//		}
+		//お気に入り登録済みのレシピを取得
+		SelectUserRecipeRelationParam selectUserRecipeRelationParam = new SelectUserRecipeRelationParam();
+		selectUserRecipeRelationParam.setUserId(inDto.getUserId());
+		List<SelectRecipeUserRelationEntity> selectRecipeUserRelationEntity = dao.selectList(selectUserRecipeRelationParam);
+		List<SelectRecipeByIdEntity> selectFavList = new ArrayList<>();
+		SelectRecipeByIdParam selectRecipeByIdParam = new SelectRecipeByIdParam();
+		int i = 0;
+		for(SelectRecipeUserRelationEntity list:selectRecipeUserRelationEntity) {
+			if(selectRecipeUserRelationEntity.get(i).isFavFlg()) {
+				selectRecipeByIdParam.setRecipeId(list.getRecipeId());
+				SelectRecipeByIdEntity selectRecipeByIdEntity = dao.selectByPk(selectRecipeByIdParam);
+				selectFavList.add(selectRecipeByIdEntity);
+			}
+			i++;
+		}
+		
 		//Outパラメタに取得したユーザ情報を設定
 		BeanUtils.copyProperties(selectUserDetailEntity, inDto.getUserInfoManagementDto());
 		inDto.getUserInfoManagementDto().setRecipeList(selectUserRecipeListEntityList);
-		
+		inDto.getUserInfoManagementDto().setFavoriteRecipeList(selectFavList);
 	}
 	
 	/**

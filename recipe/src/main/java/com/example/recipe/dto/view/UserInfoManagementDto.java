@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.recipe.base.BaseDto;
+import com.example.recipe.entity.result.SelectRecipeByIdEntity;
 import com.example.recipe.entity.result.SelectUserRecipeListEntity;
 
 import lombok.Getter;
@@ -35,6 +36,8 @@ public class UserInfoManagementDto extends BaseDto {
 	private Timestamp updateDate;
 	
 	private List<SelectUserRecipeListEntity> recipeList;
+	
+	private List<SelectRecipeByIdEntity> favoriteRecipeList;
 	
 	public UserInfoManagementDto() {
 		this.recipeList = new ArrayList<>();

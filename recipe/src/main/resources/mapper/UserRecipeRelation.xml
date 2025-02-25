@@ -15,7 +15,9 @@
 		    public.user_recipe_relation 
 		WHERE
 		    user_id = #{userId} 
+		    <if test="recipeId!=null">
 		    and recipe_id = #{recipeId} 
+		    </if>
 	</select>
 	<insert id="InsertUserRecipeRelation">
 		INSERT 
