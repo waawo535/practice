@@ -62,7 +62,7 @@
 	      <div class="steps-list" id="stepsList">
 	        <!-- 追加された手順項目がここに入る -->
 			<div class="stepsList-item" th:each="stepsList, iterStat : *{stepsList}">
-	            <span>・</span>
+	            <span></span>
 	            <input type="text" th:name="|stepsList[${iterStat.index}]|" th:value="${stepsList}" />
 	        </div>
 	      </div>
