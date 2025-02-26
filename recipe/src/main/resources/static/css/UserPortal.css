@@ -159,3 +159,7 @@
     font-size: 14px;
     font-weight: normal;
 }
+.favorite-btn.processing {
+    opacity: 0.7;
+    pointer-events: none; /* 処理中の重複クリックを防止 */
+}

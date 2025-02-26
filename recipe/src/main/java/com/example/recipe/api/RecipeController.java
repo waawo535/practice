@@ -1,8 +1,13 @@
 package com.example.recipe.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -39,12 +44,22 @@ public class RecipeController extends BaseController {
 	}
 	
 	@PutMapping("/favorites")
-	public void alterFavorite(@RequestBody FavoriteRequest favoriteRequest) {
+	public ResponseEntity<Map<String, Object>> alterFavorite(@RequestBody FavoriteRequest favoriteRequest) {
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
 		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
 		UserRecipeRelationAlterFavIn inDto = new UserRecipeRelationAlterFavIn();
 		inDto.setRecipeId(favoriteRequest.getRecipeId());
 		inDto.setUserId(sessionInfoDto.getUserId());
 		userRecipeRelationService.alterFavorite(inDto);
 		
+		response.put("success", true);
+		return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			response.put("success", false);
+			response.put("message", "お気に入り処理に失敗しました: " + e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+		}
 	}
 }

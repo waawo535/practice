@@ -49,11 +49,11 @@ function rateRecipe(rating, container) {
 
 // お気に入り切り替え機能
 function toggleFavorite(button) {
-    event.stopPropagation(); // イベントの伝播を停止
+    event.stopPropagation(); // カード全体のクリックイベントを防止
     const recipeId = button.getAttribute('data-recipe-id');
     
-    // お気に入りボタンの見た目を切り替え
-    button.classList.toggle('active');
+    // 処理中の状態を視覚的に示す（オプション）
+    button.classList.add('processing');
     
     // バックエンドへのリクエスト
     fetch('/recipe/api/recipe/favorites', {
@@ -67,15 +67,21 @@ function toggleFavorite(button) {
     })
     .then(response => response.json())
     .then(data => {
-        if (!data.success) {
-            // エラーの場合は元に戻す
+        // 処理中表示を解除
+        button.classList.remove('processing');
+        
+        if (data.success) {
+            // 成功した場合のみボタンの状態を切り替え
             button.classList.toggle('active');
+        } else {
+            // エラーメッセージを表示（オプション）
+            console.error('お気に入り操作に失敗しました');
         }
     })
     .catch(error => {
+        // 処理中表示を解除
+        button.classList.remove('processing');
         console.error('Error:', error);
-        // エラーの場合は元に戻す
-        button.classList.toggle('active');
     });
 }
 
