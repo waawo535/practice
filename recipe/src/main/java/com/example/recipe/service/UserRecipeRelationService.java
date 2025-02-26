@@ -60,5 +60,4 @@ public class UserRecipeRelationService extends BaseService {
 		}
 		
 	}
-	
 }

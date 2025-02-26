@@ -49,7 +49,7 @@
         <div class="recipe-rating-section">
             <h3>このレシピを評価する</h3>
             <div class="star-rating">
-                <div class="star-container" th:data-recipe-id="*{recipeId}">
+                <div class="star-container" th:data-recipe-id="*{recipeId}" th:data-user-rating="*{rating}">
                     <span class="star" data-rating="1" onclick="rateRecipe(1, this.parentElement)"><i class="far fa-star"></i></span>
                     <span class="star" data-rating="2" onclick="rateRecipe(2, this.parentElement)"><i class="far fa-star"></i></span>
                     <span class="star" data-rating="3" onclick="rateRecipe(3, this.parentElement)"><i class="far fa-star"></i></span>

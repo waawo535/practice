@@ -57,7 +57,7 @@ public class RecipeDetailService extends BaseService {
 			stepList.add(instruction.getInstruction());
 		}
 		
-		// お気に入りステータス取得
+		// お気に入りステータスとユーザの評価を取得
 		SelectUserRecipeRelationParam selectUserRecipeRelationParam = new SelectUserRecipeRelationParam();
 		selectUserRecipeRelationParam.setRecipeId(inDto.getRecipeId());
 		selectUserRecipeRelationParam.setUserId(inDto.getUserId());
@@ -68,6 +68,7 @@ public class RecipeDetailService extends BaseService {
 		inDto.getRecipeDetailDto().setStepsList(stepList);
 		if(selectRecipeUserRelationEntity!=null) {
 			inDto.getRecipeDetailDto().setFavFlg(selectRecipeUserRelationEntity.isFavFlg());
+			inDto.getRecipeDetailDto().setRating(selectRecipeUserRelationEntity.getRating());
 		}
 	}
 }

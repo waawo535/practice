@@ -16,7 +16,7 @@ public class RecipeDetailDto extends BaseDto {
 	
 	private String recipeName;
 	
-	private int recipeAveRating;
+	private double recipeAveRating;
 	
 	private int ratingTotalCount;
 	
@@ -37,5 +37,7 @@ public class RecipeDetailDto extends BaseDto {
 	private List<String> stepsList;
 	
 	private boolean favFlg;
+	
+	private int rating;
 
 }

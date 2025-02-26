@@ -12,8 +12,8 @@ import lombok.Setter;
 public class InsertUserRecipeRelation extends BaseParam {
     private String userId;
     private String recipeId;
-    private boolean status;
-    private boolean  favFlg;
+    private Boolean status;
+    private Boolean  favFlg;
     private String note;
     private int  rating;
     private Timestamp relatedAt;

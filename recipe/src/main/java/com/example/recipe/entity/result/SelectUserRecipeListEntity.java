@@ -14,7 +14,8 @@ public class SelectUserRecipeListEntity extends BaseEntity {
 	
 	 private String recipeId;
 	 private String  recipeName;
-	 private int recipeAveRating;
+	 private double recipeAveRating;
+	 private int ratingTotalCount;
 	 private boolean favStatus;
 	 private String recipeImg;
 	 private Path recipeImgPath;

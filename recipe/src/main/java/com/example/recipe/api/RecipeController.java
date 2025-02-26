@@ -19,7 +19,9 @@ import com.example.recipe.base.BaseController;
 import com.example.recipe.common.util.CommonConst;
 import com.example.recipe.dto.SessionInfoDto;
 import com.example.recipe.dto.ServiceIn.UserRecipeRelationAlterFavIn;
+import com.example.recipe.dto.ServiceIn.UserRecipeRelationRateIn;
 import com.example.recipe.dto.requestBody.FavoriteRequest;
+import com.example.recipe.dto.requestBody.RateRequest;
 import com.example.recipe.service.EditRecipeService;
 import com.example.recipe.service.UserRecipeRelationService;
 
@@ -61,5 +63,26 @@ public class RecipeController extends BaseController {
 			response.put("message", "お気に入り処理に失敗しました: " + e.getMessage());
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		}
+	}
+	
+	@PutMapping("/{recipeId}/rate")
+	public ResponseEntity<Map<String, Object>> rate(@PathVariable("recipeId") String recipeId, @RequestBody RateRequest rateRequest) {
+		Map<String, Object> response = new HashMap<>();
+//		try {
+		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
+		
+		UserRecipeRelationRateIn inDto = new UserRecipeRelationRateIn();
+		inDto.setRecipeId(recipeId);
+		inDto.setUserId(sessionInfoDto.getUserId());
+		inDto.setRating(rateRequest.getRating());
+		editRecipeService.rate(inDto);
+		
+		response.put("success", true);
+		return ResponseEntity.ok(response);
+//		} catch (Exception e) {
+//			response.put("success", false);
+//			response.put("message", "処理に失敗しました: " + e.getMessage());
+//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+//		}
 	}
 }

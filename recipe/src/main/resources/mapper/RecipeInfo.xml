@@ -8,6 +8,7 @@
 		    recipe_id
 		    , recipe_name
 		    , recipe_ave_rating
+		    , rating_total_count
 		    , recipe_img
 		    , recipe_descrip
 		    , publish_status
@@ -25,6 +26,7 @@
 		    recipe_id
 		    , recipe_name
 		    , recipe_ave_rating
+		    , rating_total_count
 		    , recipe_img
 		    , recipe_descrip
 		    , publish_status
@@ -151,7 +153,7 @@
         <if test="recipeName != null">
             , recipe_name = #{recipeName}
         </if>
-        <if test="recipeAveRating != null">
+        <if test="recipeAveRating != 0">
             , recipe_ave_rating = #{recipeAveRating}
         </if>
         <if test="ratingTotalCount != null">

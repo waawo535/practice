@@ -16,7 +16,7 @@ function rateRecipe(rating, container) {
     
     // バックエンドに評価を送信
     fetch(`/recipe/api/recipe/${recipeId}/rate`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },

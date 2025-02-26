@@ -28,7 +28,7 @@ public class RecipeListDto implements Serializable {
 	/**
 	 * 評価
 	 */
-	private int recipeAveRating;
+	private double recipeAveRating;
 	
 	/*
 	 * レシピ画像

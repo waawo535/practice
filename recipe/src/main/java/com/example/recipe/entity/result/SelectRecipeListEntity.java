@@ -19,7 +19,7 @@ public class SelectRecipeListEntity extends BaseEntity {
 	
 	private String recipeName;
 	
-	private String recipeAveRating;
+	private double recipeAveRating;
 	
 	private String recipeImg;
 	

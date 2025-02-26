@@ -21,18 +21,23 @@ import com.example.recipe.common.checker.NullOrEmptyChecker;
 import com.example.recipe.dto.Ingredient;
 import com.example.recipe.dto.ServiceIn.EditRecipeServiceGetRecipeDetailIn;
 import com.example.recipe.dto.ServiceIn.EditRecipeServiceUpdateIn;
+import com.example.recipe.dto.ServiceIn.UserRecipeRelationRateIn;
 import com.example.recipe.entity.param.DeleteRecipeIngredientsParam;
 import com.example.recipe.entity.param.DeleteRecipeParam;
 import com.example.recipe.entity.param.DeleteRecipeStepsParam;
 import com.example.recipe.entity.param.InsertRecipeIngredientsParam;
 import com.example.recipe.entity.param.InsertRecipeStepsParam;
+import com.example.recipe.entity.param.InsertUserRecipeRelation;
 import com.example.recipe.entity.param.SelectRecipeByIdParam;
 import com.example.recipe.entity.param.SelectRecipeIngredientsParam;
 import com.example.recipe.entity.param.SelectRecipeStepsParam;
+import com.example.recipe.entity.param.SelectUserRecipeRelationParam;
 import com.example.recipe.entity.param.UpdateRecipeInfoParam;
+import com.example.recipe.entity.param.UpdateUserRecipeRelation;
 import com.example.recipe.entity.result.SelectRecipeByIdEntity;
 import com.example.recipe.entity.result.SelectRecipeIngredientsEntity;
 import com.example.recipe.entity.result.SelectRecipeStepsEntity;
+import com.example.recipe.entity.result.SelectRecipeUserRelationEntity;
 
 @Service
 public class EditRecipeService extends BaseService {
@@ -186,5 +191,86 @@ public class EditRecipeService extends BaseService {
 		DeleteRecipeParam deleteRecipeParam= new DeleteRecipeParam();
 		deleteRecipeParam.setRecipeId(recipeId);
 		dao.updateByValue(deleteRecipeParam);
+	}
+	
+	/**
+	 * 評価
+	 * @param inDto
+	 */
+	public void rate(UserRecipeRelationRateIn inDto) {
+		//評価の値
+		int rating = Integer.parseInt(inDto.getRating());
+		
+		SelectUserRecipeRelationParam selectUserRecipeRelationParam = new SelectUserRecipeRelationParam();
+		selectUserRecipeRelationParam.setRecipeId(inDto.getRecipeId());
+		selectUserRecipeRelationParam.setUserId(inDto.getUserId());
+		SelectRecipeUserRelationEntity selectRecipeUserRelationEntity = dao.selectByPk(selectUserRecipeRelationParam);
+		
+		//ユーザレシピ関連テーブルを更新する
+		//関連付け未済の場合
+		if(selectRecipeUserRelationEntity==null) {
+			InsertUserRecipeRelation insertUserRecipeRelation = new InsertUserRecipeRelation();
+			insertUserRecipeRelation.setRecipeId(inDto.getRecipeId());
+			insertUserRecipeRelation.setUserId(inDto.getUserId());
+			insertUserRecipeRelation.setRating(rating);
+			insertUserRecipeRelation.setRelatedAt(DateTimeGenerator.getTimestampDateTime());
+			insertUserRecipeRelation.setUpdatedAt(DateTimeGenerator.getTimestampDateTime());
+			dao.insertByValue(insertUserRecipeRelation);
+			
+			//関連付け済の場合
+		}else {
+			UpdateUserRecipeRelation updateUserRecipeRelation = new UpdateUserRecipeRelation();
+			updateUserRecipeRelation.setRecipeId(inDto.getRecipeId());
+			updateUserRecipeRelation.setUserId(inDto.getUserId());
+			updateUserRecipeRelation.setRating(rating);
+			updateUserRecipeRelation.setUpdatedAt(DateTimeGenerator.getTimestampDateTime());
+			dao.updateByValue(updateUserRecipeRelation);
+		}
+		
+		SelectRecipeByIdParam selectRecipeByIdParam = new SelectRecipeByIdParam();
+		selectRecipeByIdParam.setRecipeId(inDto.getRecipeId());
+		SelectRecipeByIdEntity selectRecipeByIdEntity= dao.selectByPk(selectRecipeByIdParam);
+		
+		//現在の評価
+		double currentRating = selectRecipeByIdEntity.getRecipeAveRating();
+		//現在の総評価数
+		int currentTotalRating = selectRecipeByIdEntity.getRatingTotalCount();
+		double prevRating;
+		//平均評価と総評価数を更新する
+		//ぬるぽ防止
+		if(selectRecipeUserRelationEntity!=null) {
+			//ユーザがすでに評価を行っていた場合
+			if(selectRecipeUserRelationEntity.getRating()!=0) {
+				if(currentTotalRating<=1) {
+					//ユーザが評価を行う前の平均評価を算出する
+					prevRating = 0;
+				} else {
+					//ユーザが評価を行う前の平均評価を算出する
+					prevRating = (currentRating*currentTotalRating-selectRecipeUserRelationEntity.getRating())/(currentTotalRating-1);
+				}
+				//現在の評価を更新
+				currentRating = ((prevRating*(currentTotalRating-1))+rating)/currentTotalRating;
+				
+				//ユーザがまだ評価を行っていない場合
+			}else {
+				//現在の評価を更新
+				currentRating = (currentRating*currentTotalRating + rating)/(currentTotalRating+1);
+				//現在の総評価数を更新
+				currentTotalRating += 1;
+			}
+		}else {
+			//現在の評価を更新
+			currentRating = (currentRating*currentTotalRating + rating)/(currentTotalRating+1);
+			//現在の総評価数を更新
+			currentTotalRating += 1;
+		}
+		
+		//レシピ情報テーブルを更新する
+		UpdateRecipeInfoParam updateRecipeInfoParam = new UpdateRecipeInfoParam();
+		updateRecipeInfoParam.setRecipeId(inDto.getRecipeId());
+		updateRecipeInfoParam.setRecipeAveRating(currentRating);
+		updateRecipeInfoParam.setRatingTotalCount(currentTotalRating);
+		dao.updateByValue(updateRecipeInfoParam);
+		
 	}
 }
