@@ -66,6 +66,7 @@
 		    AND update_date >= NOW() - INTERVAL '7 days' 
 		    AND registered_user_id != #{registeredUserId}
 		    AND delete_flag = #{deleteFlag}
+		    AND publish_status = '0'
 		ORDER BY
 		    wilson_score DESC;
 	</select>
@@ -86,6 +87,7 @@
 		WHERE
 		    registered_user_id != #{registeredUserId}
 		    AND delete_flag = #{deleteFlag}
+		    AND publish_status = '0'
 		ORDER BY
 		    update_date DESC;
 	</select>

@@ -85,9 +85,8 @@
 
         <!-- 公開状態 -->
         <div class="recipe-status">
-            <span th:text="*{publishStatus == 0 ? '公開中' : '非公開'}" 
-                  th:class="*{publishStatus == 0 ? 'status-public' : 'status-private'}">
-            </span>
+            <span th:text="*{publishStatus == '0' ? '' : '非公開'}" 
+                  th:class="*{publishStatus == '0' ? '' : 'status-private'}">
         </div>
     </div>
 </div>

@@ -27,6 +27,8 @@ public class SelectRecipeByIdEntity extends BaseEntity {
 	
 	private String recipeDescrip;
 	
+	private String publishStatus;
+	
 	private Timestamp registerDate;
 	
 	private String registereduserId;

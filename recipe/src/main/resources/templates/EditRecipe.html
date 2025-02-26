@@ -71,11 +71,11 @@
 
 	    <!-- 公開/非公開 -->
 	    <div class="form-group">
-	      <label>公開設定</label>
-	      <div class="radio-group" th:field="*{publishStatus}">
-	        <label><input type="radio" name="publishStatus" value="0" checked /> 公開</label>
-	        <label><input type="radio" name="publishStatus" value="1" /> 非公開</label>
-	      </div>
+			<label>公開設定</label>
+			<div class="radio-group">
+				<label><input type="radio" th:field="*{publishStatus}" value="0" /> 公開</label>
+				<label><input type="radio" th:field="*{publishStatus}" value="1" /> 非公開</label>
+			</div>
 	    </div>
 
 	    <!-- ボタン -->

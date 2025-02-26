@@ -199,9 +199,9 @@ body {
 }
 
 .status-public, .status-private {
-    padding: 6px 12px;
+    padding: 6px 20px;
     border-radius: 20px;
-    font-size: 0.9em;
+    font-size: 20px;
 }
 
 .status-public {
