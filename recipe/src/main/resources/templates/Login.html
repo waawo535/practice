@@ -9,10 +9,10 @@
 <body>
   <div class="container">
     <h2>ログイン</h2>
-	<div th:if="${!(SystemInfo.successmessageAreaList == null) and !#lists.isEmpty(SystemInfo.successmessageAreaList)}">
+	<div th:if="${!(SessionInfo.successmessageAreaList == null) and !#lists.isEmpty(SessionInfo.successmessageAreaList)}">
 	  <div class="success-message">
 	    <ul>
-	      <li th:each="success : ${SystemInfo.successmessageAreaList}" th:text="${success.successMessage}"></li>
+	      <li th:each="success : ${SessionInfo.successmessageAreaList}" th:text="${success.successMessage}"></li>
 	    </ul>
 	  </div>
 	</div>
