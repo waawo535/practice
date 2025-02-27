@@ -26,6 +26,7 @@ import com.example.recipe.common.util.ValidationConst;
 import com.example.recipe.dto.ErrorMessageDto;
 import com.example.recipe.dto.SessionInfoDto;
 import com.example.recipe.dto.SingleFieldCheckCheckForBiddenCharOut;
+import com.example.recipe.dto.SystemInfoDto;
 import com.example.recipe.dto.UserRegistrationFormDto;
 import com.example.recipe.dto.ServiceIn.UserRegistrationServiceCheckTokenIn;
 import com.example.recipe.dto.ServiceIn.UserRegistrationServiceIn;
@@ -68,6 +69,12 @@ public class UserRegistrationController extends BaseController {
 		if(!model.containsAttribute(CommonConst.KEY_PREVSCREEN)) {
 			model.addAttribute(CommonConst.KEY_PREVSCREEN, null);
 		}
+		
+		SystemInfoDto systemInfoDto = new SystemInfoDto ();
+		systemInfoDto.setCurrentScreenId(CommonConst.SCREENID_USR01);
+		
+		model.addAttribute(CommonConst.KEY_SYSTEMINFO, systemInfoDto);
+		
 		return CommonConst.SCREENID_USR01;
 	}
 	

@@ -20,6 +20,8 @@ public class CommonConst {
 	//------------------------------キー------------------------------
 	/** セッション情報保持DTO*/
 	public static final String KEY_SESSIONINFO = "SessionInfo";
+	/** セッション情報保持DTO*/
+	public static final String KEY_SYSTEMINFO = "SystemInfo";
 	/** 遷移元画面名*/
 	public static final String KEY_PREVSCREEN = "prevScreen";
 	/** ユーザ登録画面表示DTO*/

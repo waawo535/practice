@@ -23,6 +23,7 @@ import com.example.recipe.dto.ErrorMessageDto;
 import com.example.recipe.dto.SessionInfoDto;
 import com.example.recipe.dto.SingleFieldCheckCheckForBiddenCharOut;
 import com.example.recipe.dto.SuccessMessageDto;
+import com.example.recipe.dto.SystemInfoDto;
 import com.example.recipe.dto.ServiceIn.LoginServiceLoginIn;
 import com.example.recipe.dto.ServiceOut.LoginServiceLoginOut;
 import com.example.recipe.dto.view.LoginDto;
@@ -64,6 +65,11 @@ public class LoginController extends BaseController {
 			SessionInfoDto sessionInfoDto = new SessionInfoDto();
 	        model.addAttribute(CommonConst.KEY_SESSIONINFO, sessionInfoDto);
 	    }
+		
+		SystemInfoDto systemInfoDto = new SystemInfoDto ();
+		systemInfoDto.setCurrentScreenId(CommonConst.SCREENID_LGN01);
+		model.addAttribute(CommonConst.KEY_SYSTEMINFO, systemInfoDto);
+		
 		return CommonConst.SCREENID_LGN01;
 	}
 	

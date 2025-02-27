@@ -92,25 +92,33 @@
 		    update_date DESC;
 	</select>
 	
-	<select id="SelectRecipeList" resultType='com.example.recipe.entity.result.SelectRecipeListEntity'>
+	<select id="SelectRecipeSearchList" resultType='com.example.recipe.entity.result.SelectRecipeByIdEntity'>
 		SELECT
-		    user_id
-		    , recipe_id
-		    , recipe_name
-		    , recipe_ave_rating
-		    , recipe_img
-		    , register_date
-		    , registered_user_id
-		    , update_date
-		    , updated_user_id
+		    ri.user_id
+		    , ri.recipe_id
+		    , ri.recipe_name
+		    , ri.recipe_ave_rating
+		    , ri.recipe_img
+		    , ri.register_date
+		    , ri.registered_user_id
+		    , ri.update_date
+		    , ri.updated_user_id
 		FROM
-		    public.recipe_info 
+		    public.recipe_info ri
+		INNER JOIN
+			recipe_ingredients ing
+		ON ri.recipe_id = ing.recipe_id
+		INNER JOIN
+			recipe_steps step
+		ON ri.recipe_id = step.recipe_id
 		WHERE
-		    delete_flag = #{deleteFlag}
-		    AND user_id NOT IN (#{userId}) 
-		ORDER BY
-		    register_date DESC
-		LIMIT #{limit} OFFSET #{offset};
+		    delete_flag = false
+		    AND( ri.user_id LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR ri.recipe_id LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR ri.recipe_name LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR ri.recipe_descrip LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR ing.ingredient_name LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR step.instruction LIKE CONCAT('%', #{searchCondition}, '%'))
 	</select>
 	
 <!--	 RecipeInfoテーブルにInsert -->

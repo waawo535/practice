@@ -19,6 +19,7 @@ import com.example.recipe.base.BaseController;
 import com.example.recipe.common.util.CommonConst;
 import com.example.recipe.dto.ErrorMessageDto;
 import com.example.recipe.dto.SessionInfoDto;
+import com.example.recipe.dto.SystemInfoDto;
 import com.example.recipe.dto.ServiceIn.CreateRecipeSaveRecipeIn;
 import com.example.recipe.dto.view.CreateRecipeDto;
 import com.example.recipe.service.CreateRecipeService;
@@ -39,11 +40,15 @@ public class CreateRecipeController extends BaseController {
 	
 	@GetMapping("/initShow")
 	public String initShow(Model model) {
-		
-		
+
 		CreateRecipeDto createRecipeDto = new CreateRecipeDto();
 		
+		SystemInfoDto systemInfoDto = new SystemInfoDto ();
+		systemInfoDto.setCurrentScreenId(CommonConst.SCREENID_RCP01);
+		
+		model.addAttribute(CommonConst.KEY_SYSTEMINFO, systemInfoDto);
 		model.addAttribute(CommonConst.KEY_RCP01, createRecipeDto);
+		
 		return CommonConst.SCREENID_RCP01;
 	}
 	

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.recipe.base.BaseController;
 import com.example.recipe.common.util.CommonConst;
 import com.example.recipe.dto.SessionInfoDto;
+import com.example.recipe.dto.SystemInfoDto;
 import com.example.recipe.dto.ServiceIn.EditRecipeServiceGetRecipeDetailIn;
 import com.example.recipe.dto.ServiceIn.EditRecipeServiceUpdateIn;
 import com.example.recipe.dto.view.EditRecipeDto;
@@ -43,6 +44,10 @@ public class EditRecipeController extends BaseController {
 		if(!model.containsAttribute(CommonConst.KEY_RCP02)) {
 			model.addAttribute(CommonConst.KEY_RCP02, editRecipeDto);
 		}
+		
+		SystemInfoDto systemInfoDto = new SystemInfoDto ();
+		systemInfoDto.setCurrentScreenId(CommonConst.SCREENID_RCP02);
+		model.addAttribute(CommonConst.KEY_SYSTEMINFO, systemInfoDto);
 		
 		return CommonConst.SCREENID_RCP02;
 	}

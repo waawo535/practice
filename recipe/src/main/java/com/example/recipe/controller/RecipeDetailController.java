@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.recipe.base.BaseController;
 import com.example.recipe.common.util.CommonConst;
 import com.example.recipe.dto.SessionInfoDto;
+import com.example.recipe.dto.SystemInfoDto;
 import com.example.recipe.dto.ServiceIn.RecipeDetailServiceInitShowIn;
 import com.example.recipe.dto.view.RecipeDetailDto;
 import com.example.recipe.service.RecipeDetailService;
@@ -37,6 +38,10 @@ public class RecipeDetailController extends BaseController {
 		inDto.setRecipeDetailDto(recipeDetailDto);
 		inDto.setRecipeId(recipeId);
 		recipeDetailService.initShow(inDto);
+		
+		SystemInfoDto systemInfoDto = new SystemInfoDto ();
+		systemInfoDto.setCurrentScreenId(CommonConst.SCREENID_RCP03);
+		model.addAttribute(CommonConst.KEY_SYSTEMINFO, systemInfoDto);
 		
 		model.addAttribute(CommonConst.KEY_RCP03, recipeDetailDto);
 		

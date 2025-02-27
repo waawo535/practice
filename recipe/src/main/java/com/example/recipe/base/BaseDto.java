@@ -14,6 +14,10 @@ import lombok.Setter;
 @Setter
 public class BaseDto implements Serializable {
 	
+	private String prevScreenId;
+	
+	private String currentScreenId;
+	
 	/**
 	 * エラーメッセージリスト
 	 */

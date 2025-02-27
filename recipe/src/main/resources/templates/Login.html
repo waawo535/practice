@@ -40,5 +40,6 @@
       アカウントをお持ちでない方は <a th:href="@{/UserRegistration/initShow}">こちら</a>
     </p>
   </div>
+  <input type="hidden" name="screenId" th:value="${SystemInfo.currentScreenId}">
 </body>
 </html>
