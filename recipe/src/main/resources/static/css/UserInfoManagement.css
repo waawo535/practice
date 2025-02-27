@@ -33,7 +33,7 @@
     align-items: center; /* 縦中央揃え */
     padding: 20px;
     background-color: #f9fafc;
-    margin-left: 25%; /* サイドバーの幅分だけマージンを設定 */
+    margin-left: 15%; /* サイドバーの幅分だけマージンを設定 */
     height: calc(100vh - 60px);
     overflow-y: auto; /* メインコンテンツだけをスクロール可能に */
 }
