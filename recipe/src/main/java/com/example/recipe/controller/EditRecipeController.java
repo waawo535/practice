@@ -40,17 +40,17 @@ public class EditRecipeController extends BaseController {
 		EditRecipeServiceGetRecipeDetailIn inDto = new EditRecipeServiceGetRecipeDetailIn();
 		inDto.setEditRecipeDto(editRecipeDto);
 		editRecipeService.getRecipeDetail(inDto);
-		if(!model.containsAttribute(CommonConst.KEY_EDITRECIPE_DTO)) {
-			model.addAttribute(CommonConst.KEY_EDITRECIPE_DTO, editRecipeDto);
+		if(!model.containsAttribute(CommonConst.KEY_RCP02)) {
+			model.addAttribute(CommonConst.KEY_RCP02, editRecipeDto);
 		}
 		
-		return CommonConst.SCREENID_EDITRECIPE;
+		return CommonConst.SCREENID_RCP02;
 	}
 	
 	@PostMapping("/update/confirm")
 	public String confirmUpdate(EditRecipeDto editRecipeDto) {
 		try {
-			SessionInfoDto sessionInfoDto = (SessionInfoDto) session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
+			SessionInfoDto sessionInfoDto = (SessionInfoDto) session.getAttribute(CommonConst.KEY_SESSIONINFO);
 			EditRecipeServiceUpdateIn editRecipeServiceUpdateIn = new EditRecipeServiceUpdateIn();
 			editRecipeServiceUpdateIn.setUserId(sessionInfoDto.getUserId());
 			editRecipeServiceUpdateIn.setEditRecipeDto(editRecipeDto);
@@ -59,7 +59,7 @@ public class EditRecipeController extends BaseController {
 			//エラー時のエラーメッセージあとで実装する
 			e.printStackTrace();
 		}
-		return CommonConst.REDIRECT_USERINFOMANAGEMENT;
+		return CommonConst.REDIRECT_UINF01;
 	}
 	
 	//単項目チェックなど実装する

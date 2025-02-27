@@ -22,6 +22,7 @@ import com.example.recipe.base.BaseController;
 import com.example.recipe.common.checker.NullOrEmptyChecker;
 import com.example.recipe.common.checker.SingleFieldCheck;
 import com.example.recipe.common.util.CommonConst;
+import com.example.recipe.common.util.ValidationConst;
 import com.example.recipe.dto.ErrorMessageDto;
 import com.example.recipe.dto.SessionInfoDto;
 import com.example.recipe.dto.SingleFieldCheckCheckForBiddenCharOut;
@@ -60,14 +61,14 @@ public class UserRegistrationController extends BaseController {
 	 */
 	@GetMapping("/initShow")
 	public String initShow(Model model) {
-		if (!model.containsAttribute(CommonConst.KEY_USERREGISTRATION_DTO)) {
+		if (!model.containsAttribute(CommonConst.KEY_USR01)) {
 	        UserRegistrationFormDto dto = new UserRegistrationFormDto();
-	        model.addAttribute(CommonConst.KEY_USERREGISTRATION_DTO, dto);
+	        model.addAttribute(CommonConst.KEY_USR01, dto);
 	    }
 		if(!model.containsAttribute(CommonConst.KEY_PREVSCREEN)) {
 			model.addAttribute(CommonConst.KEY_PREVSCREEN, null);
 		}
-		return CommonConst.SCREENID_USERREGISTRATION;
+		return CommonConst.SCREENID_USR01;
 	}
 	
 	/*
@@ -82,9 +83,9 @@ public class UserRegistrationController extends BaseController {
 		//単項目エラー存在チェック
 		if(!(userRegistrationFormDto.getErrormessageAreaList().isEmpty())) {
 			//エラーメッセージが存在する場合
-			redirectAttributes.addFlashAttribute(CommonConst.KEY_USERREGISTRATION_DTO, userRegistrationFormDto);
+			redirectAttributes.addFlashAttribute(CommonConst.KEY_USR01, userRegistrationFormDto);
 			//自画面に遷移
-			return CommonConst.REDIRECT_USERREGISTRATION;
+			return CommonConst.REDIRECT_USR01;
 		}
 		
 		//F層呼び出し
@@ -114,35 +115,35 @@ public class UserRegistrationController extends BaseController {
 			}
 			
 			//リダイレクト後にフォームにメアドとパスワードが入力されている状態にしてもいいかも（余裕があれば実装する）
-			redirectAttributes.addFlashAttribute(CommonConst.KEY_USERREGISTRATION_DTO, userRegistrationFormDto);
+			redirectAttributes.addFlashAttribute(CommonConst.KEY_USR01, userRegistrationFormDto);
 			//自画面に遷移
-			return CommonConst.REDIRECT_USERREGISTRATION;
+			return CommonConst.REDIRECT_USR01;
 		}
 		
 		UserRegistrationDto userRegistrationDto = new UserRegistrationDto();
 		userRegistrationDto.setUserId(userRegistrationServiceOut.getUserId());
 		userRegistrationDto.setEmailAddress(userRegistrationFormDto.getEmailAddress());
-		session.setAttribute(CommonConst.KEY_SESSIONINFO_DTO, userRegistrationDto);
+		session.setAttribute(CommonConst.KEY_SESSIONINFO, userRegistrationDto);
 		
 		sendVerificationEmail(userRegistrationFormDto.getEmailAddress(), userRegistrationServiceOut.getToken());
 		
 		UserAuthenticationDto userAuthenticationDto = new UserAuthenticationDto();
 		userAuthenticationDto.setUserId(null);
 		
-		model.addAttribute(CommonConst.KEY_USERREGISTRATION_DTO, userRegistrationFormDto);
-		model.addAttribute(CommonConst.KEY_USERAUTHENTICATION_DTO, userAuthenticationDto);
+		model.addAttribute(CommonConst.KEY_USR01, userRegistrationFormDto);
+		model.addAttribute(CommonConst.KEY_AUTH01, userAuthenticationDto);
 		
 		//認証画面に遷移
-		return CommonConst.SCREENID_AUTHENTICATION;
+		return CommonConst.SCREENID_AUTH01;
 	}
 	
 	//ログイン画面から認証画面に戻る用
 	@GetMapping("/registerToAuthentication")
 	public String redirectLoginToAuthentication(Model model, RedirectAttributes redirectAttributes) {
 		UserRegistrationDto userRegistrationDto = new UserRegistrationDto();
-		redirectAttributes.addFlashAttribute(CommonConst.KEY_USERREGISTRATION_DTO, userRegistrationDto);
-		redirectAttributes.addFlashAttribute(CommonConst.KEY_PREVSCREEN, CommonConst.SCREENID_USERREGISTRATION);
-		return CommonConst.REDIRECT_AUTHENTICATION;
+		redirectAttributes.addFlashAttribute(CommonConst.KEY_USR01, userRegistrationDto);
+		redirectAttributes.addFlashAttribute(CommonConst.KEY_PREVSCREEN, CommonConst.SCREENID_USR01);
+		return CommonConst.REDIRECT_AUTH01;
 	}
 	
 	/**
@@ -152,7 +153,7 @@ public class UserRegistrationController extends BaseController {
 	@PostMapping("/authentication")
 	public String authentication(UserRegistrationFormDto userRegistrationFormDto, Model model, RedirectAttributes redirectAttributes) {
 		
-		UserRegistrationDto userDto = (UserRegistrationDto) session.getAttribute(CommonConst.KEY_SESSIONINFO_DTO);
+		UserRegistrationDto userDto = (UserRegistrationDto) session.getAttribute(CommonConst.KEY_SESSIONINFO);
 		
 		//認証コードを検証する
 		UserRegistrationServiceCheckTokenIn userRegistrationServiceCheckTokenIn = new UserRegistrationServiceCheckTokenIn();
@@ -179,8 +180,8 @@ public class UserRegistrationController extends BaseController {
 				setErrorMessageList(userRegistrationFormDto, errorMessage);
 			}
 			
-			redirectAttributes.addFlashAttribute(CommonConst.KEY_USERREGISTRATION_DTO, userRegistrationFormDto);
-			return CommonConst.REDIRECT_AUTHENTICATION;
+			redirectAttributes.addFlashAttribute(CommonConst.KEY_USR01, userRegistrationFormDto);
+			return CommonConst.REDIRECT_AUTH01;
 		}
 		
 		//整合性があればユーザ本登録してユーザポータル画面に遷移する
@@ -190,10 +191,10 @@ public class UserRegistrationController extends BaseController {
 		
 		SessionInfoDto sessionInfoDto = new SessionInfoDto();
 		sessionInfoDto.setUserId(userDto.getUserId());
-		sessionInfoDto.setPrevScreen(CommonConst.SCREENID_AUTHENTICATION);
-		session.setAttribute(CommonConst.KEY_SYSTEMINFO_DTO, sessionInfoDto);
+		sessionInfoDto.setPrevScreen(CommonConst.SCREENID_AUTH01);
+		session.setAttribute(CommonConst.KEY_SESSIONINFO, sessionInfoDto);
 		
-		return CommonConst.SCREENID_USERPORTAL;
+		return CommonConst.SCREENID_UPRT01;
 	}
 	
 	//認証画面初期表示
@@ -201,11 +202,11 @@ public class UserRegistrationController extends BaseController {
 	public String authenticationInitShow(Model model) {
 		
 		UserAuthenticationDto userAuthenticationDto = new UserAuthenticationDto();
-		model.addAttribute(CommonConst.KEY_USERAUTHENTICATION_DTO, userAuthenticationDto);
+		model.addAttribute(CommonConst.KEY_AUTH01, userAuthenticationDto);
 		if(!model.containsAttribute(CommonConst.KEY_PREVSCREEN)) {
 			model.addAttribute(CommonConst.KEY_PREVSCREEN, null);
 		}
-		return CommonConst.SCREENID_AUTHENTICATION;
+		return CommonConst.SCREENID_AUTH01;
 	}
 	
 	//認証画面から登録画面にリダイレクトする用の
@@ -213,11 +214,11 @@ public class UserRegistrationController extends BaseController {
 	public String redirectAuthentecationToRegister(Model model, RedirectAttributes redirectAttributes) {
 		//生成した認証コードを引き継ぐように設定
 		UserRegistrationFormDto userRegistrationFormDto = new UserRegistrationFormDto();
-		redirectAttributes.addFlashAttribute(CommonConst.KEY_USERREGISTRATION_DTO, userRegistrationFormDto);
+		redirectAttributes.addFlashAttribute(CommonConst.KEY_USR01, userRegistrationFormDto);
 		//遷移元画面IDに認証画面を設定
-		redirectAttributes.addFlashAttribute(CommonConst.KEY_PREVSCREEN, CommonConst.SCREENID_AUTHENTICATION);
+		redirectAttributes.addFlashAttribute(CommonConst.KEY_PREVSCREEN, CommonConst.SCREENID_AUTH01);
 		
-		return CommonConst.REDIRECT_USERREGISTRATION;
+		return CommonConst.REDIRECT_USR01;
 	}
 	
 	/**
@@ -246,7 +247,7 @@ public class UserRegistrationController extends BaseController {
 			setErrorMessageList(userRegistrationFormDto, errorMessage);
 		}
 		//型チェック
-		if(!singleFieldCheck.checkRegEx(userRegistrationFormDto.getEmailAddress(), CommonConst.REGEX_EMAIL)) {
+		if(!singleFieldCheck.checkRegEx(userRegistrationFormDto.getEmailAddress(), ValidationConst.REGEX_EMAIL)) {
 			String errorMessage = messageSource.getMessage("E103", new Object[] { }, Locale.JAPAN);
 			setErrorMessageList(userRegistrationFormDto, errorMessage);
 		}

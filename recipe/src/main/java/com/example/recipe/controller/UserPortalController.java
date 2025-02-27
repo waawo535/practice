@@ -28,7 +28,7 @@ public class UserPortalController extends BaseController {
 	
 	@GetMapping("/initShow")
 	public String initShow(Model model) {
-		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
+		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SESSIONINFO);
 		UserPortalInitShowIn inDto = new UserPortalInitShowIn();
 		UserPortalDto userPortalDto = new UserPortalDto();
 		inDto.setUserId(sessionInfoDto.getUserId());
@@ -36,8 +36,8 @@ public class UserPortalController extends BaseController {
 		//F層呼び出しで画面に表示する項目を取得
 		userPortalService.initShow(inDto);
 		
-		model.addAttribute(CommonConst.KEY_USERPORTAL_DTO, userPortalDto);
+		model.addAttribute(CommonConst.KEY_UPRT01, userPortalDto);
 		
-		return CommonConst.SCREENID_USERPORTAL;
+		return CommonConst.SCREENID_UPRT01;
 	}
 }

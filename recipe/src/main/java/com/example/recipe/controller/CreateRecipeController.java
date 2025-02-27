@@ -43,14 +43,14 @@ public class CreateRecipeController extends BaseController {
 		
 		CreateRecipeDto createRecipeDto = new CreateRecipeDto();
 		
-		model.addAttribute(CommonConst.KEY_CREATERECIPE_DTO, createRecipeDto);
-		return CommonConst.SCREENID_CREATERECIPE;
+		model.addAttribute(CommonConst.KEY_RCP01, createRecipeDto);
+		return CommonConst.SCREENID_RCP01;
 	}
 	
 	@PostMapping("/saveRecipe")
 	public String saveRecipe(CreateRecipeDto createRecipeDto, RedirectAttributes redirectAttributes) {
 		try {
-		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
+		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SESSIONINFO);
 		//単項目チェック実装する	
 		
 		//DB保存処理
@@ -68,11 +68,11 @@ public class CreateRecipeController extends BaseController {
 			//ファイルアップロードに失敗した場合、エラーメッセージを設定して編集画面にリダイレクトする
 			String errorMessage = messageSource.getMessage("E407", new Object[] { }, Locale.JAPAN);
 			setErrorMessageList(createRecipeDto, errorMessage);
-			redirectAttributes.addAttribute(CommonConst.KEY_CREATERECIPE_DTO, createRecipeDto);
-			return CommonConst.REDIRECT_CREATERECIPE;
+			redirectAttributes.addAttribute(CommonConst.KEY_RCP01, createRecipeDto);
+			return CommonConst.REDIRECT_RCP01;
 		}
 		
-		return CommonConst.REDIRECT_USERINFOMANAGEMENT;
+		return CommonConst.REDIRECT_UINF01;
 	}
 	
 	/**

@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import jakarta.inject.Named;
 
-import com.example.recipe.common.util.CommonConst;
+import com.example.recipe.common.util.ValidationConst;
 import com.example.recipe.dto.SingleFieldCheckCheckForBiddenCharOut;
 import com.example.recipe.dto.CommonIn.SingleFieldCheckIsMailAdressIn;
 
@@ -18,7 +18,7 @@ public class SingleFieldCheck {
 	 * @return
 	 */
 	public boolean isHalfWidthAlphanumSymbol(String str) {
-		return checkRegEx(str, "^["+ CommonConst.CHARTYPE_HALFWIDTH_ALPHABET+CommonConst.CHARTYPE_HALFWIDTH_NUMBER+CommonConst.CHARTYPE_HALFWIDTH_SYMBOL + "]+$");
+		return checkRegEx(str, "^["+ ValidationConst.CHARTYPE_HALFWIDTH_ALPHABET+ValidationConst.CHARTYPE_HALFWIDTH_NUMBER+ValidationConst.CHARTYPE_HALFWIDTH_SYMBOL + "]+$");
 	}
 	
 	/**
@@ -27,7 +27,7 @@ public class SingleFieldCheck {
 	 * @return
 	 */
 	public boolean isFullWidth(String str) {
-		return str.matches(CommonConst.CHARTYPE_FULLWIDTH);
+		return str.matches(ValidationConst.CHARTYPE_FULLWIDTH);
 	}
 	
 	public boolean isMailAdress(SingleFieldCheckIsMailAdressIn mailAdressIn) {
@@ -35,7 +35,7 @@ public class SingleFieldCheck {
 		boolean result = false;
 		
 		//正規表現チェック
-		boolean matchesRegex  = checkRegEx(mailAdressIn.getEmailAddress(), CommonConst.REGEX_EMAIL);
+		boolean matchesRegex  = checkRegEx(mailAdressIn.getEmailAddress(), ValidationConst.REGEX_EMAIL);
 		
 		//null拒否フラグチェック
 		if(mailAdressIn.isNullDenialFlg()) {
@@ -86,7 +86,7 @@ public class SingleFieldCheck {
 			//前から順に一文字ずつ取り出す
 			checkChar = str.substring(i, i+1);
 			//取り出した文字が禁則文字であるかどうかチェック
-			if(checkRegEx(checkChar, CommonConst.CHARTYPE_FORBIDDENCHAR)) {
+			if(checkRegEx(checkChar, ValidationConst.CHARTYPE_FORBIDDENCHAR)) {
 				//禁則文字である場合
 				
 				//その禁則文字が1つ目である場合

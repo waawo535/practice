@@ -28,7 +28,7 @@ public class RecipeListService extends BaseService {
 	public List<SelectUserRecipeListEntity> getRecipeList(int offset, String screenId, String userId) {
 		
 		//画面によって処理を変えるかどうか......
-		if(screenId.equals(CommonConst.SCREENID_USERINFOMANAGEMENT)) {
+		if(screenId.equals(CommonConst.SCREENID_UINF01)) {
 			
 		}
 		

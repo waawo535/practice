@@ -1,33 +1,6 @@
 package com.example.recipe.common.util;
 
 public class CommonConst {
-	
-	//------------------------------正規表現------------------------------
-	/** 正規表現　メールアドレス*/
-	public static final String REGEX_EMAIL = "^(?=.{1,255}$)(?=.{1,64}@.{1,255}$)"
-															+ "(?!\\.)[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(?<!\\.)@[a-zA-Z0-9](?:[a-zA-Z0-9-]{2,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z]{2,})+$";
-	/** 正規表現　電話番号*/
-	public static final String REGEX_PHONENUMBER = "0[5789]0-\\d{4}-\\d{4}|"
-																			+ "0(?=.{6})\\d{2,4}-\\d+-\\d{4}|"
-																			+ "0(?=.{6})\\d{2,4}\\(\\d+\\)\\d{4}|"
-																			+ "0\\d{9}|\\d{1,4}-\\d{4}|"
-																			+ "\\(\\d{1,4}\\)\\d{4}";
-	//------------------------------文字種別------------------------------
-	//* 文字種別　半角英字*/
-	public static final String CHARTYPE_HALFWIDTH_ALPHABET ="a-zA-Z";
-	/** 文字種別　半角数字*/
-	public static final String CHARTYPE_HALFWIDTH_NUMBER = "0-9";
-	/** 文字種別　半角記号*/
-	public static final String CHARTYPE_HALFWIDTH_SYMBOL = "!#$%()*+\\-./:;=?@\\[\\]`\\{|\\}~";
-	/** 文字種別　全角文字*/
-	public static final String CHARTYPE_FULLWIDTH = "^[^\\x00-\\x7F]+$";
-	/** 文字種別　禁則文字*/
-	public static final String CHARTYPE_FORBIDDENCHAR = ".*[\"'&<>\\x{FF61}-\\x{FF9F}\\u005C].*";
-	/** 文字種別　外字*/
-	public static final String CHARTYPE_EXTERNALCHAR = "";
-	/** 文字種別　機種依存文字*/
-	public static final String CHARTYPE_PLATFORMDEPENDENTCHAR = "";
-	
 	//------------------------------ID種別------------------------------
 	/** ID種別　ユーザID*/
 	public static final String ID_TYPE_US = "US";
@@ -46,76 +19,58 @@ public class CommonConst {
 	public static final String PRIVATE = "1";
 	//------------------------------キー------------------------------
 	/** セッション情報保持DTO*/
-	public static final String KEY_SESSIONINFO_DTO = "SessionInfo";
-	/** システム情報*/
-	public static final String KEY_SYSTEMINFO_DTO = "SystemInfo";
+	public static final String KEY_SESSIONINFO = "SessionInfo";
 	/** 遷移元画面名*/
 	public static final String KEY_PREVSCREEN = "prevScreen";
 	/** ユーザ登録画面表示DTO*/
-	public static final String KEY_USERREGISTRATION_DTO = "UserRegistrationDto";
+	public static final String KEY_USR01 = "UserRegistrationDto";
 	/** ユーザ認証画面表示DTO*/
-	public static final String KEY_USERAUTHENTICATION_DTO = "UserAuthenticationDto";
+	public static final String KEY_AUTH01 = "UserAuthenticationDto";
 	/** ログイン画面表示DTO*/
-	public static final String KEY_LOGIN_DTO = "LoginDto";
+	public static final String KEY_LGN01 = "LoginDto";
 	/** ユーザポータル画面表示DTO*/
-	public static final String KEY_USERPORTAL_DTO = "UserPortalDto";
+	public static final String KEY_UPRT01 = "UserPortalDto";
 	/** ユーザ情報管理画面表示用DTO*/
-	public static final String KEY_USERINFOMANAGEMENT_DTO = "UserInfoManagementDto";
+	public static final String KEY_UINF01 = "UserInfoManagementDto";
 	/** */
-	public static final String KEY_CREATERECIPE_DTO = "CreateRecipeDto";
+	public static final String KEY_RCP01 = "CreateRecipeDto";
 	/** */
-	public static final String KEY_EDITRECIPE_DTO = "EditRecipeDto";
+	public static final String KEY_RCP02 = "EditRecipeDto";
 	/** */
-	public static final String KEY_RECIPEDETAIL_DTO = "RecipeDetailDto";
+	public static final String KEY_RCP03 = "RecipeDetailDto";
 	//------------------------------画面名------------------------------
 	/** ユーザ登録画面*/
-	public static final String SCREENID_USERREGISTRATION = "UserRegistration";
+	public static final String SCREENID_USR01 = "UserRegistration";
 	/** 認証画面*/
-	public static final String SCREENID_AUTHENTICATION = "UserAuthentication";
+	public static final String SCREENID_AUTH01 = "UserAuthentication";
 	/** ログイン画面*/
-	public static final String SCREENID_LOGIN = "Login";
+	public static final String SCREENID_LGN01 = "Login";
 	/**ログアウト*/
-	public static final String SCREENID_LOGOUT = "Logout";
+	public static final String SCREENID_OUT01 = "Logout";
 	/** ユーザポータル画面*/
-	public static final String SCREENID_USERPORTAL = "UserPortal";
-	/** ユーザ情報登録画面*/
-	public static final String SCREENID_USERINFOREGISTRATION = "UserInfoRegistration";
+	public static final String SCREENID_UPRT01 = "UserPortal";
 	/** ユーザ情報管理画面*/
-	public static final String SCREENID_USERINFOMANAGEMENT = "UserInfoManagement";
+	public static final String SCREENID_UINF01 = "UserInfoManagement";
 	/** レシピ作成画面*/
-	public static final String SCREENID_CREATERECIPE = "CreateRecipe";
+	public static final String SCREENID_RCP01 = "CreateRecipe";
 	/** レシピ編集画面*/
-	public static final String SCREENID_EDITRECIPE = "EditRecipe";
-	/** レシピ一覧画面*/
-	public static final String SCREENID_RECIPELIST = "RecipeList";
+	public static final String SCREENID_RCP02 = "EditRecipe";
 	/** レシピ詳細画面*/
-	public static final String SCREENID_RECIPEDETAIL = "RecipeDetail";
-	/** レシピ登録画面*/
-	public static final String SCREENID_RECIPEREGISTRATION = "RecipeRegistration";
-	/** レシピ情報管理画面*/
-	public static final String SCREENID_RECIPEMANAGEMENT = "RecipeManagement";
+	public static final String SCREENID_RCP03 = "RecipeDetail";
 	
 	//------------------------------リダイレクト------------------------------
 	/** ユーザ登録画面*/
-	public static final String REDIRECT_USERREGISTRATION = "redirect:/UserRegistration/initShow";
+	public static final String REDIRECT_USR01 = "redirect:/UserRegistration/initShow";
 	/** 認証画面*/
-	public static final String REDIRECT_AUTHENTICATION = "redirect:/UserRegistration/authentication/initShow";
+	public static final String REDIRECT_AUTH01 = "redirect:/UserRegistration/authentication/initShow";
 	/** ログイン画面*/
-	public static final String REDIRECT_LOGIN = "redirect:/Login/initShow";
+	public static final String REDIRECT_LGN01 = "redirect:/Login/initShow";
 	/** ユーザポータル画面*/
-	public static final String REDIRECT_USERPORTAL = "redirect:/UserPortal/initShow";
-	/** ユーザ情報登録画面*/
-	public static final String REDIRECT_USERINFOREGISTRATION = "redirect:/UserInfoRegistration/initShow";
+	public static final String REDIRECT_UPRT01 = "redirect:/UserPortal/initShow";
 	/** ユーザ情報管理画面*/
-	public static final String REDIRECT_USERINFOMANAGEMENT = "redirect:/UserInfoManagement/initShow";
+	public static final String REDIRECT_UINF01 = "redirect:/UserInfoManagement/initShow";
 	/** レシピ作成画面*/
-	public static final String REDIRECT_CREATERECIPE = "redirect:/CreateRecipe/initShow";
-	/** レシピ一覧画面*/
-	public static final String REDIRECT_RECIPELIST = "redirect:/RecipeList/initShow";
+	public static final String REDIRECT_RCP01 = "redirect:/CreateRecipe/initShow";
 	/** レシピ詳細画面*/
-	public static final String REDIRECT_RECIPEDETAIL = "redirect:/RecipeDetail/initShow";
-	/** レシピ登録画面*/
-	public static final String REDIRECT_RECIPEREGISTRATION = "redirect:/RecipeRegistration/initShow";
-	/** レシピ情報管理画面*/
-	public static final String REDIRECT_RECIPEMANAGEMENT = "redirect:/RecipeManagement/initShow";
+	public static final String REDIRECT_RCP03 = "redirect:/RecipeDetail/initShow";
 }

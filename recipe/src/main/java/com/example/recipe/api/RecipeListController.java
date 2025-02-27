@@ -30,7 +30,7 @@ public class RecipeListController extends BaseController {
 	// 無限スクロールで追加読み込み
 	@GetMapping("/more")
 	public List<SelectUserRecipeListEntity> getMoreRecipes(@RequestParam int offset, @RequestParam String screenId) {
-		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
+		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SESSIONINFO);
 		System.out.println("offset: " + offset + ", screenId: " + screenId);
 	    return recipeListService.getRecipeList(offset, screenId, sessionInfoDto.getUserId());
 	}

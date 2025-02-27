@@ -50,7 +50,7 @@ public class RecipeController extends BaseController {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
+		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SESSIONINFO);
 		UserRecipeRelationAlterFavIn inDto = new UserRecipeRelationAlterFavIn();
 		inDto.setRecipeId(favoriteRequest.getRecipeId());
 		inDto.setUserId(sessionInfoDto.getUserId());
@@ -69,7 +69,7 @@ public class RecipeController extends BaseController {
 	public ResponseEntity<Map<String, Object>> rate(@PathVariable("recipeId") String recipeId, @RequestBody RateRequest rateRequest) {
 		Map<String, Object> response = new HashMap<>();
 //		try {
-		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
+		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SESSIONINFO);
 		
 		UserRecipeRelationRateIn inDto = new UserRecipeRelationRateIn();
 		inDto.setRecipeId(recipeId);

@@ -50,7 +50,7 @@ public class UserInfoManagementController extends BaseController {
 	public String initShow(Model model) {
 		
 		//セッション情報を取得する
-		SessionInfoDto sessionInfoDto = (SessionInfoDto) session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
+		SessionInfoDto sessionInfoDto = (SessionInfoDto) session.getAttribute(CommonConst.KEY_SESSIONINFO);
 		UserInfoManagementDto viewDto =  new UserInfoManagementDto();
 		//F層呼び出しでユーザ情報を取得
 		UserInfoManagementShowUserInfoIn inDto = new UserInfoManagementShowUserInfoIn();
@@ -59,9 +59,9 @@ public class UserInfoManagementController extends BaseController {
 		userInfoManagementService.showUserInfo(inDto);
 		
 		//取得したユーザ情報をmodelに設定
-		model.addAttribute(CommonConst.KEY_USERINFOMANAGEMENT_DTO, viewDto);
+		model.addAttribute(CommonConst.KEY_UINF01, viewDto);
 		
-		return CommonConst.SCREENID_USERINFOMANAGEMENT;
+		return CommonConst.SCREENID_UINF01;
 	}
 	
 	/**
@@ -77,16 +77,16 @@ public class UserInfoManagementController extends BaseController {
 		//エラーの場合初期表示にリダイレクトしエラーメッセージを表示
 		if(!(viewDto.getErrormessageAreaList().isEmpty())) {
 			//エラーメッセージが存在する場合
-			redirectAttributes.addFlashAttribute(CommonConst.KEY_USERINFOMANAGEMENT_DTO, viewDto);
+			redirectAttributes.addFlashAttribute(CommonConst.KEY_UINF01, viewDto);
 			//自画面に遷移
-			return CommonConst.REDIRECT_USERREGISTRATION;
+			return CommonConst.REDIRECT_USR01;
 		}
 		
 		//F層呼び出しでDB更新
 		
 		
 		
-		return CommonConst.REDIRECT_USERINFOMANAGEMENT;
+		return CommonConst.REDIRECT_UINF01;
 	}
 	
 	/**

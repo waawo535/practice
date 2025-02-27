@@ -18,6 +18,7 @@ import com.example.recipe.base.BaseController;
 import com.example.recipe.common.checker.NullOrEmptyChecker;
 import com.example.recipe.common.checker.SingleFieldCheck;
 import com.example.recipe.common.util.CommonConst;
+import com.example.recipe.common.util.ValidationConst;
 import com.example.recipe.dto.ErrorMessageDto;
 import com.example.recipe.dto.SessionInfoDto;
 import com.example.recipe.dto.SingleFieldCheckCheckForBiddenCharOut;
@@ -52,18 +53,18 @@ public class LoginController extends BaseController {
 	@GetMapping("/initShow")
 	public String initShow(Model model) {
 		//リダイレクト元にmodelの中身があることを考慮
-		if (!model.containsAttribute(CommonConst.KEY_LOGIN_DTO)) {
+		if (!model.containsAttribute(CommonConst.KEY_LGN01)) {
 			LoginDto dto = new LoginDto();
-	        model.addAttribute(CommonConst.KEY_LOGIN_DTO, dto);
+	        model.addAttribute(CommonConst.KEY_LGN01, dto);
 	    }
 		if (!model.containsAttribute(CommonConst.KEY_PREVSCREEN)) {
 	        model.addAttribute(CommonConst.KEY_PREVSCREEN, null);
 	    }
-		if (!model.containsAttribute(CommonConst.KEY_SYSTEMINFO_DTO)) {
+		if (!model.containsAttribute(CommonConst.KEY_SESSIONINFO)) {
 			SessionInfoDto sessionInfoDto = new SessionInfoDto();
-	        model.addAttribute(CommonConst.KEY_SYSTEMINFO_DTO, sessionInfoDto);
+	        model.addAttribute(CommonConst.KEY_SESSIONINFO, sessionInfoDto);
 	    }
-		return CommonConst.SCREENID_LOGIN;
+		return CommonConst.SCREENID_LGN01;
 	}
 	
 	/**
@@ -92,8 +93,8 @@ public class LoginController extends BaseController {
 			String errorMessage = messageSource.getMessage("E200", new Object[] { }, Locale.JAPAN);
 			setErrorMessageList(loginDto, errorMessage);
 			
-			redirectAttributes.addFlashAttribute(CommonConst.KEY_LOGIN_DTO, loginDto);
-			return CommonConst.REDIRECT_LOGIN;
+			redirectAttributes.addFlashAttribute(CommonConst.KEY_LGN01, loginDto);
+			return CommonConst.REDIRECT_LGN01;
 			
 			//メールアドレスがDBに存在する場合
 			//本登録ではない又はパスワード整合性がない場合
@@ -108,8 +109,8 @@ public class LoginController extends BaseController {
 				String errorMessage = messageSource.getMessage("E200", new Object[] { }, Locale.JAPAN);
 				setErrorMessageList(loginDto, errorMessage);
 			}
-			redirectAttributes.addFlashAttribute(CommonConst.KEY_LOGIN_DTO, loginDto);
-			return CommonConst.REDIRECT_LOGIN;
+			redirectAttributes.addFlashAttribute(CommonConst.KEY_LGN01, loginDto);
+			return CommonConst.REDIRECT_LGN01;
 		}
 		
 		//セッションにユーザ情報を設定
@@ -117,10 +118,10 @@ public class LoginController extends BaseController {
 		sessionInfoDto.setUserId(loginServiceLoginOut.getUserId());
 		sessionInfoDto.setUserName(loginServiceLoginOut.getUserName());
 		sessionInfoDto.setProfileImgUrl(loginServiceLoginOut.getProfileImgUrl());
-		sessionInfoDto.setPrevScreen(CommonConst.SCREENID_LOGIN);
-		session.setAttribute(CommonConst.KEY_SYSTEMINFO_DTO, sessionInfoDto);
+		sessionInfoDto.setPrevScreen(CommonConst.SCREENID_LGN01);
+		session.setAttribute(CommonConst.KEY_SESSIONINFO, sessionInfoDto);
 		
-		return CommonConst.REDIRECT_USERPORTAL;
+		return CommonConst.REDIRECT_UPRT01;
 	}
 	
 	//ログアウト
@@ -128,10 +129,10 @@ public class LoginController extends BaseController {
 	public String logout(SessionInfoDto sessionInfoDto, RedirectAttributes redirectAttributes) {
 		String successMessage = messageSource.getMessage("I103", new Object[] { }, Locale.JAPAN);
 		setSuccessMessageList(sessionInfoDto, successMessage);
-		redirectAttributes.addFlashAttribute(CommonConst.KEY_SYSTEMINFO_DTO, sessionInfoDto);
-		redirectAttributes.addFlashAttribute(CommonConst.KEY_PREVSCREEN, CommonConst.SCREENID_LOGOUT);
+		redirectAttributes.addFlashAttribute(CommonConst.KEY_SESSIONINFO, sessionInfoDto);
+		redirectAttributes.addFlashAttribute(CommonConst.KEY_PREVSCREEN, CommonConst.SCREENID_OUT01);
 		session.invalidate();
-		return CommonConst.REDIRECT_LOGIN;
+		return CommonConst.REDIRECT_LGN01;
 	}
 	
 	/**
@@ -148,7 +149,7 @@ public class LoginController extends BaseController {
 			setErrorMessageList(loginDto, errorMessage);
 		}
 		//型チェック
-		if(!singleFieldCheck.checkRegEx(loginDto.getEmailAddress(), CommonConst.REGEX_EMAIL)) {
+		if(!singleFieldCheck.checkRegEx(loginDto.getEmailAddress(), ValidationConst.REGEX_EMAIL)) {
 			String errorMessage = messageSource.getMessage("E103", new Object[] { }, Locale.JAPAN);
 			setErrorMessageList(loginDto, errorMessage);
 		}

@@ -29,7 +29,7 @@ public class RecipeDetailController extends BaseController {
 	
 	@GetMapping("/initShow")
 	public String initShow(@RequestParam String recipeId, Model model) {
-		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SYSTEMINFO_DTO);
+		SessionInfoDto sessionInfoDto = (SessionInfoDto)session.getAttribute(CommonConst.KEY_SESSIONINFO);
 		
 		RecipeDetailServiceInitShowIn inDto= new RecipeDetailServiceInitShowIn();
 		RecipeDetailDto recipeDetailDto= new RecipeDetailDto();
@@ -38,8 +38,8 @@ public class RecipeDetailController extends BaseController {
 		inDto.setRecipeId(recipeId);
 		recipeDetailService.initShow(inDto);
 		
-		model.addAttribute(CommonConst.KEY_RECIPEDETAIL_DTO, recipeDetailDto);
+		model.addAttribute(CommonConst.KEY_RCP03, recipeDetailDto);
 		
-		return CommonConst.SCREENID_RECIPEDETAIL;
+		return CommonConst.SCREENID_RCP03;
 	}
 }
