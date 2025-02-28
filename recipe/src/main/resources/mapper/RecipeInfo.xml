@@ -192,6 +192,9 @@
         <if test="ratingTotalCount != null">
             , rating_total_count = #{ratingTotalCount}
         </if>
+        <if test="favTotalCount != null">
+            , fav_total_count = #{favTotalCount}
+        </if>
         <if test="recipeImg != null">
             , recipe_img = #{recipeImg}
         </if>
