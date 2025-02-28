@@ -78,6 +78,7 @@ public class UserRecipeRelationService extends BaseService {
 		//レシピ情報テーブルのお気に入り登録数の更新する
 		UpdateRecipeInfoParam updateRecipeInfoParam = new UpdateRecipeInfoParam();
 		updateRecipeInfoParam.setFavTotalCount(favTotalCount);
+		updateRecipeInfoParam.setRecipeId(inDto.getRecipeId());
 		dao.updateByValue(updateRecipeInfoParam);
 		
 	}

@@ -19,9 +19,9 @@ public class UpdateRecipeInfoParam extends BaseParam {
 	
 	private double recipeAveRating;
 	
-	private int ratingTotalCount;
+	private Integer ratingTotalCount;
 	
-	private int favTotalCount;
+	private Integer favTotalCount;
 	
 	private String recipeImg;
 	

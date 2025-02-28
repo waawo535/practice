@@ -4,6 +4,6 @@
     <settings>
         <!-- キャメルケースとスネークケースの自動マッピング -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-        <setting name="logImpl" value="LOG4J"/>
+        <setting name="logImpl" value="SLF4J"/>
     </settings>
 </configuration>
