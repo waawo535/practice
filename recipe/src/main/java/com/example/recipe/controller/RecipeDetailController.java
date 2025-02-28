@@ -15,6 +15,7 @@ import com.example.recipe.dto.SessionInfoDto;
 import com.example.recipe.dto.SystemInfoDto;
 import com.example.recipe.dto.ServiceIn.RecipeDetailServiceInitShowIn;
 import com.example.recipe.dto.view.RecipeDetailDto;
+import com.example.recipe.dto.view.SearchRecipeDto;
 import com.example.recipe.service.RecipeDetailService;
 
 @Controller
@@ -38,11 +39,12 @@ public class RecipeDetailController extends BaseController {
 		inDto.setRecipeDetailDto(recipeDetailDto);
 		inDto.setRecipeId(recipeId);
 		recipeDetailService.initShow(inDto);
-		
+		SearchRecipeDto searchRecipeDto = new SearchRecipeDto();
+
 		SystemInfoDto systemInfoDto = new SystemInfoDto ();
 		systemInfoDto.setCurrentScreenId(CommonConst.SCREENID_RCP03);
 		model.addAttribute(CommonConst.KEY_SYSTEMINFO, systemInfoDto);
-		
+		model.addAttribute(CommonConst.KEY_SRCH01, searchRecipeDto);
 		model.addAttribute(CommonConst.KEY_RCP03, recipeDetailDto);
 		
 		return CommonConst.SCREENID_RCP03;

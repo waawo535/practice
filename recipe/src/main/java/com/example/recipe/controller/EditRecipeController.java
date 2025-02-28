@@ -19,6 +19,7 @@ import com.example.recipe.dto.SystemInfoDto;
 import com.example.recipe.dto.ServiceIn.EditRecipeServiceGetRecipeDetailIn;
 import com.example.recipe.dto.ServiceIn.EditRecipeServiceUpdateIn;
 import com.example.recipe.dto.view.EditRecipeDto;
+import com.example.recipe.dto.view.SearchRecipeDto;
 import com.example.recipe.service.EditRecipeService;
 
 @Controller
@@ -44,11 +45,11 @@ public class EditRecipeController extends BaseController {
 		if(!model.containsAttribute(CommonConst.KEY_RCP02)) {
 			model.addAttribute(CommonConst.KEY_RCP02, editRecipeDto);
 		}
-		
+		SearchRecipeDto searchRecipeDto = new SearchRecipeDto();
 		SystemInfoDto systemInfoDto = new SystemInfoDto ();
 		systemInfoDto.setCurrentScreenId(CommonConst.SCREENID_RCP02);
 		model.addAttribute(CommonConst.KEY_SYSTEMINFO, systemInfoDto);
-		
+		model.addAttribute(CommonConst.KEY_SRCH01, searchRecipeDto);
 		return CommonConst.SCREENID_RCP02;
 	}
 	

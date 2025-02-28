@@ -23,6 +23,7 @@ import com.example.recipe.dto.SessionInfoDto;
 import com.example.recipe.dto.SingleFieldCheckCheckForBiddenCharOut;
 import com.example.recipe.dto.SystemInfoDto;
 import com.example.recipe.dto.ServiceIn.UserInfoManagementShowUserInfoIn;
+import com.example.recipe.dto.view.SearchRecipeDto;
 import com.example.recipe.dto.view.UserInfoManagementDto;
 import com.example.recipe.service.UserInfoManagementService;
 
@@ -62,7 +63,8 @@ public class UserInfoManagementController extends BaseController {
 		//取得したユーザ情報をmodelに設定
 		SystemInfoDto systemInfoDto = new SystemInfoDto ();
 		systemInfoDto.setCurrentScreenId(CommonConst.SCREENID_UINF01);
-		
+		SearchRecipeDto searchRecipeDto = new SearchRecipeDto();
+		model.addAttribute(CommonConst.KEY_SRCH01, searchRecipeDto);
 		model.addAttribute(CommonConst.KEY_SYSTEMINFO, systemInfoDto);
 		model.addAttribute(CommonConst.KEY_UINF01, viewDto);
 		

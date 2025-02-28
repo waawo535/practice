@@ -25,6 +25,8 @@ public class CommonConst {
 	/** 遷移元画面名*/
 	public static final String KEY_PREVSCREEN = "prevScreen";
 	/** ユーザ登録画面表示DTO*/
+	public static final String KEY_SRCH01 = "SearchRecipeDto";
+	/** ユーザ登録画面表示DTO*/
 	public static final String KEY_USR01 = "UserRegistrationDto";
 	/** ユーザ認証画面表示DTO*/
 	public static final String KEY_AUTH01 = "UserAuthenticationDto";

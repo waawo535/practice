@@ -8,8 +8,10 @@
         </div>
         <div class="center-section">
             <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" placeholder="レシピや材料を検索..." class="search-box">
+				<form th:action="@{/search/searchRecipe}" th:object="${SearchRecipeDto}" mehtod="GET">
+	                <i class="fas fa-search search-icon"></i>
+	                <input type="text" placeholder="レシピや材料を検索..." class="search-box" th:field="*{searchCondition}">
+				</form>
             </div>
         </div>
         <div class="right-section">

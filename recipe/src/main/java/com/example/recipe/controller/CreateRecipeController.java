@@ -22,6 +22,7 @@ import com.example.recipe.dto.SessionInfoDto;
 import com.example.recipe.dto.SystemInfoDto;
 import com.example.recipe.dto.ServiceIn.CreateRecipeSaveRecipeIn;
 import com.example.recipe.dto.view.CreateRecipeDto;
+import com.example.recipe.dto.view.SearchRecipeDto;
 import com.example.recipe.service.CreateRecipeService;
 
 @Controller
@@ -42,10 +43,10 @@ public class CreateRecipeController extends BaseController {
 	public String initShow(Model model) {
 
 		CreateRecipeDto createRecipeDto = new CreateRecipeDto();
-		
+		SearchRecipeDto searchRecipeDto = new SearchRecipeDto();
 		SystemInfoDto systemInfoDto = new SystemInfoDto ();
 		systemInfoDto.setCurrentScreenId(CommonConst.SCREENID_RCP01);
-		
+		model.addAttribute(CommonConst.KEY_SRCH01, searchRecipeDto);
 		model.addAttribute(CommonConst.KEY_SYSTEMINFO, systemInfoDto);
 		model.addAttribute(CommonConst.KEY_RCP01, createRecipeDto);
 		

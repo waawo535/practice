@@ -13,6 +13,7 @@ import com.example.recipe.common.util.CommonConst;
 import com.example.recipe.dto.SessionInfoDto;
 import com.example.recipe.dto.SystemInfoDto;
 import com.example.recipe.dto.ServiceIn.UserPortalInitShowIn;
+import com.example.recipe.dto.view.SearchRecipeDto;
 import com.example.recipe.dto.view.UserPortalDto;
 import com.example.recipe.service.UserPortalService;
 
@@ -36,10 +37,11 @@ public class UserPortalController extends BaseController {
 		inDto.setUserPortalDto(userPortalDto);
 		//F層呼び出しで画面に表示する項目を取得
 		userPortalService.initShow(inDto);
-		
+		SearchRecipeDto searchRecipeDto = new SearchRecipeDto();
 		SystemInfoDto systemInfoDto = new SystemInfoDto ();
 		systemInfoDto.setCurrentScreenId(CommonConst.SCREENID_UPRT01);
 		
+		model.addAttribute(CommonConst.KEY_SRCH01, searchRecipeDto);
 		model.addAttribute(CommonConst.KEY_SYSTEMINFO, systemInfoDto);
 		model.addAttribute(CommonConst.KEY_UPRT01, userPortalDto);
 		
