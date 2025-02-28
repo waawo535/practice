@@ -22,9 +22,9 @@ public class SearchRecipeService extends BaseService {
 	
 	public void search(SearchRecipeSearchIn inDto) {
 		SelectRecipeSearchListParam selectRecipeSearchListParam = new SelectRecipeSearchListParam();
-		selectRecipeSearchListParam.setSearchCondition(inDto.getSearchCondition().getSearchCondition());
+		selectRecipeSearchListParam.setSearchCondition(inDto.getSearchRecipeDto().getSearchCondition());
 		List<SelectRecipeByIdEntity> selectRecipeByIdEntity = dao.selectList(selectRecipeSearchListParam);
 		
-		inDto.getUserPortalDto().set;
+//		inDto.getUserPortalDto().set;
 	}
 }

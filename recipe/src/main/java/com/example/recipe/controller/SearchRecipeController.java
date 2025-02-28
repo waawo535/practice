@@ -35,7 +35,7 @@ public class SearchRecipeController extends BaseController {
 		SearchRecipeSearchIn inDto= new SearchRecipeSearchIn();
 		inDto.setUserId(sessionInfoDto.getUserId());
 		inDto.setScreenId(screenId);
-		inDto.setSearchCondition(searchCondition);
+		inDto.setSearchRecipeDto(searchRecipeDto);
 		searchRecipeService.search(inDto);
 		
 		

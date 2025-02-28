@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SelectRecipeListByPopularityParam extends BaseParam {
+public class SelectRecipeListByFavParam extends BaseParam {
 	
 	private String registeredUserId;
 	
@@ -15,8 +15,8 @@ public class SelectRecipeListByPopularityParam extends BaseParam {
 	
 	private String searchCondition;
 	
-	public SelectRecipeListByPopularityParam() {
-		super("SelectRecipeListByPopularity", "mapper.RecipeInfo");
+	public SelectRecipeListByFavParam() {
+		super("SelectRecipeListByFav", "mapper.RecipeInfo");
 	}
 
 }

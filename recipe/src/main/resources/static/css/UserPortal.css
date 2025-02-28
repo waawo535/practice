@@ -110,7 +110,13 @@
     color: #f0ad4e;
     font-weight: bold;
 }
-
+.fav {
+    color: rgb(255, 71, 87);
+    font-weight: bold;
+}
+.stars {
+    line-height: 1; /* 行の高さを調整して余分な空間を削除 */
+}
 /* タブコンテンツ */
 .tab-content {
     display: none;
@@ -162,4 +168,10 @@
 .favorite-btn.processing {
     opacity: 0.7;
     pointer-events: none; /* 処理中の重複クリックを防止 */
+}
+.recipe-stats {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+	gap: 15px;
 }

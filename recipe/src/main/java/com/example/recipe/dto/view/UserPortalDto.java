@@ -15,4 +15,6 @@ public class UserPortalDto extends BaseDto {
 	private List<SelectRecipeByIdEntity> listByPopularity;
 	
 	private List<SelectRecipeByIdEntity> listByTime;
+	
+	private List<SelectRecipeByIdEntity> listByFav;
 }

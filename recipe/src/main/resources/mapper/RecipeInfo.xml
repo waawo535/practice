@@ -9,6 +9,7 @@
 		    , recipe_name
 		    , recipe_ave_rating
 		    , rating_total_count
+		    , fav_total_count
 		    , recipe_img
 		    , recipe_descrip
 		    , publish_status
@@ -50,6 +51,8 @@
 		    recipe_id
 		    , recipe_name
 		    , recipe_ave_rating
+		    , rating_total_count
+		    , fav_total_count
 		    , recipe_img
 		    , recipe_descrip
 		    , publish_status
@@ -67,6 +70,14 @@
 		    AND registered_user_id != #{registeredUserId}
 		    AND delete_flag = #{deleteFlag}
 		    AND publish_status = '0'
+		    <if test="searchCondition!=null and searchCondition!=''">
+		    AND( ri.user_id LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR ri.recipe_id LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR ri.recipe_name LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR ri.recipe_descrip LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR ing.ingredient_name LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR step.instruction LIKE CONCAT('%', #{searchCondition}, '%'))
+		    </if>
 		ORDER BY
 		    wilson_score DESC;
 	</select>
@@ -77,6 +88,8 @@
 		    recipe_id
 		    , recipe_name
 		    , recipe_ave_rating
+		    , rating_total_count
+		    , fav_total_count
 		    , recipe_img
 		    , recipe_descrip
 		    , publish_status
@@ -88,39 +101,49 @@
 		    registered_user_id != #{registeredUserId}
 		    AND delete_flag = #{deleteFlag}
 		    AND publish_status = '0'
-		ORDER BY
-		    update_date DESC;
-	</select>
-	
-	<select id="SelectRecipeSearchList" resultType='com.example.recipe.entity.result.SelectRecipeByIdEntity'>
-		SELECT
-		    ri.user_id
-		    , ri.recipe_id
-		    , ri.recipe_name
-		    , ri.recipe_ave_rating
-		    , ri.recipe_img
-		    , ri.register_date
-		    , ri.registered_user_id
-		    , ri.update_date
-		    , ri.updated_user_id
-		FROM
-		    public.recipe_info ri
-		INNER JOIN
-			recipe_ingredients ing
-		ON ri.recipe_id = ing.recipe_id
-		INNER JOIN
-			recipe_steps step
-		ON ri.recipe_id = step.recipe_id
-		WHERE
-		    delete_flag = false
+		    <if test="searchCondition!=null and searchCondition!=''">
 		    AND( ri.user_id LIKE CONCAT('%', #{searchCondition}, '%')
 		    OR ri.recipe_id LIKE CONCAT('%', #{searchCondition}, '%')
 		    OR ri.recipe_name LIKE CONCAT('%', #{searchCondition}, '%')
 		    OR ri.recipe_descrip LIKE CONCAT('%', #{searchCondition}, '%')
 		    OR ing.ingredient_name LIKE CONCAT('%', #{searchCondition}, '%')
 		    OR step.instruction LIKE CONCAT('%', #{searchCondition}, '%'))
+		    </if>
+		ORDER BY
+		    update_date DESC;
 	</select>
 	
+	<!--	保存数順でレシピ一覧を取得（自分が登録したもの以外から取得）-->
+	<select id="SelectRecipeListByFav" resultType='com.example.recipe.entity.result.SelectRecipeByIdEntity'>
+		SELECT
+		    recipe_id
+		    , recipe_name
+		    , recipe_ave_rating
+		    , rating_total_count
+		    , fav_total_count
+		    , recipe_img
+		    , recipe_descrip
+		    , publish_status
+		    , register_date
+		    , update_date
+		FROM
+		    recipe_info 
+		WHERE
+		    registered_user_id != #{registeredUserId}
+		    AND delete_flag = #{deleteFlag}
+		    AND publish_status = '0'
+		    <if test="searchCondition!=null and searchCondition!=''">
+		    AND( ri.user_id LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR ri.recipe_id LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR ri.recipe_name LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR ri.recipe_descrip LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR ing.ingredient_name LIKE CONCAT('%', #{searchCondition}, '%')
+		    OR step.instruction LIKE CONCAT('%', #{searchCondition}, '%'))
+		    </if>
+		ORDER BY
+		    fav_total_count DESC;
+	</select>
+
 <!--	 RecipeInfoテーブルにInsert -->
 	<insert id="InsertRecipeInfo">
 		INSERT 

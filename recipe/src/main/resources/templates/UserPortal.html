@@ -12,7 +12,8 @@
     <div class="container">
         <div class="tabs">
             <button class="tab-button active" data-tab="popular">人気順</button>
-            <button class="tab-button" data-tab="newest">新着順</button>
+            <button class="tab-button" data-tab="newest">新着</button>
+			<button class="tab-button" data-tab="fav">保存数</button>
         </div>
 
         <!-- 人気順タブコンテンツ -->
@@ -43,13 +44,18 @@
                     <div class="recipe-info" th:data-recipe-id="${recipe.recipeId}" th:onclick="viewRecipeDetail(this.getAttribute('data-recipe-id'))">
                         <h3 th:text="${recipe.recipeName}">レシピ名</h3>
                         <p class="description" th:text="${recipe.recipeDescrip}">レシピの説明</p>
-                        <div class="rating">
-                            <span class="stars" th:text="'★ ' + ${recipe.recipeAveRating}">★ 4.5</span>
-                        </div>
-                    </div>
+						<div class="recipe-stats">
+	                        <div class="rating">
+	                            <span class="stars" th:text="'★ ' + ${recipe.recipeAveRating}+' ('+${recipe.ratingTotalCount}+')'">★ 4.5</span>
+	                        </div>
+							<div class="fav">
+	                            <span class="hearts" th:text="'♥ ' + ${recipe.favTotalCount}">♥ 4</span>
+	                        </div>
+						</div>
                 </div>
             </div>
         </div>
+		</div>
 
         <!-- 新着順タブコンテンツ -->
         <div class="tab-content" id="newest-content">
@@ -79,9 +85,54 @@
                     <div class="recipe-info" th:data-recipe-id="${recipe.recipeId}" th:onclick="viewRecipeDetail(this.getAttribute('data-recipe-id'))">
                         <h3 th:text="${recipe.recipeName}">レシピ名</h3>
                         <p class="description" th:text="${recipe.recipeDescrip}">レシピの説明</p>
-                        <div class="rating">
-                            <span class="stars" th:text="'★ ' + ${recipe.recipeAveRating}">★ 4.5</span>
-                        </div>
+						<div class="recipe-stats">
+	                        <div class="rating">
+	                            <span class="stars" th:text="'★ ' + ${recipe.recipeAveRating}+' ('+${recipe.ratingTotalCount}+')'">★ 4.5</span>
+	                        </div>
+							<div class="fav">
+	                            <span class="hearts" th:text="'♥ ' + ${recipe.favTotalCount}">♥ 4</span>
+	                        </div>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- お気に入り登録順タブコンテンツ -->
+        <div class="tab-content" id="fav-content">
+            <!-- データが空の場合 -->
+            <div th:if="${UserPortalDto == null || UserPortalDto.listByFav == null || UserPortalDto.listByFav.empty}" class="no-content">
+                <i class="fas fa-clock"></i>
+                <p>表示できるレシピがありません</p>
+                <p class="sub-text">新着レシピはまだ登録されていません。</p>
+            </div>
+            <!-- データがある場合 -->
+            <div th:if="${UserPortalDto != null && UserPortalDto.listByFav != null}" class="recipes-grid">
+                <div th:each="recipe : ${UserPortalDto.listByFav}" class="recipe-card">
+                    <div class="recipe-image">
+                        <img th:if="${!#strings.isEmpty(recipe.recipeImg)}" 
+                             th:src="@{/uploads/{fileName}(fileName=${recipe.recipeImg})}" 
+                             alt="レシピ画像">
+                        <img th:if="${#strings.isEmpty(recipe.recipeImg)}" 
+                             th:src="@{/img/noimage.jpg}" 
+                             alt="No Image">
+                        <button class="favorite-btn" 
+                                th:classappend="*{recipe.favFlg == true} ? 'active' : ''"
+                                th:data-recipe-id="${recipe.recipeId}"
+                                onclick="toggleFavorite(this)">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="recipe-info" th:data-recipe-id="${recipe.recipeId}" th:onclick="viewRecipeDetail(this.getAttribute('data-recipe-id'))">
+                        <h3 th:text="${recipe.recipeName}">レシピ名</h3>
+                        <p class="description" th:text="${recipe.recipeDescrip}">レシピの説明</p>
+						<div class="recipe-stats">
+	                        <div class="rating">
+	                            <span class="stars" th:text="'★ ' + ${recipe.recipeAveRating}+' ('+${recipe.ratingTotalCount}+')'">★ 4.5</span>
+	                        </div>
+							<div class="fav">
+	                            <span class="hearts" th:text="'♥ ' + ${recipe.favTotalCount}">♥ 4</span>
+	                        </div>
+						</div>
                     </div>
                 </div>
             </div>

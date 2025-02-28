@@ -1,4 +1,3 @@
-// UserPortal.js
 document.addEventListener('DOMContentLoaded', function() {
     // タブ切り替え
     const tabs = document.querySelectorAll('.tab-button');
@@ -9,13 +8,18 @@ document.addEventListener('DOMContentLoaded', function() {
             tab.classList.add('active');
 
             // コンテンツの切り替え
+            const tabType = tab.dataset.tab;
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
-            document.getElementById(`${tab.dataset.tab}-content`).classList.add('active');
+            
+            // タブのタイプに応じたコンテンツをアクティブにする
+            const targetContent = document.getElementById(`${tabType}-content`);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
         });
     });
 });
-
 // お気に入り切り替え
 function toggleFavorite(button) {
     event.stopPropagation(); // カード全体のクリックイベントを防止

@@ -13,6 +13,8 @@ public class SelectRecipeListByTimeParam extends BaseParam {
 	
 	private boolean deleteFlag;
 	
+	private String searchCondition;
+	
 	public SelectRecipeListByTimeParam() {
 		super("SelectRecipeListByTime", "mapper.RecipeInfo");
 	}

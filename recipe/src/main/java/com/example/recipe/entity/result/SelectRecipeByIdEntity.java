@@ -21,6 +21,8 @@ public class SelectRecipeByIdEntity extends BaseEntity {
 	
 	private int ratingTotalCount;
 	
+	private int favTotalCount;
+	
 	private boolean favFlg;
 	
 	private String recipeImg;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.recipe.base.BaseService;
 import com.example.recipe.common.MyBatisDao;
 import com.example.recipe.dto.ServiceIn.UserPortalInitShowIn;
+import com.example.recipe.entity.param.SelectRecipeListByFavParam;
 import com.example.recipe.entity.param.SelectRecipeListByPopularityParam;
 import com.example.recipe.entity.param.SelectRecipeListByTimeParam;
 import com.example.recipe.entity.param.SelectUserRecipeRelationParam;
@@ -60,8 +61,26 @@ public class UserPortalService extends BaseService {
 				list.setFavFlg(selectRecipeUserRelationEntity.isFavFlg());
 			}
 		}
+		
+		//レシピリスト一覧（お気に入り登録順）を取得する
+		SelectRecipeListByFavParam selectRecipeListByFavParam = new SelectRecipeListByFavParam();
+		selectRecipeListByFavParam.setDeleteFlag(false);
+		selectRecipeListByFavParam.setRegisteredUserId(inDto.getUserId());
+		List<SelectRecipeByIdEntity> listByFav = dao.selectList(selectRecipeListByFavParam);
+		for(SelectRecipeByIdEntity list:listByFav) {
+			// お気に入りステータス取得
+			SelectUserRecipeRelationParam selectUserRecipeRelationParam = new SelectUserRecipeRelationParam();
+			selectUserRecipeRelationParam.setRecipeId(list.getRecipeId());
+			selectUserRecipeRelationParam.setUserId(inDto.getUserId());
+			SelectRecipeUserRelationEntity selectRecipeUserRelationEntity = dao.selectByPk(selectUserRecipeRelationParam);
+			if(selectRecipeUserRelationEntity!=null) {
+				list.setFavFlg(selectRecipeUserRelationEntity.isFavFlg());
+			}
+		}
+		
 		inDto.getUserPortalDto().setListByPopularity(listByPopularity);
 		inDto.getUserPortalDto().setListByTime(listByTime);
+		inDto.getUserPortalDto().setListByFav(listByFav);
 	}
 	
 	/**
